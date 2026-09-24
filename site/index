@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fundos Públicos da União</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light;
+  --paper:#eaeeec; --surface:#fff; --surface-2:#f4f7f6;
+  --ink:#131f1c; --ink-2:#3e504b; --muted:#66756f;
+  --line:#ccd6d2; --line-2:#e3e9e7;
+  --petrol:#0e4a44; --petrol-2:#12645b; --amber:#9a5a06; --amber-bg:#f8ecd6; --amber-line:#e3c894; --amber-ink:#5b3a06;
+  --ok:#0e6b4f; --ok-bg:#e2f2ec; --warn:#8a5a00; --warn-bg:#fbf0d9; --bad:#8a2e26; --bad-bg:#fbeeec;
+  --c-cont:#2a78d6; --c-fin:#eb6834; --c-misto:#1baf7a; --c-out:#8a948f;
+  --x-dot:#b7d3f6; --x-emp:#2a78d6; --x-pago:#104281;
+  --l-dot:#6da7ec; --l-emp:#2a78d6; --l-pago:#104281;
+  --r:10px; --shadow:0 1px 2px rgba(19,31,28,.05), 0 10px 26px -18px rgba(19,31,28,.3);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#0e1513; --surface:#151f1c; --surface-2:#1b2724;
+    --ink:#e5eeeb; --ink-2:#b4c3be; --muted:#8a9a94;
+    --line:#2d3b37; --line-2:#23302c;
+    --petrol:#6cc0b4; --petrol-2:#8fd3c9; --amber:#e3a74d; --amber-bg:#2c2313; --amber-line:#5b4520; --amber-ink:#f0d3a0;
+    --ok:#5fc79f; --ok-bg:#15302a; --warn:#e0b24f; --warn-bg:#2d2513; --bad:#ec8a80; --bad-bg:#321c1a;
+    --c-cont:#3987e5; --c-fin:#d95926; --c-misto:#199e70; --c-out:#6f7a75;
+    --x-dot:#1f3f66; --x-emp:#3987e5; --x-pago:#9ec5f4;
+    --l-dot:#256abf; --l-emp:#5598e7; --l-pago:#b7d3f6;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 26px -18px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#0e1513; --surface:#151f1c; --surface-2:#1b2724;
+  --ink:#e5eeeb; --ink-2:#b4c3be; --muted:#8a9a94;
+  --line:#2d3b37; --line-2:#23302c;
+  --petrol:#6cc0b4; --petrol-2:#8fd3c9; --amber:#e3a74d; --amber-bg:#2c2313; --amber-line:#5b4520; --amber-ink:#f0d3a0;
+  --ok:#5fc79f; --ok-bg:#15302a; --warn:#e0b24f; --warn-bg:#2d2513; --bad:#ec8a80; --bad-bg:#321c1a;
+  --c-cont:#3987e5; --c-fin:#d95926; --c-misto:#199e70; --c-out:#6f7a75;
+  --x-dot:#1f3f66; --x-emp:#3987e5; --x-pago:#9ec5f4;
+  --l-dot:#256abf; --l-emp:#5598e7; --l-pago:#b7d3f6;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 26px -18px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html,body{background:var(--paper)}
+body{margin:0; color:var(--ink); font-family:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif; font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Bricolage Grotesque","Public Sans",system-ui,sans-serif; margin:0; letter-spacing:-.02em; text-wrap:balance}
+a{color:var(--petrol)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--petrol); outline-offset:2px}
+.wrap{max-width:1180px; margin:0 auto; padding-inline:20px}
+.mono,.num{font-family:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace; font-variant-numeric:tabular-nums}
+.eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0}
+.sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0)}
+
+header{background:var(--surface); border-bottom:1px solid var(--line)}
+.hd{display:flex; flex-wrap:wrap; gap:14px 24px; justify-content:space-between; align-items:flex-end; padding-block:18px}
+.hd > div:first-child{flex:1 1 520px; min-width:0}
+.hd h1{font-size:25px; font-weight:800}
+.hd p{margin:2px 0 0; font-size:13.5px; color:var(--ink-2); max-width:68ch}
+.hd-dir{display:flex; flex-direction:column; align-items:flex-end; gap:6px; flex:0 1 300px}
+.quando{font-family:"JetBrains Mono",ui-monospace,monospace; font-size:11.5px; color:var(--muted); text-align:right; margin:0}
+.ano-sel{display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--ink-2)}
+select,input{font:inherit; font-size:13.5px; background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:7px 10px; color:var(--ink)}
+
+.aviso{display:flex; gap:10px; padding:11px 14px; margin:16px 0 0; border-radius:var(--r); background:var(--amber-bg); border:1px solid var(--amber-line); font-size:13px; color:var(--amber-ink)}
+.aviso b{font-weight:600}
+
+.resumo{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; padding-top:22px}
+.tile{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:12px 14px; box-shadow:var(--shadow)}
+.tile span{display:block; font-size:12px; font-weight:600; color:var(--ink-2)}
+.tile b{display:block; font-family:"JetBrains Mono",ui-monospace,monospace; font-size:22px; font-weight:600; letter-spacing:-.04em; line-height:1.2; margin-top:3px}
+.tile small{display:block; font-size:11.5px; color:var(--muted); margin-top:2px}
+.tile .sw{display:inline-block; width:9px; height:9px; border-radius:2px; margin-right:6px; vertical-align:0}
+
+.kpis{display:flex; flex-wrap:nowrap; gap:8px; padding-top:12px; overflow-x:auto; scrollbar-width:thin; padding-bottom:4px}
+.kpi{flex:1 1 0; min-width:104px; background:var(--surface); border:1px solid var(--line); border-top:3px solid var(--line);
+  border-radius:var(--r); padding:8px 11px; box-shadow:var(--shadow); text-align:left; font:inherit; color:var(--ink); cursor:pointer}
+.kpi[aria-pressed="true"]{background:var(--surface-2); border-color:var(--ink-2)}
+.kpi b{font-family:"JetBrains Mono",ui-monospace,monospace; font-size:19px; font-weight:600; line-height:1.1; display:block; letter-spacing:-.04em}
+.kpi span{display:block; font-size:11.5px; font-weight:600; margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.kpi small{display:block; font-size:10.5px; color:var(--muted); font-family:"JetBrains Mono",ui-monospace,monospace}
+.kpi[data-cat="Contábil"]{border-top-color:var(--c-cont)}
+.kpi[data-cat="Financeiro"]{border-top-color:var(--c-fin)}
+.kpi[data-cat="Misto"]{border-top-color:var(--c-misto)}
+.kpi[data-cat="todos"]{border-top-color:var(--ink-2)}
+
+section{padding-top:32px}
+section > h2{font-size:19px}
+.sub{margin:3px 0 14px; color:var(--muted); font-size:13.5px; max-width:80ch}
+
+.grid3{display:grid; grid-template-columns:1.15fr 1fr 1.25fr; gap:14px}
+.grid2{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px}
+.grid4{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px}
+.painel{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:15px 17px; box-shadow:var(--shadow); min-width:0}
+.painel h3{font-size:15px; font-weight:600; margin:0 0 2px}
+.painel .nota{margin:0 0 12px; font-size:12px; color:var(--muted)}
+.legenda{display:flex; flex-wrap:wrap; gap:4px 14px; font-size:11.5px; color:var(--ink-2); margin:0 0 10px}
+.legenda i{display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:5px; vertical-align:-1px}
+.legenda i.ln{height:3px; border-radius:2px; vertical-align:3px; width:14px}
+.legenda i.tr{background:repeating-linear-gradient(90deg,var(--l-dot) 0 4px,transparent 4px 7px)}
+
+/* ranking */
+.rk{display:flex; flex-direction:column; gap:7px; max-height:300px; overflow-y:auto; padding-right:6px; scrollbar-width:thin}
+.rk-bar{font:inherit; color:inherit; background:none; border:0; padding:2px 0; cursor:pointer; text-align:left; width:100%; display:grid; grid-template-columns:92px 1fr 74px; gap:9px; align-items:center}
+.rk-lbl{font-family:"JetBrains Mono",ui-monospace,monospace; font-size:12px; font-weight:600; color:var(--petrol); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.trilho{position:relative; height:16px; background:var(--surface-2); border-radius:4px; overflow:hidden}
+.trilho > i{position:absolute; left:0; top:0; bottom:0; border-radius:0 4px 4px 0; min-width:2px}
+.trilho .t-dot{background:var(--x-dot)}
+.trilho .t-emp{background:var(--x-emp); top:3px; bottom:3px}
+.trilho .t-pago{background:var(--x-pago); top:6px; bottom:6px}
+.rk-n{font-family:"JetBrains Mono",ui-monospace,monospace; font-size:12px; text-align:right; color:var(--ink)}
+.rk-bar:hover .rk-lbl{text-decoration:underline}
+.rk-bar[aria-pressed="true"] .rk-lbl{color:var(--amber)}
+
+/* categorias */
+.cats{display:flex; flex-direction:column; gap:11px}
+.cat-l{display:flex; justify-content:space-between; gap:10px; font-size:12.5px; margin-bottom:3px}
+.cat-l b{font-weight:600}
+.cat-l span{font-family:"JetBrains Mono",ui-monospace,monospace; color:var(--muted); white-space:nowrap}
+.cat-row{font:inherit; color:inherit; background:none; border:0; padding:0; text-align:left; cursor:pointer; width:100%}
+.cat-row[aria-pressed="true"] .cat-l b{color:var(--petrol); text-decoration:underline}
+
+/* série */
+.serie svg{width:100%; height:auto; display:block; overflow:visible}
+.serie text{font-family:"JetBrains Mono",ui-monospace,monospace; font-size:10.5px; fill:var(--muted)}
+.serie .grade{stroke:var(--line-2); stroke-width:1}
+.serie .eixo{stroke:var(--line); stroke-width:1}
+.vazio-serie{font-size:12.5px; color:var(--muted); margin:6px 0 0}
+
+/* chips */
+.chip{display:inline-flex; align-items:center; gap:5px; font-family:"JetBrains Mono",ui-monospace,monospace; font-size:10.5px; letter-spacing:.02em;
+  padding:2px 7px; border-radius:5px; background:var(--surface-2); border:1px solid var(--line); color:var(--ink-2); white-space:nowrap}
+.chip .dot{width:7px; height:7px; border-radius:50%; background:var(--c-out); flex:none}
+.chip.Contábil .dot{background:var(--c-cont)} .chip.Financeiro .dot{background:var(--c-fin)} .chip.Misto .dot{background:var(--c-misto)}
+.chip.ok{background:var(--ok-bg); color:var(--ok); border-color:transparent}
+.chip.warn{background:var(--warn-bg); color:var(--warn); border-color:transparent}
+.chip.bad{background:var(--bad-bg); color:var(--bad); border-color:transparent}
+.chip.tipo{background:transparent; border-style:dashed}
+
+/* identificação */
+.idc{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:13px 14px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:4px}
+.idc h3{font-size:14px}
+.idc p{margin:0; font-size:12.5px; color:var(--ink-2)}
+.idc .cob{font-family:"JetBrains Mono",ui-monospace,monospace; font-size:11.5px; color:var(--muted); margin-top:auto; padding-top:6px}
+.idc .barra-cob{height:5px; background:var(--surface-2); border-radius:3px; overflow:hidden}
+.idc .barra-cob i{display:block; height:100%; background:var(--petrol)}
+
+/* tabela de fundos */
+.ferramentas{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:12px}
+.ferramentas input{flex:1 1 260px; min-width:0}
+.ferramentas select{flex:0 0 auto; width:auto; max-width:100%}
+.cont{margin-left:auto; font-family:"JetBrains Mono",ui-monospace,monospace; font-size:12px; color:var(--muted)}
+.tabela{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); overflow:hidden; box-shadow:var(--shadow)}
+.cab,.linha{display:grid; grid-template-columns:170px minmax(0,1fr) 250px; gap:16px; padding:12px 18px; align-items:start}
+.cab{padding-block:9px; background:var(--surface-2); border-bottom:1px solid var(--line); font-family:"JetBrains Mono",ui-monospace,monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+.item{border-bottom:1px solid var(--line-2)}
+.item:last-child{border-bottom:0}
+.linha{cursor:pointer; width:100%; background:none; border:0; font:inherit; color:inherit; text-align:left}
+.linha:hover{background:var(--surface-2)}
+.item.aberto > .linha{background:var(--surface-2)}
+.ls{font-family:"JetBrains Mono",ui-monospace,monospace; font-size:13.5px; font-weight:600; color:var(--petrol); display:flex; align-items:center; gap:6px}
+.ls .seta{font-size:10px; color:var(--muted); transition:transform .15s}
+.item.aberto .ls .seta{transform:rotate(90deg)}
+.lm{margin-top:5px; display:flex; flex-wrap:wrap; gap:4px}
+.ln{margin:0; font-size:14px; line-height:1.4}
+.ids{margin:5px 0 0; display:flex; flex-wrap:wrap; gap:4px 12px; font-size:11.5px; color:var(--muted)}
+.ids b{font-family:"JetBrains Mono",ui-monospace,monospace; font-weight:400; color:var(--ink-2)}
+.ids .falta{color:var(--muted); font-style:italic}
+.lv{font-size:12px}
+.lv .trilho{height:12px; margin:2px 0 5px}
+.lv .trilho .t-emp{top:2px; bottom:2px} .lv .trilho .t-pago{top:4px; bottom:4px}
+.lv dl{margin:0; display:grid; grid-template-columns:auto 1fr; gap:0 10px}
+.lv dt{color:var(--muted)}
+.lv dd{margin:0; text-align:right; font-family:"JetBrains Mono",ui-monospace,monospace; color:var(--ink)}
+.lv .nd{color:var(--muted); font-style:italic}
+.vazio{padding:32px 20px; text-align:center; color:var(--muted)}
+.mais{display:block; width:100%; padding:11px; font:inherit; font-size:13px; border:0; border-top:1px solid var(--line-2); background:var(--surface); color:var(--petrol); cursor:pointer}
+
+/* detalhe */
+.det{padding:4px 18px 20px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px}
+.det .bloco{background:var(--surface-2); border:1px solid var(--line-2); border-radius:8px; padding:12px 14px; min-width:0}
+.det .bloco.largo{grid-column:1/-1}
+.det h4{margin:0 0 8px; font-family:"JetBrains Mono",ui-monospace,monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:600}
+.kv{display:grid; grid-template-columns:max-content minmax(0,1fr); gap:5px 12px; font-size:12.5px; margin:0}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0; color:var(--ink)}
+.rolagem{overflow-x:auto}
+table.t{border-collapse:collapse; width:100%; font-size:12px}
+table.t th{font-family:"JetBrains Mono",ui-monospace,monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:600; text-align:right; padding:5px 8px; border-bottom:1px solid var(--line); white-space:nowrap}
+table.t th:first-child,table.t td:first-child{text-align:left}
+table.t td{padding:5px 8px; border-bottom:1px solid var(--line-2); text-align:right; font-family:"JetBrains Mono",ui-monospace,monospace; white-space:nowrap}
+table.t td.txt{font-family:inherit; white-space:normal; text-align:left}
+table.t tr:last-child td{border-bottom:0}
+.tl{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px}
+.tl li{display:grid; grid-template-columns:52px 1fr; gap:10px; font-size:12.5px}
+.tl .a{font-family:"JetBrains Mono",ui-monospace,monospace; color:var(--muted); font-size:11.5px}
+.tl .c{display:flex; flex-wrap:wrap; gap:4px 8px; align-items:baseline}
+.tl .c em{font-style:normal; color:var(--ink-2)}
+.tl .r{display:block; color:var(--muted); font-size:11px}
+.mini{display:flex; flex-direction:column; gap:6px}
+.mini .ml{display:grid; grid-template-columns:minmax(0,1fr) 110px; gap:8px; font-size:12px; align-items:center}
+.mini .ml span{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.mini .ml .trilho{height:10px}
+
+/* histórico de classificações */
+.matriz th,.matriz td{vertical-align:top}
+.matriz td{font-family:inherit; text-align:left; white-space:normal}
+.matriz td .chip{margin:0 3px 3px 0}
+.matriz td:first-child{font-family:"JetBrains Mono",ui-monospace,monospace; font-weight:600; color:var(--petrol); white-space:nowrap}
+.linha-tempo{list-style:none; margin:0; padding:0; position:relative}
+.linha-tempo::before{content:""; position:absolute; left:58px; top:6px; bottom:6px; width:1px; background:var(--line)}
+.linha-tempo li{display:grid; grid-template-columns:50px 1fr; gap:22px; padding:9px 0; position:relative}
+.linha-tempo li::before{content:""; position:absolute; left:54px; top:15px; width:9px; height:9px; border-radius:50%; background:var(--surface); border:2px solid var(--petrol)}
+.linha-tempo li.Taxonomia::before{background:var(--petrol)}
+.linha-tempo .ano{font-family:"JetBrains Mono",ui-monospace,monospace; font-size:12px; color:var(--ink-2); padding-top:3px; text-align:right}
+.linha-tempo h3{font-size:14.5px; font-weight:600; margin:0}
+.linha-tempo p{margin:3px 0 0; font-size:13px; color:var(--ink-2); max-width:78ch}
+.linha-tempo .meta{display:flex; flex-wrap:wrap; gap:4px; margin-top:6px; align-items:center}
+.linha-tempo .ref{font-size:11px; color:var(--muted); font-family:"JetBrains Mono",ui-monospace,monospace}
+.filtro-tipos{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px}
+.filtro-tipos button{font:inherit; font-size:12px; padding:4px 10px; border-radius:20px; border:1px solid var(--line); background:var(--surface); color:var(--ink-2); cursor:pointer}
+.filtro-tipos button[aria-pressed="true"]{background:var(--petrol); border-color:var(--petrol); color:var(--surface)}
+
+/* verificação MTO */
+.vt td.txt{min-width:240px}
+.status{display:inline-flex; gap:5px; align-items:center}
+
+#tip{position:fixed; z-index:20; pointer-events:none; background:var(--ink); color:var(--paper); font-size:12px; line-height:1.45; padding:7px 10px; border-radius:7px; max-width:280px; box-shadow:var(--shadow); opacity:0; transition:opacity .08s}
+#tip.on{opacity:1}
+#tip b{font-weight:600}
+#tip .tn{font-family:"JetBrains Mono",ui-monospace,monospace}
+
+footer{margin-top:44px; border-top:1px solid var(--line); background:var(--surface)}
+.ft{padding-block:16px; font-size:12px; color:var(--muted); display:flex; flex-direction:column; gap:6px}
+.ft p{margin:0; max-width:110ch}
+code{font-family:"JetBrains Mono",ui-monospace,monospace; font-size:12px; background:var(--surface-2); border:1px solid var(--line-2); border-radius:5px; padding:1px 5px}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (max-width:1020px){
+  .grid3{grid-template-columns:1fr 1fr}
+  .grid3 .serie{grid-column:1/-1}
+  .grid4{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:760px){
+  .resumo{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid3,.grid2{grid-template-columns:1fr}
+  .cab{display:none}
+  .linha{grid-template-columns:1fr; gap:6px}
+  .det{grid-template-columns:1fr; padding-inline:12px}
+  .hd-dir{align-items:flex-start}
+  .quando{text-align:left}
+}
+@media (max-width:520px){
+  .wrap{padding-inline:16px}
+  .hd h1{font-size:21px}
+  .grid4{grid-template-columns:1fr}
+  .tile b{font-size:18px}
+  .rk-bar{grid-template-columns:78px 1fr 64px; gap:7px}
+  .cont{margin-left:0; width:100%}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hd">
+    <div>
+      <p class="eyebrow">Orçamento da União · SIOP via orcamentoBR</p>
+      <h1>Fundos Públicos da União</h1>
+      <p>Dotação, empenho e pagamento de cada fundo, a combinação de códigos que o identifica (UO, fonte, UG e CNPJ) e o histórico de classificações registrado no ET nº 01/2026 da Conof/CD.</p>
+    </div>
+    <div class="hd-dir">
+      <label class="ano-sel" for="ano">Exercício <select id="ano"></select></label>
+      <p class="quando" id="quando">carregando…</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="aviso"></div>
+
+  <div class="resumo" id="resumo" aria-live="polite"></div>
+  <div class="kpis" id="kpis" role="group" aria-label="Filtrar por categoria"></div>
+
+  <section aria-labelledby="h-exec">
+    <h2 id="h-exec">Execução orçamentária</h2>
+    <p class="sub" id="sub-exec">Dotação atualizada (LOA + créditos), empenhado e pago no exercício. Clique num fundo para abrir o detalhe.</p>
+    <div class="grid3">
+      <div class="painel">
+        <h3>Maiores dotações</h3>
+        <p class="nota">Barra clara: dotação atualizada · média: empenhado · escura: pago.</p>
+        <div class="legenda"><span><i style="background:var(--x-dot)"></i>Dotação</span><span><i style="background:var(--x-emp)"></i>Empenhado</span><span><i style="background:var(--x-pago)"></i>Pago</span></div>
+        <div class="rk" id="rank"></div>
+      </div>
+      <div class="painel">
+        <h3>Por categoria</h3>
+        <p class="nota">Enquadramento de Bassi (2019) adotado pelo TCU no Acórdão 1.494/2021.</p>
+        <div class="cats" id="cats"></div>
+      </div>
+      <div class="painel serie">
+        <h3>Série histórica</h3>
+        <p class="nota" id="nota-serie">Soma dos fundos no filtro atual, em R$ correntes.</p>
+        <div class="legenda"><span><i class="ln tr"></i>Dotação atualizada</span><span><i class="ln" style="background:var(--l-emp)"></i>Empenhado</span><span><i class="ln" style="background:var(--l-pago)"></i>Pago</span></div>
+        <div id="serie"></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-id">
+    <h2 id="h-id">Como cada fundo é identificado</h2>
+    <p class="sub">Não existe um código exclusivo de fundo entre os classificadores do orçamento. O painel reconhece cada fundo pela combinação de quatro identificadores. A barra mostra quantos fundos do filtro atual já têm o código registrado.</p>
+    <div class="grid4" id="idents"></div>
+  </section>
+
+  <section aria-labelledby="h-fundos">
+    <h2 id="h-fundos">Fundos</h2>
+    <p class="sub">Cadastro do painel (<code>dados/fundos.csv</code>) somado às UOs de fundo encontradas no SIOP e no MTO 2026. Busque por sigla, nome, UO, fonte ou CNPJ.</p>
+    <div class="ferramentas">
+      <label class="sr" for="busca">Buscar fundo</label>
+      <input id="busca" type="search" placeholder="Buscar: FNS, 36901, 1044, Fistel…">
+      <label class="sr" for="ordem">Ordenar</label>
+      <select id="ordem">
+        <option value="atual">Maior dotação</option>
+        <option value="exec">Menor execução (empenhado ÷ dotação)</option>
+        <option value="sigla">Sigla (A–Z)</option>
+      </select>
+      <span class="cont" id="cont"></span>
+    </div>
+    <div class="tabela">
+      <div class="cab" aria-hidden="true"><span>Fundo</span><span>Nome e identificadores</span><span>Execução no exercício</span></div>
+      <div id="lista"></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-class">
+    <h2 id="h-class">Histórico de classificações</h2>
+    <p class="sub">Como cada fundo foi enquadrado ao longo do tempo, segundo o ET nº 01/2026 (Conof/CD, mar. 2026) e as fontes que ele cita: a dicotomia do Decreto 93.872/1986, a categoria mista de Bassi (2019), as listas do Acórdão TCU 1.494/2021 e as normas e fiscalizações posteriores.</p>
+    <div class="painel" style="padding:0">
+      <div class="rolagem"><table class="t matriz" id="matriz"></table></div>
+    </div>
+    <div class="painel" style="margin-top:14px">
+      <h3>Linha do tempo</h3>
+      <p class="nota">Normas, tipologias e decisões de controle citadas no ET 01/2026, com a página de referência.</p>
+      <div class="filtro-tipos" id="filtro-tipos" role="group" aria-label="Filtrar marcos por tipo"></div>
+      <ol class="linha-tempo" id="tempo"></ol>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-mto">
+    <h2 id="h-mto">Verificação com o MTO 2026</h2>
+    <p class="sub">Fontes de recursos do Manual Técnico de Orçamento 2026 (item 12.1.4.2) que se conectam a fundos. <b>Explícito</b>: a descrição da fonte nomeia o fundo. <b>A verificar</b>: a vinculação temática sugere o fundo, mas é uma hipótese. A coluna de execução mostra, a partir de 2023, quanto da dotação da fonte está nas UOs do fundo ligado.</p>
+    <div class="ferramentas">
+      <label class="sr" for="vf-filtro">Filtrar vínculo</label>
+      <select id="vf-filtro">
+        <option value="">Todos os vínculos</option>
+        <option value="explícito">Explícito</option>
+        <option value="a verificar">A verificar</option>
+      </select>
+      <label class="sr" for="vf-busca">Buscar fonte</label>
+      <input id="vf-busca" type="search" placeholder="Buscar fonte ou fundo: 044, CT-, FNDCT…">
+      <span class="cont" id="vf-cont"></span>
+    </div>
+    <div class="painel" style="padding:0">
+      <div class="rolagem"><table class="t vt" id="vf"></table></div>
+    </div>
+    <div class="grid2" style="margin-top:14px">
+      <div class="painel">
+        <h3>UOs de fundo no MTO 2026</h3>
+        <p class="nota">Classificação institucional (item 12.2.1): códigos xx9xx, “Fundo” ou “Recursos sob Supervisão do Fundo”.</p>
+        <div class="rolagem" style="max-height:340px; overflow-y:auto"><table class="t" id="mto-uos"></table></div>
+      </div>
+      <div class="painel">
+        <h3>Naturezas de receita que citam fundo</h3>
+        <p class="nota">Tabelas de receita do MTO 2026 (item 12.1), para estudo.</p>
+        <div class="rolagem" style="max-height:340px; overflow-y:auto"><table class="t" id="mto-rec"></table></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap ft">
+    <p><b>Execução:</b> SIOP, consultado pelo pacote R <code>orcamentoBR</code> (MPO), por UO × fonte × resultado primário × GND. Enquanto a primeira coleta não roda, o exercício de 2018 vem da Tabela 3 de Bassi (2019), Ipea TD 2458 (SIAFI/STN).</p>
+    <p><b>Classificações:</b> ET nº 01/2026, Conof/Câmara dos Deputados. <b>Códigos:</b> MTO 2026, SOF/MPO. UG/Gestão e CNPJ entram pelo cadastro manual (<code>dados/fundos.csv</code>).</p>
+    <p>Valores em reais correntes. “Volume financeiro” aqui é o montante orçamentário (dotação, empenho, pagamento). Saldos e superávit financeiro de cada fundo não estão no SIOP.</p>
+  </div>
+</footer>
+
+<div id="tip" role="tooltip"></div>
+
+<script>
+(function(){
+"use strict";
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const CATS = ["Contábil","Financeiro","Misto","Transferência","Autarquia","Natureza privada","Sem classificação"];
+const TIPOS_CLASS = {DEC93872:"dec", BASSI:"bassi", AC1494:"tcu", STNGT:"out", COSTA:"out", SANCHES:"out", SOF2019:"out", PLP22:"out"};
+let D = null;
+const st = {ano:null, cat:"todos", busca:"", ordem:"atual", aberto:null, limite:40, tipoMarco:"todos", vfFiltro:"", vfBusca:""};
+
+function brl(v, curto){
+  if (v === null || v === undefined) return "n/d";
+  const a = Math.abs(v);
+  const f = (x, d) => x.toLocaleString("pt-BR", {minimumFractionDigits:d, maximumFractionDigits:d});
+  if (a >= 1e12) return "R$ " + f(v/1e12, 2) + " tri";
+  if (a >= 1e9)  return "R$ " + f(v/1e9, a >= 1e11 ? 0 : 1) + " bi";
+  if (a >= 1e6)  return "R$ " + f(v/1e6, a >= 1e8 ? 0 : 1) + " mi";
+  if (a >= 1e3)  return "R$ " + f(v/1e3, 0) + " mil";
+  return "R$ " + f(v, 0);
+}
+const pct = (a, b) => (b ? (a / b * 100) : null);
+const fpct = p => p === null ? "—" : p.toLocaleString("pt-BR", {maximumFractionDigits:0}) + "%";
+const catDe = f => CATS.includes(f.categoria) ? f.categoria : "Sem classificação";
+function chipCat(c){ return `<span class="chip ${esc(c)}"><span class="dot"></span>${esc(c)}</span>`; }
+function ex(f, ano){ return (f.exec || {})[ano] || null; }
+
+function fundosFiltrados(){
+  const q = st.busca.trim().toLowerCase();
+  return D.fundos.filter(f => {
+    if (st.cat !== "todos" && catDe(f) !== st.cat) return false;
+    if (!q) return true;
+    const uos = Object.values(f.uos || {}).flat().map(u => u.cod).concat(f.uo_referencia || [], (f.mto?.uos || []).map(u => u.cod));
+    const fontes = Object.values(f.fontes || {}).flat().map(x => x.cod).concat(f.fontes_referencia || [], (f.mto?.fontes || []).map(x => x.cod));
+    const alvo = [f.sigla, f.nome, f.id, f.cnpj, f.ug, ...uos, ...fontes].join(" ").toLowerCase();
+    return alvo.includes(q);
+  });
+}
+
+/* ---------- tooltip ---------- */
+const tip = $("#tip");
+document.addEventListener("mousemove", e => {
+  const t = e.target.closest("[data-tip]");
+  if (!t) { tip.classList.remove("on"); return; }
+  tip.innerHTML = t.getAttribute("data-tip");
+  tip.classList.add("on");
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  let x = e.clientX + 14, y = e.clientY + 14;
+  if (x + w > innerWidth - 8) x = e.clientX - w - 14;
+  if (y + h > innerHeight - 8) y = e.clientY - h - 14;
+  tip.style.left = x + "px"; tip.style.top = y + "px";
+});
+document.addEventListener("scroll", () => tip.classList.remove("on"), {passive:true});
+const tipExec = (nome, e) => esc(`<b>${esc(nome)}</b><br>Dotação <span class="tn">${brl(e.atual)}</span><br>Empenhado <span class="tn">${brl(e.emp)}</span> (${fpct(pct(e.emp, e.atual))})<br>Pago <span class="tn">${brl(e.pago)}</span> (${fpct(pct(e.pago, e.atual))})`);
+
+function trilho(e, max){
+  const w = v => (max ? Math.max(0, Math.min(100, (v || 0) / max * 100)) : 0).toFixed(2) + "%";
+  return `<div class="trilho"><i class="t-dot" style="width:${w(e.atual)}"></i><i class="t-emp" style="width:${w(e.emp)}"></i><i class="t-pago" style="width:${w(e.pago)}"></i></div>`;
+}
+
+/* ---------- cabeçalho, aviso ---------- */
+function renderTopo(){
+  const g = new Date(D.gerado_em);
+  $("#quando").textContent = "Dados montados em " + g.toLocaleDateString("pt-BR") + " · fonte do exercício: " + (D.origem_por_ano[st.ano] || "—");
+  const av = $("#aviso");
+  if (D.somente_semente) {
+    av.innerHTML = `<div class="aviso" role="note"><span aria-hidden="true">⚠</span><div><b>Dados de partida.</b> A coleta pelo orcamentoBR ainda não rodou neste repositório. O exercício de 2018 vem da Tabela 3 de Bassi (2019), com dotação atualizada, empenhado, liquidado e pago por UO (SIAFI/STN). PLOA, LOA inicial, fontes, RP e GND aparecem após a primeira execução do workflow.</div></div>`;
+  } else av.innerHTML = "";
+}
+
+/* ---------- resumo e KPIs ---------- */
+function soma(fs, ano){
+  const s = {atual:0, emp:0, pago:0, liq:0, n:0};
+  fs.forEach(f => { const e = ex(f, ano); if (!e) return; s.n++; ["atual","emp","pago","liq"].forEach(k => s[k] += e[k] || 0); });
+  return s;
+}
+function renderResumo(fs){
+  const s = soma(fs, st.ano);
+  const rot = st.cat === "todos" ? "todos os fundos" : st.cat.toLowerCase();
+  $("#resumo").innerHTML = `
+    <div class="tile"><span>Fundos com execução</span><b>${s.n}</b><small>de ${fs.length} no filtro (${esc(rot)})</small></div>
+    <div class="tile"><span><i class="sw" style="background:var(--x-dot)"></i>Dotação atualizada</span><b>${brl(s.atual)}</b><small>LOA + créditos, ${st.ano}</small></div>
+    <div class="tile"><span><i class="sw" style="background:var(--x-emp)"></i>Empenhado</span><b>${brl(s.emp)}</b><small>${fpct(pct(s.emp, s.atual))} da dotação</small></div>
+    <div class="tile"><span><i class="sw" style="background:var(--x-pago)"></i>Pago</span><b>${brl(s.pago)}</b><small>${fpct(pct(s.pago, s.atual))} da dotação</small></div>`;
+}
+function renderKPIs(){
+  const base = D.fundos;
+  const cont = {todos: base.length}; CATS.forEach(c => cont[c] = 0);
+  base.forEach(f => cont[catDe(f)]++);
+  const btn = (c, rot) => `<button class="kpi" data-cat="${esc(c)}" aria-pressed="${st.cat === c}"><b>${cont[c]}</b><span>${esc(rot)}</span><small>${brl(soma(c === "todos" ? base : base.filter(f => catDe(f) === c), st.ano).atual)}</small></button>`;
+  $("#kpis").innerHTML = btn("todos", "Todos os fundos") + CATS.filter(c => cont[c] > 0).map(c => btn(c, c)).join("");
+}
+
+/* ---------- ranking ---------- */
+function renderRank(fs){
+  const it = fs.map(f => ({f, e: ex(f, st.ano)})).filter(x => x.e && x.e.atual > 0).sort((a, b) => b.e.atual - a.e.atual).slice(0, 25);
+  const max = it.length ? it[0].e.atual : 0;
+  $("#rank").innerHTML = it.length ? it.map(({f, e}) => `<button class="rk-bar" data-abrir="${esc(f.id)}" aria-pressed="${st.aberto === f.id}" data-tip="${tipExec(f.sigla + " · " + f.nome, e)}">
+      <span class="rk-lbl">${esc(f.sigla)}</span>${trilho(e, max)}<span class="rk-n">${brl(e.atual)}</span></button>`).join("")
+    : `<p class="vazio-serie">Nenhum fundo com dotação em ${st.ano} neste filtro.</p>`;
+}
+
+/* ---------- categorias ---------- */
+function renderCats(){
+  const base = st.busca ? fundosFiltrados() : D.fundos;
+  const lin = CATS.map(c => ({c, s: soma(base.filter(f => catDe(f) === c), st.ano)})).filter(x => x.s.n > 0);
+  const max = Math.max(0, ...lin.map(x => x.s.atual));
+  $("#cats").innerHTML = lin.length ? lin.map(({c, s}) => `<button class="cat-row" data-cat="${esc(c)}" aria-pressed="${st.cat === c}" data-tip="${tipExec(c + " (" + s.n + " fundos)", s)}">
+      <div class="cat-l"><b>${chipCat(c)}</b><span>${brl(s.atual)} · ${fpct(pct(s.emp, s.atual))} emp.</span></div>${trilho(s, max)}</button>`).join("")
+    : `<p class="vazio-serie">Sem execução em ${st.ano}.</p>`;
+}
+
+/* ---------- série histórica ---------- */
+function renderSerie(fs){
+  const anos = D.anos.slice();
+  const pts = anos.map(a => ({a, ...soma(fs, a)}));
+  const alvo = $("#serie");
+  const unico = st.aberto && fs.length === 1;
+  $("#nota-serie").textContent = unico ? `Somente ${fs[0].sigla}, em R$ correntes.` : "Soma dos fundos no filtro atual, em R$ correntes.";
+  const max = Math.max(0, ...pts.map(p => p.atual));
+  if (!max) { alvo.innerHTML = `<p class="vazio-serie">Sem valores para exibir.</p>`; return; }
+  const W = 520, H = 210, L = 58, R = 14, T = 12, B = 26;
+  const nice = v => { const p = Math.pow(10, Math.floor(Math.log10(v))); const m = v / p; return (m <= 1 ? 1 : m <= 2 ? 2 : m <= 2.5 ? 2.5 : m <= 5 ? 5 : 10) * p; };
+  const top = nice(max), ticks = [0, .25, .5, .75, 1].map(k => k * top);
+  const x = i => anos.length === 1 ? (L + (W - L - R) / 2) : L + i * (W - L - R) / (anos.length - 1);
+  const y = v => T + (H - T - B) * (1 - v / top);
+  const linha = (k, cor, dash) => pts.length > 1 ? `<path d="${pts.map((p, i) => (i ? "L" : "M") + x(i).toFixed(1) + " " + y(p[k]).toFixed(1)).join(" ")}" fill="none" stroke="${cor}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" ${dash ? 'stroke-dasharray="5 4"' : ""}/>` : "";
+  const pontos = (k, cor) => pts.map((p, i) => `<circle cx="${x(i).toFixed(1)}" cy="${y(p[k]).toFixed(1)}" r="${pts.length > 1 ? 3 : 4.5}" fill="${cor}" stroke="var(--surface)" stroke-width="2"/>`).join("");
+  const passo = Math.max(1, Math.ceil(anos.length / 8));
+  const hit = pts.map((p, i) => { const w = anos.length > 1 ? (W - L - R) / (anos.length - 1) : 60;
+      return `<rect x="${(x(i) - w / 2).toFixed(1)}" y="${T}" width="${w.toFixed(1)}" height="${H - T - B}" fill="transparent" data-tip="${tipExec(String(p.a) + " · " + p.n + " fundos", p)}"/>`; }).join("");
+  const ult = pts[pts.length - 1];
+  alvo.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Série histórica de dotação, empenho e pagamento">
+    ${ticks.map(t => `<line class="grade" x1="${L}" x2="${W - R}" y1="${y(t).toFixed(1)}" y2="${y(t).toFixed(1)}"/><text x="${L - 6}" y="${(y(t) + 3.5).toFixed(1)}" text-anchor="end">${esc(brl(t).replace("R$ ", ""))}</text>`).join("")}
+    <line class="eixo" x1="${L}" x2="${W - R}" y1="${H - B}" y2="${H - B}"/>
+    ${anos.map((a, i) => (i % passo === 0 || i === anos.length - 1) ? `<text x="${x(i).toFixed(1)}" y="${H - 8}" text-anchor="middle">${a}</text>` : "").join("")}
+    ${linha("atual", "var(--l-dot)", true)}${linha("emp", "var(--l-emp)")}${linha("pago", "var(--l-pago)")}
+    ${pontos("atual", "var(--l-dot)")}${pontos("emp", "var(--l-emp)")}${pontos("pago", "var(--l-pago)")}
+    ${hit}
+  </svg>` + (anos.length === 1 ? `<p class="vazio-serie">Só há um exercício na base (${anos[0]}). A série de 2014 em diante chega com a coleta pelo orcamentoBR.</p>`
+      : `<p class="vazio-serie">Último exercício: dotação ${brl(ult.atual)}, empenhado ${brl(ult.emp)}, pago ${brl(ult.pago)}.</p>`);
+}
+
+/* ---------- identificação composta ---------- */
+function renderIdents(fs){
+  const orc = fs.filter(f => !/fora do OGU|privad/i.test(f.no_orcamento + " " + f.natureza_juridica));
+  const n = orc.length || 1;
+  const temUO = orc.filter(f => Object.keys(f.uos || {}).length || (f.mto?.uos || []).length || (f.uo_referencia || []).length).length;
+  const temFonte = orc.filter(f => Object.keys(f.fontes || {}).length || (f.mto?.fontes || []).length || (f.fontes_referencia || []).length).length;
+  const temUG = orc.filter(f => f.ug).length, temCNPJ = orc.filter(f => f.cnpj).length;
+  const card = (t, p, k, orig) => `<div class="idc"><h3>${t}</h3><p>${p}</p><div class="cob">${k} de ${orc.length} fundos · ${orig}</div><div class="barra-cob"><i style="width:${(k / n * 100).toFixed(1)}%"></i></div></div>`;
+  $("#idents").innerHTML =
+    card("Unidade Orçamentária (UO)", "Identificador orçamentário primário, com 5 dígitos. Nos fundos especiais, o 3º dígito é 9 (36901 FNS, 24901 FNDCT). A parte financeira fica em UOs 749xx, de Operações Oficiais de Crédito.", temUO, "SIOP e MTO 2026") +
+    card("Fonte de recursos", "Vinculação legal e origem do dinheiro: 1º dígito é o grupo e os três seguintes a especificação (044 = Fistel destinado ao Fust; 068 = FNDF).", temFonte, "SIOP e MTO 2026") +
+    card("UG e Gestão (SIAFI)", "Unidade gestora que executa a despesa e a contabilidade do fundo. Não sai do SIOP; registre em <code>fundos.csv</code>.", temUG, "cadastro manual") +
+    card("CNPJ próprio", "Exigido pela IN RFB 2.119/2022 para identificação fiscal e bancária. Não confere personalidade jurídica.", temCNPJ, "cadastro manual");
+}
+
+/* ---------- lista de fundos ---------- */
+function ordenar(fs){
+  const a = st.ano, v = f => ex(f, a);
+  if (st.ordem === "sigla") return fs.slice().sort((x, y) => x.sigla.localeCompare(y.sigla, "pt-BR"));
+  if (st.ordem === "exec") return fs.slice().sort((x, y) => {
+    const px = v(x) && v(x).atual ? v(x).emp / v(x).atual : 9, py = v(y) && v(y).atual ? v(y).emp / v(y).atual : 9; return px - py; });
+  return fs.slice().sort((x, y) => ((v(y) || {}).atual || 0) - ((v(x) || {}).atual || 0) || x.sigla.localeCompare(y.sigla, "pt-BR"));
+}
+function uosDoFundo(f){
+  const doAno = (f.uos || {})[st.ano];
+  if (doAno && doAno.length) return {cods: doAno.map(u => u.cod), orig: (String(D.origem_por_ano[st.ano] || "").startsWith("SIOP") ? "SIOP " : "Bassi ") + st.ano};
+  if ((f.mto?.uos || []).length) return {cods: f.mto.uos.map(u => u.cod), orig: "MTO 2026"};
+  if ((f.uo_referencia || []).length) return {cods: f.uo_referencia, orig: "cadastro"};
+  return {cods: [], orig: ""};
+}
+function fontesDoFundo(f){
+  const doAno = (f.fontes || {})[st.ano];
+  if (doAno && doAno.length) return {cods: doAno.slice(0, 4).map(x => x.cod), extra: doAno.length - 4, orig: "SIOP"};
+  const m = (f.mto?.fontes || []).filter(x => x.vinculo === "explícito").map(x => x.cod);
+  const cods = [...new Set(m.concat(f.fontes_referencia || []))];
+  return {cods: cods.slice(0, 4), extra: cods.length - 4, orig: cods.length ? "MTO 2026" : ""};
+}
+function linhaFundo(f, max){
+  const e = ex(f, st.ano);
+  const u = uosDoFundo(f), fo = fontesDoFundo(f);
+  const naturais = [];
+  if (f.natureza_juridica && !/^Fundo especial$/.test(f.natureza_juridica)) naturais.push(`<span class="chip tipo">${esc(f.natureza_juridica)}</span>`);
+  if (!f.cadastrado) naturais.push(`<span class="chip warn">sem cadastro</span>`);
+  const ids = `<p class="ids">
+      <span>UO ${u.cods.length ? `<b>${u.cods.map(esc).join(" · ")}</b> <small>(${esc(u.orig)})</small>` : `<span class="falta">sem UO própria</span>`}</span>
+      <span>Fonte ${fo.cods.length ? `<b>${fo.cods.map(esc).join(" · ")}${fo.extra > 0 ? " +" + fo.extra : ""}</b>` : `<span class="falta">—</span>`}</span>
+      <span>UG ${f.ug ? `<b>${esc(f.ug)}</b>` : `<span class="falta">a registrar</span>`}</span>
+      <span>CNPJ ${f.cnpj ? `<b>${esc(f.cnpj)}</b>` : `<span class="falta">a registrar</span>`}</span></p>`;
+  const val = e ? `${trilho(e, e.atual)}<dl><dt>Dotação</dt><dd>${brl(e.atual)}</dd><dt>Empenhado</dt><dd>${brl(e.emp)} <small>${fpct(pct(e.emp, e.atual))}</small></dd><dt>Pago</dt><dd>${brl(e.pago)} <small>${fpct(pct(e.pago, e.atual))}</small></dd></dl>`
+    : `<span class="nd">Sem execução própria em ${st.ano}${(f.exec_fonte || {})[st.ano] ? " · fonte vinculada: " + brl(f.exec_fonte[st.ano].atual) : ""}</span>`;
+  const aberto = st.aberto === f.id;
+  return `<div class="item${aberto ? " aberto" : ""}" id="f-${esc(f.id)}">
+    <button class="linha" data-abrir="${esc(f.id)}" aria-expanded="${aberto}">
+      <div><span class="ls"><span class="seta" aria-hidden="true">▶</span>${esc(f.sigla)}</span><div class="lm">${chipCat(catDe(f))}${naturais.join("")}</div></div>
+      <div><p class="ln">${esc(f.nome)}</p>${ids}</div>
+      <div class="lv">${val}</div>
+    </button>
+    ${aberto ? detalhe(f) : ""}
+  </div>`;
+}
+function renderLista(fs){
+  const ord = ordenar(fs);
+  const max = Math.max(0, ...ord.map(f => (ex(f, st.ano) || {}).atual || 0));
+  const vis = ord.slice(0, st.limite);
+  if (st.aberto && !vis.find(f => f.id === st.aberto)) { const a = ord.find(f => f.id === st.aberto); if (a) vis.push(a); }
+  $("#cont").textContent = `${fs.length} fundo${fs.length === 1 ? "" : "s"}`;
+  $("#lista").innerHTML = vis.length ? vis.map(f => linhaFundo(f, max)).join("") + (ord.length > vis.length ? `<button class="mais" id="mais">Mostrar mais ${Math.min(40, ord.length - vis.length)} de ${ord.length - vis.length}</button>` : "")
+    : `<div class="vazio">Nenhum fundo encontrado. Tente outra sigla, código de UO ou fonte.</div>`;
+}
+
+/* ---------- detalhe do fundo ---------- */
+function nomeMarco(id){ const m = D.marcos.find(x => x.id === id); return m ? m : {titulo:id, ano:""}; }
+function detalhe(f){
+  const anos = Object.keys(f.exec || {}).sort();
+  const execTab = anos.length ? `<div class="rolagem"><table class="t"><thead><tr><th>Ano</th><th>PLOA</th><th>LOA</th><th>Dotação atual.</th><th>Empenhado</th><th>Liquidado</th><th>Pago</th><th>Emp./dot.</th></tr></thead><tbody>
+      ${anos.map(a => { const e = f.exec[a]; return `<tr><td>${a}</td><td>${brl(e.ploa)}</td><td>${brl(e.loa)}</td><td>${brl(e.atual)}</td><td>${brl(e.emp)}</td><td>${brl(e.liq)}</td><td>${brl(e.pago)}</td><td>${fpct(pct(e.emp, e.atual))}</td></tr>`; }).join("")}
+    </tbody></table></div>` : `<p class="vazio-serie">Sem execução própria registrada na base.</p>`;
+
+  const hist = (f.historico_uo || []).map(h => `<span class="chip">${esc(h.desde)}: ${h.uos.map(esc).join(" + ")}</span>`).join(" ");
+  const uosAno = ((f.uos || {})[st.ano] || []).map(u => `<div>${esc(u.cod)} · ${esc(u.desc)} <small class="mono" style="color:var(--muted)">(${esc(u.dimensao)}${u.categoria_bassi ? "; Bassi: " + esc(u.categoria_bassi) : ""})</small></div>`).join("");
+  const mtoU = (f.mto?.uos || []).map(u => `${esc(u.cod)}${u.sigla ? " " + esc(u.sigla) : ""}`).join(" · ");
+  const ident = `<dl class="kv">
+      <dt>UO em ${st.ano}</dt><dd>${uosAno || '<span class="nd" style="color:var(--muted)">—</span>'}</dd>
+      <dt>UO no MTO 2026</dt><dd class="mono">${mtoU || "—"}</dd>
+      <dt>Histórico de UO</dt><dd>${hist || "—"}</dd>
+      <dt>UG / Gestão</dt><dd>${f.ug ? esc(f.ug) : "a registrar no cadastro"}</dd>
+      <dt>CNPJ</dt><dd>${f.cnpj ? esc(f.cnpj) : "a registrar no cadastro"}</dd>
+      <dt>Natureza</dt><dd>${esc(f.natureza_juridica || "—")}</dd>
+      <dt>No orçamento</dt><dd>${esc(f.no_orcamento || "—")}</dd>
+      ${f.observacao ? `<dt>Nota</dt><dd>${esc(f.observacao)}</dd>` : ""}
+    </dl>`;
+
+  const fon = (f.fontes || {})[st.ano] || [];
+  const maxF = Math.max(0, ...fon.map(x => x.atual));
+  const fontesObs = fon.length ? `<div class="mini">${fon.slice(0, 10).map(x => `<div class="ml" data-tip="${esc(`<b>Fonte ${esc(x.cod)}</b><br>${esc(x.desc)}<br>Dotação <span class="tn">${brl(x.atual)}</span> · Empenhado <span class="tn">${brl(x.emp)}</span>`)}"><span><b class="mono">${esc(x.cod)}</b> ${esc(x.desc)}</span>${trilho(x, maxF)}</div>`).join("")}</div>`
+    : `<p class="vazio-serie">Fontes por fundo chegam com a coleta pelo orcamentoBR.</p>`;
+  const mtoF = (f.mto?.fontes || []).map(x => `<div><b class="mono">${esc(x.cod)}</b> ${esc(x.desc)} <span class="chip ${x.vinculo === "explícito" ? "ok" : "warn"}">${esc(x.vinculo)}</span></div>`).join("");
+  const mtoR = (f.mto?.receitas || []).map(x => `<div><b class="mono">${esc(x.cod)}</b> ${esc(x.desc)}</div>`).join("");
+
+  const rp = ((f.rp || {})[st.ano] || []), gnd = ((f.gnd || {})[st.ano] || []);
+  const maxR = Math.max(0, ...rp.map(x => x.atual)), maxG = Math.max(0, ...gnd.map(x => x.atual));
+  const bar = (x, m) => `<div class="ml" data-tip="${esc(`<b>${esc(x.cod)} · ${esc(x.desc)}</b><br>Dotação <span class="tn">${brl(x.atual)}</span><br>Empenhado <span class="tn">${brl(x.emp)}</span>`)}"><span><b class="mono">${esc(x.cod)}</b> ${esc(x.desc)}</span>${trilho(x, m)}</div>`;
+
+  const cls = (f.classificacoes || []).slice().sort((a, b) => String(nomeMarco(a.marco).ano).localeCompare(String(nomeMarco(b.marco).ano)));
+  const tl = cls.length ? `<ol class="tl">${cls.map(c => { const m = nomeMarco(c.marco); return `<li><span class="a">${esc(m.ano)}</span><div><div class="c">${chipCat(c.classificacao)}<em>${esc(m.titulo)}</em></div>${c.detalhe ? `<span class="r">${esc(c.detalhe)}</span>` : ""}<span class="r">ET 01/2026: ${esc(c.ref)}</span></div></li>`; }).join("")}</ol>`
+    : `<p class="vazio-serie">O ET 01/2026 não classifica este fundo.</p>`;
+
+  const ef = f.exec_fonte || {};
+  const efAnos = Object.keys(ef).sort();
+  const vfont = efAnos.length ? `<div class="rolagem"><table class="t"><thead><tr><th>Ano</th><th>Dotação das fontes</th><th>Empenhado</th><th>Nas UOs do fundo</th></tr></thead><tbody>${efAnos.map(a => `<tr><td>${a}</td><td>${brl(ef[a].atual)}</td><td>${brl(ef[a].emp)}</td><td>${fpct(pct(ef[a].dentro, ef[a].atual))}</td></tr>`).join("")}</tbody></table></div>`
+    : `<p class="vazio-serie">O cruzamento fonte × UO (2023 em diante) chega com a coleta.</p>`;
+
+  return `<div class="det">
+    <div class="bloco"><h4>Identificação composta</h4>${ident}</div>
+    <div class="bloco"><h4>Histórico de classificações</h4>${tl}</div>
+    <div class="bloco largo"><h4>Execução por exercício</h4>${execTab}</div>
+    <div class="bloco"><h4>Fontes executadas em ${st.ano}</h4>${fontesObs}</div>
+    <div class="bloco"><h4>Códigos no MTO 2026</h4>${mtoF || mtoR ? `<div class="mini" style="font-size:12px">${mtoF}${mtoR ? `<div style="margin-top:6px;color:var(--muted)">Naturezas de receita:</div>${mtoR}` : ""}</div>` : `<p class="vazio-serie">Nenhuma fonte ou natureza de receita do MTO 2026 cita este fundo.</p>`}</div>
+    <div class="bloco"><h4>Resultado primário ${st.ano}</h4>${rp.length ? `<div class="mini">${rp.map(x => bar(x, maxR)).join("")}</div>` : `<p class="vazio-serie">Disponível após a coleta.</p>`}</div>
+    <div class="bloco"><h4>Grupo de natureza da despesa ${st.ano}</h4>${gnd.length ? `<div class="mini">${gnd.map(x => bar(x, maxG)).join("")}</div>` : `<p class="vazio-serie">Disponível após a coleta. GND 5 (inversões financeiras) indica operação de crédito.</p>`}</div>
+    <div class="bloco largo"><h4>Fontes do MTO ligadas ao fundo: onde são executadas</h4>${vfont}</div>
+  </div>`;
+}
+
+/* ---------- histórico de classificações ---------- */
+function renderMatriz(fs){
+  const com = fs.filter(f => (f.classificacoes || []).length);
+  const col = (f, ids) => (f.classificacoes || []).filter(c => ids.includes(c.marco));
+  const cel = (arr, mostraMarco) => arr.length ? arr.map(c => `<span data-tip="${esc(`<b>${esc(nomeMarco(c.marco).titulo)}</b><br>${esc(c.detalhe || c.classificacao)}<br>ET 01/2026: ${esc(c.ref)}`)}">${chipCat(mostraMarco ? c.classificacao + " · " + nomeMarco(c.marco).ano : c.classificacao)}</span>`).join("") : `<span style="color:var(--muted)">—</span>`;
+  const outrosIds = D.marcos.map(m => m.id).filter(id => !["DEC93872","BASSI","AC1494","STNGT","COSTA"].includes(id));
+  $("#matriz").innerHTML = com.length ? `<thead><tr><th>Fundo</th><th>Decreto 93.872/1986<br>(contábil × financeiro)</th><th>Bassi 2019</th><th>TCU 1.494/2021</th><th>STN 2011 · Costa 2017</th><th>Normas e controle posteriores</th></tr></thead><tbody>
+    ${com.map(f => `<tr><td><button class="rk-bar" style="display:inline;width:auto;grid-template-columns:none" data-abrir="${esc(f.id)}"><span class="rk-lbl">${esc(f.sigla)}</span></button></td>
+      <td>${cel(col(f, ["DEC93872"]))}</td><td>${cel(col(f, ["BASSI"]))}</td><td>${cel(col(f, ["AC1494"]))}</td><td>${cel(col(f, ["STNGT","COSTA"]))}</td><td>${cel(col(f, outrosIds), true)}</td></tr>`).join("")}</tbody>`
+    : `<tbody><tr><td class="txt">Nenhum fundo classificado no filtro atual.</td></tr></tbody>`;
+}
+function renderTempo(){
+  const tipos = [...new Set(D.marcos.map(m => m.tipo.split(" (")[0]))];
+  $("#filtro-tipos").innerHTML = ["todos", ...tipos].map(t => `<button data-tipo="${esc(t)}" aria-pressed="${st.tipoMarco === t}">${t === "todos" ? "Todos" : esc(t)}</button>`).join("");
+  const porMarco = {};
+  D.fundos.forEach(f => (f.classificacoes || []).forEach(c => (porMarco[c.marco] = porMarco[c.marco] || []).push(f)));
+  const ms = D.marcos.filter(m => st.tipoMarco === "todos" || m.tipo.startsWith(st.tipoMarco)).slice().sort((a, b) => String(a.ano).localeCompare(String(b.ano)));
+  $("#tempo").innerHTML = ms.map(m => { const fs = porMarco[m.id] || [];
+    return `<li class="${m.tipo.startsWith("Taxonomia") ? "Taxonomia" : ""}"><span class="ano">${esc(m.ano)}</span><div><h3>${esc(m.titulo)}</h3><p>${esc(m.descricao)}</p>
+      <div class="meta"><span class="chip tipo">${esc(m.tipo)}</span><span class="ref">ET 01/2026 · ${esc(m.ref_et)}</span>${fs.length ? " " + fs.slice(0, 14).map(f => `<button class="chip" style="cursor:pointer" data-abrir="${esc(f.id)}">${esc(f.sigla)}</button>`).join("") + (fs.length > 14 ? ` <span class="ref">+${fs.length - 14}</span>` : "") : ""}</div></div></li>`; }).join("");
+}
+
+/* ---------- verificação MTO ---------- */
+function renderMTO(){
+  const vmap = {}; (D.verificacao_fontes || []).forEach(v => vmap[v.cod] = v);
+  const sig = id => { const f = D.fundos.find(x => x.id === id); return f ? f.sigla : id; };
+  const q = st.vfBusca.trim().toLowerCase();
+  const rows = (D.mto?.fontes || []).filter(r => (!st.vfFiltro || r.vinculo.startsWith(st.vfFiltro)) &&
+    (!q || (r.fonte_cod + " " + r.descricao + " " + r.fundo_id.split("|").map(sig).join(" ") + " " + r.fundo_id).toLowerCase().includes(q)));
+  $("#vf-cont").textContent = `${rows.length} fontes`;
+  const statusChip = s => ({"confirmado":"ok","parcial":"warn","fora das UOs do fundo":"bad"}[s] || "");
+  $("#vf").innerHTML = `<thead><tr><th>Fonte</th><th>Descrição (MTO 2026)</th><th>Fundo</th><th>Vínculo</th><th>Execução observada</th></tr></thead><tbody>
+    ${rows.map(r => { const v = vmap[r.fonte_cod]; let ex = `<span style="color:var(--muted)">aguardando coleta</span>`;
+      if (v) { const anos = Object.keys(v.anos).sort(); const a = v.anos[st.ano] ? st.ano : anos[anos.length - 1]; const va = v.anos[a];
+        const top = va.uos.slice(0, 5).map(u => `${esc(u.uo)} ${esc(u.desc)}: ${brl(u.atual)}${u.fundo_uo ? " (" + esc(sig(u.fundo_uo)) + ")" : ""}`).join("<br>");
+        ex = `<span class="status" data-tip="${esc(`<b>Fonte ${esc(r.fonte_cod)} em ${a}</b><br>Dotação total ${brl(va.atual)}<br>${top}`)}"><span class="chip ${statusChip(va.status)}">${esc(va.status)}</span><span class="mono">${fpct(va.dentro_pct)} · ${a}</span></span>`; }
+      return `<tr><td class="mono">${esc(r.fonte_cod)}</td><td class="txt">${esc(r.descricao)}${r.justificativa ? `<br><small style="color:var(--muted)">${esc(r.justificativa)}</small>` : ""}</td>
+        <td class="txt">${r.fundo_id ? r.fundo_id.split("|").map(id => `<button class="chip" style="cursor:pointer" data-abrir="${esc(id)}">${esc(sig(id))}</button>`).join(" ") : "—"}</td>
+        <td class="txt"><span class="chip ${r.vinculo === "explícito" ? "ok" : "warn"}">${esc(r.vinculo)}</span></td><td class="txt">${ex}</td></tr>`; }).join("")}</tbody>`;
+  const uos = D.mto?.uos_de_fundo || [];
+  $("#mto-uos").innerHTML = `<thead><tr><th>UO</th><th>Descrição</th><th>Fundo</th></tr></thead><tbody>${uos.map(u => `<tr><td>${esc(u.uo_cod)}</td><td class="txt">${esc(u.descricao)}${u.sigla ? ` <small class="mono" style="color:var(--muted)">${esc(u.sigla)}</small>` : ""}</td><td class="txt">${u.fundo_id ? `<button class="chip" style="cursor:pointer" data-abrir="${esc(u.fundo_id)}">${esc(sig(u.fundo_id))}</button>` : "—"}</td></tr>`).join("")}</tbody>`;
+  const rec = D.mto?.receitas || [];
+  $("#mto-rec").innerHTML = `<thead><tr><th>Natureza</th><th>Descrição</th><th>Fundo</th></tr></thead><tbody>${rec.map(r => `<tr><td>${esc(r.natureza_cod)}</td><td class="txt">${esc(r.descricao)}</td><td class="txt">${r.fundo_id ? r.fundo_id.split("|").map(id => `<button class="chip" style="cursor:pointer" data-abrir="${esc(id)}">${esc(sig(id))}</button>`).join(" ") : "—"}</td></tr>`).join("")}</tbody>`;
+}
+
+/* ---------- orquestração ---------- */
+function render(){
+  const fs = fundosFiltrados();
+  const fsSerie = st.aberto ? D.fundos.filter(f => f.id === st.aberto) : fs;
+  renderTopo(); renderResumo(fs); renderKPIs(); renderRank(fs); renderCats(); renderSerie(fsSerie);
+  renderIdents(fs); renderLista(fs); renderMatriz(fs); renderTempo(); renderMTO();
+}
+function abrir(id, rolar){
+  st.aberto = st.aberto === id ? null : id;
+  if (st.aberto) { const f = D.fundos.find(x => x.id === id); if (f && st.cat !== "todos" && catDe(f) !== st.cat) st.cat = "todos"; if (f && st.busca && !fundosFiltrados().includes(f)) { st.busca = ""; $("#busca").value = ""; } }
+  render();
+  if (st.aberto && rolar) { const el = document.getElementById("f-" + id); if (el) el.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block:"start"}); }
+}
+document.addEventListener("click", e => {
+  const ab = e.target.closest("[data-abrir]");
+  if (ab) { const naLista = !!ab.closest("#lista"); abrir(ab.getAttribute("data-abrir"), !naLista); return; }
+  const k = e.target.closest("[data-cat]");
+  if (k) { const c = k.getAttribute("data-cat"); st.cat = (st.cat === c && c !== "todos") ? "todos" : c; st.limite = 40; render(); return; }
+  const t = e.target.closest("[data-tipo]");
+  if (t) { st.tipoMarco = t.getAttribute("data-tipo"); renderTempo(); return; }
+  if (e.target.id === "mais") { st.limite += 40; renderLista(fundosFiltrados()); }
+});
+let tb; $("#busca").addEventListener("input", e => { clearTimeout(tb); tb = setTimeout(() => { st.busca = e.target.value; st.limite = 40; render(); }, 160); });
+$("#ordem").addEventListener("change", e => { st.ordem = e.target.value; renderLista(fundosFiltrados()); });
+$("#ano").addEventListener("change", e => { st.ano = e.target.value; render(); });
+$("#vf-filtro").addEventListener("change", e => { st.vfFiltro = e.target.value; renderMTO(); });
+let tv; $("#vf-busca").addEventListener("input", e => { clearTimeout(tv); tv = setTimeout(() => { st.vfBusca = e.target.value; renderMTO(); }, 160); });
+
+fetch("dados.json", {cache: "no-cache"}).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(d => {
+  D = d;
+  const anos = D.anos.map(String);
+  st.ano = anos[anos.length - 1] || String(new Date().getFullYear());
+  $("#ano").innerHTML = anos.slice().reverse().map(a => `<option value="${a}">${a}</option>`).join("");
+  $("#ano").value = st.ano;
+  if (location.hash.length > 1) { const id = decodeURIComponent(location.hash.slice(1)); if (D.fundos.find(f => f.id === id)) st.aberto = id; }
+  render();
+}).catch(err => {
+  $("#quando").textContent = "Não foi possível carregar dados.json";
+  $("#aviso").innerHTML = `<div class="aviso" role="alert"><div><b>Os dados não carregaram.</b> Confira se <code>site/dados.json</code> existe (rode <code>python3 montar.py</code>) e se a página está sendo servida por HTTP, não aberta direto do disco. Detalhe: ${esc(err.message)}</div></div>`;
+});
+})();
+</script>
+</body>
+</html>
