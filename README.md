@@ -28,6 +28,7 @@ site/
   index.html              o painel
   dados.json              gerado por montar.py
 tests/teste_coleta.R      teste offline do coleta.R com o orcamentoBR simulado
+                          (grava dados falsos em dados/bruto: rode numa cópia do repositório)
 .github/workflows/atualizar-painel.yml
 ```
 

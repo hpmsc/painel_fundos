@@ -1,0 +1,78 @@
+name: Atualizar painel de fundos
+
+on:
+  workflow_dispatch:
+    inputs:
+      anos:
+        description: "Exercícios a recoletar, separados por espaço (vazio = incremental)"
+        required: false
+        default: ""
+  schedule:
+    - cron: "0 10 * * 1-5"   # dias úteis, 7h de Brasília
+  push:
+    branches: [main]
+    paths:
+      - "dados/*.csv"
+      - "montar.py"
+      - "site/index.html"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: painel-fundos
+  cancel-in-progress: false
+
+jobs:
+  coletar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-r@v2
+        if: github.event_name != 'push'
+        with:
+          use-public-rspm: true
+
+      - name: Instalar orcamentoBR
+        if: github.event_name != 'push'
+        run: Rscript -e 'install.packages("orcamentoBR")'
+
+      - name: Coletar no SIOP
+        if: github.event_name != 'push'
+        run: Rscript coleta.R ${{ github.event.inputs.anos }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Montar dados.json
+        run: python3 montar.py
+
+      - name: Gravar dados no repositório
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898733+github-actions[bot]@users.noreply.github.com"
+          git add dados/bruto site/dados.json
+          if git diff --cached --quiet; then
+            echo "Sem mudanças."
+          else
+            git commit -m "Atualiza dados do painel ($(date -u +%Y-%m-%d))"
+            git push
+          fi
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  publicar:
+    needs: coletar
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4
