@@ -1,0 +1,39 @@
+natureza_cod;descricao;fundo_id
+1.2.1.6.00.0.0;Contribuição para Fundos de Assistência Médica;
+1.7.1.4.00.0.0;Transferências de Recursos do Fundo Nacional do Desenvolvimento da Educação - FNDE;FNDE
+1.7.1.5.00.0.0;Transferências de Recursos da Complementação da União ao Fundo de Manutenção e Desenvolvimento da Educação Básica e de Valorização dos Profissionais da Educação - FUNDEB;FUNDEB
+1.7.1.6.00.0.0;Transferências de Recursos do Fundo Nacional de Assistência Social - FNAS;FNAS
+1.7.5.1.00.0.0;Transferências de Recursos do Fundo de Manutenção e Desenvolvimento da Educação Básica e de Valorização dos Profissionais da Educação - FUNDEB;FUNDEB
+2.4.1.2.00.0.0;Transferências de Recursos do Fundo Nacional do Desenvolvimento da Educação - FNDE;FNDE
+2.4.1.3.00.0.0;Transferências de Recursos do Fundo Nacional de Assistência Social - FNAS;FNAS
+1.2.1.6.01.0.0;Contribuição para Fundos de Assistência Médica - Policiais Militares;
+1.2.1.6.01.1.0;Contribuição para Fundos de Assistência Médica - Policiais Militares;
+1.2.1.6.01.2.0;Contribuição para Fundos de Assistência Médica - Policiais Militares - Parcelamentos;
+1.2.1.6.02.0.0;Contribuição para Fundos de Assistência Médica - Bombeiros Militares;
+1.2.1.6.02.1.0;Contribuição para Fundos de Assistência Médica - Bombeiros Militares;
+1.2.1.6.02.2.0;Contribuição para Fundos de Assistência Médica - Bombeiros Militares - Parcelamentos;
+1.2.1.6.03.0.0;Contribuição para Fundos de Assistência Médica - Servidores Civis;
+1.2.1.6.03.1.0;Contribuição para Fundos de Assistência Médica - Servidores Civis;
+1.2.1.6.03.2.0;Contribuição para Fundos de Assistência Médica - Servidores Civis - Parcelamentos;
+1.2.1.6.05.0.0;Contribuição para Fundos de Assistência Médico-Hospitalar e Social – Forças Armadas;
+1.2.1.6.05.1.0;Contribuição para Fundos de Assistência Médico-Hospitalar e Social – Forças Armadas;
+1.2.1.6.05.2.0;Contribuição para Fundos de Assistência Médico-Hospitalar e Social – Forças Armadas - Parcelamentos;
+1.2.1.6.99.0.0;Contribuição para Fundos de Assistência Médica - Outros Beneficiários;
+1.2.1.6.99.1.0;Contribuição para Fundos de Assistência Médica - Outros Beneficiários;
+1.2.1.6.99.2.0;Contribuição para Fundos de Assistência Médica - Outros Beneficiários - Parcelamentos;
+1.2.1.9.03.0.0;Contribuições Referentes ao Fundo de Garantia do Tempo de Serviço - FGTS;FGTS
+1.2.1.9.03.3.0;Contribuições Referentes ao Fundo de Garantia do Tempo de Serviço - FGTS - Parcelamentos;FGTS
+1.2.1.9.07.0.0;Contribuição sobre a Arrecadação dos Fundos de Investimentos Regionais;
+1.2.1.9.07.1.0;Contribuição sobre a Arrecadação dos Fundos de Investimentos Regionais;
+1.2.1.9.07.2.0;Contribuição sobre a Arrecadação dos Fundos de Investimentos Regionais - Parcelamentos;
+1.3.1.1.01.5.0;Aluguéis e Arrendamento de Imóveis - Malha Ferroviária/Fundo Contingente – Extinta RFFSA;FCRFFSA
+1.3.4.3.01.2.0;Bônus de Assinatura de Contrato de Partilha de Produção - Parcela do Fundo Social;FSOCIAL
+1.7.1.4.99.0.0;Outras Transferências Diretas do Fundo Nacional de Desenvolvimento da Educação - FNDE;FNDE
+1.9.4.4.07.2.0;Multas e Juros de Mora de Amortização de Financiamento do Fundo de Financiamento ao Estudante do Ensino Superior - FIES;FIES
+1.9.4.4.07.3.0;Multas e Juros de Mora de Amortização de Financiamento Proveniente de Fundo Garantidor;
+1.9.9.9.07.0.0;Disponibilidades de Recursos do Fundo Social;FSOCIAL
+1.9.9.9.13.0.0;Recursos Recebidos de Órgãos, Entidades ou Fundos, por Força de Determinação Constitucional ou Legal;
+1.9.9.9.13.1.0;Recursos Recebidos de Fundos de Desenvolvimento Regional;
+2.3.1.1.07.2.0;Amortização de Financiamento do Fundo de Financiamento ao Estudante do Ensino Superior - FIES;FIES
+2.3.1.1.07.3.0;Amortização de Financiamento Proveniente de Fundo Garantidor;
+2.9.9.9.02.0.0;Aportes ao Fundo de Compensação de Benefícios Fiscais ou Financeiro-Fiscais - FCBF;

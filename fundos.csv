@@ -1,0 +1,69 @@
+id;sigla;nome;padrao_uo;uo_referencia;natureza_juridica;no_orcamento;fontes_referencia;ug;cnpj;observacao
+FNS;FNS;Fundo Nacional de Saúde;FUNDO NACIONAL DE SAUDE;36901;Fundo especial;Sim;;;;
+FAT;FAT;Fundo de Amparo ao Trabalhador;AMPARO AO TRABALHADOR;40901;Fundo especial;Sim;;;;
+FNAS;FNAS;Fundo Nacional de Assistência Social;ASSISTENCIA SOCIAL;55901;Fundo especial;Sim;;;;
+FRGPS;FRGPS;Fundo do Regime Geral de Previdência Social;REGIME GERAL DE PREVIDENCIA;33904;Fundo especial;Sim;;;;"Não citado no ET 01/2026; cadastrado para identificar a UO."
+FCDF;FCDF;Fundo Constitucional do Distrito Federal;CONSTITUCIONAL DO DISTRITO FEDERAL;73901;Fundo especial;Sim;;;;UO atípica (Transferências a Estados, DF e Municípios), segundo Bassi (2019).
+FNO;FNO;Fundo Constitucional de Financiamento do Norte;FINANCIAMENTO DO NORTE;74913;Fundo especial;Sim;;;;
+FNE;FNE;Fundo Constitucional de Financiamento do Nordeste;FINANCIAMENTO DO NORDESTE;74915;Fundo especial;Sim;;;;
+FCO;FCO;Fundo Constitucional de Financiamento do Centro-Oeste;FINANCIAMENTO DO CENTRO;74914;Fundo especial;Sim;;;;
+FDA;FDA;Fundo de Desenvolvimento da Amazônia;DESENVOLVIMENTO DA AMAZONIA;74917;Fundo especial;Sim;;;;
+FDNE;FDNE;Fundo de Desenvolvimento do Nordeste;DESENVOLVIMENTO DO NORDESTE;74918;Fundo especial;Sim;;;;
+FDCO;FDCO;Fundo de Desenvolvimento do Centro-Oeste;DESENVOLVIMENTO DO CENTRO;74919;Fundo especial;Sim;;;;
+FNDCT;FNDCT;Fundo Nacional de Desenvolvimento Científico e Tecnológico;DESENV(OLVIMENTO|\.) ?CIENTIFICO E TECNOLOGICO;24901|74910;Fundo especial;Sim;;;;Estruturado em duas UOs (dimensões contábil e financeira), segundo o ET 01/2026.
+FUNTTEL;Funttel;Fundo para o Desenvolvimento Tecnológico das Telecomunicações;TECNOL(OGICO|\.) DAS TELECOMUNIC;24907|41903|74905;Fundo especial;Sim;;;;
+FUST;Fust;Fundo de Universalização dos Serviços de Telecomunicações;UNIVERSALIZACAO;24906|41902|74920;Fundo especial;Sim;044;;;Fonte 044 — Recursos do FISTEL destinados ao FUST (confirmada no MTO 2026).
+FISTEL;Fistel;Fundo de Fiscalização das Telecomunicações;FISCALIZACAO DAS TELECOMUNICACOES;;Fundo especial;Sim;;;;
+FUNCAFE;Funcafé;Fundo de Defesa da Economia Cafeeira;ECONOMIA CAFEEIRA;22906|74901;Fundo especial;Sim;;;;
+FMM;FMM;Fundo da Marinha Mercante;MARINHA MERCANTE;39901|68901|74904;Fundo especial;Sim;;;;
+FNAC;FNAC;Fundo Nacional de Aviação Civil;AVIACAO CIVIL;39902|68902;Fundo especial;Sim;;;;
+FNC;FNC;Fundo Nacional de Cultura;FUNDO NACIONAL (DE|DA) CULTURA|SUPERVISAO DO FNC;42902|73120|74912;Fundo especial;Sim;;;;
+FNMC;FNMC;Fundo Nacional sobre Mudança do Clima;MUDANCA DO CLIMA;44902|74916;Fundo especial;Sim;;;;
+FNMA;FNMA;Fundo Nacional do Meio Ambiente;FUNDO NACIONAL D[OE] MEIO AMBIENTE;44901;Fundo especial;Sim;;;;
+FNDF;FNDF;Fundo Nacional de Desenvolvimento Florestal;DESENVOLVIMENTO FLORESTAL;;Fundo especial;Sim;068;;;Fonte 068 — FNDF (confirmada no MTO 2026). Não citado no ET 01/2026.
+FUNGETUR;Fungetur;Fundo Geral de Turismo;GERAL DE TURISMO;74908;Fundo especial;Sim;;;;
+BTERRA;Banco da Terra;Fundo de Terras e da Reforma Agrária;TERRAS E DA REFORMA AGRARIA;74906;Fundo especial;Sim;;;;
+FNSP;FNSP;Fundo Nacional de Segurança Pública;SEGURANCA PUBLICA;30911;Fundo especial;Sim;;;;
+FUNPEN;Funpen;Fundo Penitenciário Nacional;PENITENCIARIO;30907;Fundo especial;Sim;;;;
+FNA;FNA;Fundo Nacional Antidrogas;ANTIDROGAS;30912;Fundo especial;Sim;;;;
+FDD;FDD;Fundo de Defesa de Direitos Difusos;DIREITOS DIFUSOS;30905;Fundo especial;Sim;;;;
+FNCA;FNCA;Fundo Nacional para a Criança e o Adolescente;CRIANCA E (DO |O )?ADOLESCENTE;30913|81901;Fundo especial;Sim;;;;
+FNI;FNI;Fundo Nacional do Idoso;FUNDO NACIONAL (DO IDOSO|DA PESSOA IDOSA);30914|81902;Fundo especial;Sim;;;;
+FUNSET;Funset;Fundo Nacional de Segurança e Educação do Trânsito;EDUCACAO (DE|DO) TRANSITO;56901|39905;Fundo especial;Sim;;;;
+FNHIS;FNHIS;Fundo Nacional de Habitação de Interesse Social;HABITACAO DE INTERESSE SOCIAL;56902;Fundo especial;Sim;;;;
+FIN;FIN;Fundo de Imprensa Nacional;IMPRENSA NACIONAL;20927;Fundo especial;Sim;;;;
+FROTCD;Fundo Rotativo CD;Fundo Rotativo da Câmara dos Deputados;ROTATIVO DA CAMARA;01901;Fundo especial;Sim;;;;
+FUNTREDE;Funtrede;Fundo Especial de Treinamento e Desenvolvimento;TREINAMENTO E DESENVOLVIMENTO;25913;Fundo especial;Sim;;;;
+FMD;Fundo do MD;Fundo do Ministério da Defesa;FUNDO DO MINISTERIO DA DEFESA;52901;Fundo especial;Sim;;;;
+FAHFA;FAHFA;Fundo de Administração do Hospital das Forças Armadas;HOSPITAL DAS FORCAS ARMADAS;52902;Fundo especial;Sim;;;;
+FSM;Fundo do Serviço Militar;Fundo do Serviço Militar;SERVICO MILITAR;52903;Fundo especial;Sim;;;;
+FAER;Fundo Aeronáutico;Fundo Aeronáutico;FUNDO AERONAUTICO;52911;Fundo especial;Sim;;;;
+FEX;Fundo do Exército;Fundo do Exército;FUNDO DO EXERCITO;52921;Fundo especial;Sim;;;;
+FNAV;Fundo Naval;Fundo Naval;FUNDO NAVAL;52931;Fundo especial;Sim;;;;
+FDEPM;FDEPM;Fundo de Desenvolvimento do Ensino Profissional Marítimo;ENSINO PROFISSIONAL MARITIMO;52932;Fundo especial;Sim;;;;
+FIES;FIES;Fundo de Financiamento Estudantil;FINANCIAMENTO ESTUDANTIL|FINANCIAMENTO AO ESTUDANTE;74902;Fundo especial;Sim;;;;
+FSOCIAL;Fundo Social;Fundo Social;^FUNDO SOCIAL;71903;Fundo especial;Sim;;;;Citado na sobreposição apontada pelo Acórdão 1.494/2021 (FNDE/Fundeb/Fundo Social).
+FNDE;FNDE;Fundo Nacional de Desenvolvimento da Educação;FUNDO NACIONAL D[OE] DESENVOLVIMENTO DA EDUCACAO;26298;Autarquia (fundo impróprio);Sim;;;;"Criado como autarquia pela Lei nº 5.537/1968; tem personalidade jurídica."
+FUNDEB;Fundeb;Fundo de Manutenção e Desenvolvimento da Educação Básica;MANUTENCAO E DESENVOLVIMENTO DA EDUCACAO BASICA;;Fundo de transferência (contábil);Complementação da União como ação na UO do FNDE;;;;"Sem UO própria; a complementação da União é executada em ação orçamentária."
+FPE;FPE;Fundo de Participação dos Estados;;;Fundo de transferência;Transferência constitucional (sem UO própria);;;;
+FPM;FPM;Fundo de Participação dos Municípios;;;Fundo de transferência;Transferência constitucional (sem UO própria);;;;
+FIPEM;FIPEM;Fundo de Incentivo à Permanência e Conclusão Escolar para Estudantes do Ensino Médio;;;Fundo de natureza privada (Caixa);Não (fora do OGU);;;;Lei nº 14.818/2024 — Programa Pé-de-Meia.
+FNDIT;FNDIT;Fundo Nacional de Desenvolvimento Industrial e Tecnológico;;;Fundo de natureza privada (BNDES);Não (fora do OGU);;;;Lei nº 14.902/2024 — Programa Mover.
+FESF;FESF;Fundo Especial do Senado Federal;FUNDO ESPECIAL DO SENADO;02901;Fundo especial;Sim;;;;"UO identificada no MTO 2026; não citado no ET 01/2026."
+FP;Fundo Partidário;Fundo Especial de Assistência Financeira aos Partidos Políticos (Fundo Partidário);FUNDO PARTIDARIO;14901;Fundo especial;Sim;;;;"UO identificada no MTO 2026; não citado no ET 01/2026."
+FEFC;FEFC;Fundo Especial de Financiamento de Campanhas;FINANCIAMENTO DE CAMPANHAS;71906;Fundo especial;Sim;;;;"UO identificada no MTO 2026; não citado no ET 01/2026."
+FCVS;FCVS;Fundo de Compensação de Variações Salariais;COMPENSACAO (DE |E )?VARIACOES SALARIAIS;25903;Fundo especial;Sim;;;;"UO identificada no MTO 2026; não citado no ET 01/2026."
+FND;FND;Fundo Nacional de Desenvolvimento;^FUNDO NACIONAL DE DESENVOLVIMENTO$;28903;Fundo especial;Sim;;;;"UO identificada no MTO 2026; não citado no ET 01/2026."
+FGPC;FGPC;Fundo de Garantia para Promoção da Competitividade;PROMOCAO DA COMPETITIVIDADE;28904;Fundo especial;Sim;;;;"UO identificada no MTO 2026; não citado no ET 01/2026."
+FSB;FSB;Fundo Soberano do Brasil;FUNDO SOBERANO;71902;Fundo especial;Sim;;;;"UO identificada no MTO 2026; não citado no ET 01/2026."
+FESR;FESR;Fundo de Estabilidade do Seguro Rural;ESTABILIDADE DO SEGURO RURAL;71904;Fundo especial;Sim;;;;"UO identificada no MTO 2026; não citado no ET 01/2026."
+FGE;FGE;Fundo de Garantia à Exportação;GARANTIA A EXPORTACAO;71905;Fundo especial;Sim;;;;"UO identificada no MTO 2026; não citado no ET 01/2026."
+FIIS;FIIS;Fundo Nacional de Investimento em Infraestrutura Social;INFRAESTRUTURA SOCIAL;74921;Fundo especial;Sim;;;;"UO identificada no MTO 2026; não citado no ET 01/2026."
+FUNAPOL;Funapol;Fundo para Aparelhamento e Operacionalização das Atividades-fim da Polícia Federal;APARELHAMENTO E OPERACIONALIZACAO;;Fundo especial;Sem UO própria no MTO 2026;019;;;Fonte 019 no MTO 2026.
+FUNDAF;Fundaf;Fundo Especial de Desenvolvimento e Aperfeiçoamento das Atividades de Fiscalização;APERFEICOAMENTO DAS ATIVIDADES DE FISCALIZACAO;;Fundo especial;Sem UO própria no MTO 2026;031|032;;;Fontes 031 (PGFN) e 032 (RFB) no MTO 2026.
+FAEROV;Fundo Aeroviário;Fundo Aeroviário;FUNDO AEROVIARIO;;Fundo especial;Sem UO própria no MTO 2026;088|089;;;Fontes 088 e 089 no MTO 2026.
+FCACAU;Fundo Geral do Cacau;Fundo Geral do Cacau;FUNDO GERAL DO CACAU;;Fundo especial;Sem UO própria no MTO 2026;117;;;Fonte 117 no MTO 2026.
+FCEP;FCEP;Fundo de Combate e Erradicação da Pobreza;ERRADICACAO DA POBREZA;;Fundo especial;Sem UO própria no MTO 2026;179;;;Fonte 179 no MTO 2026.
+FUNCAP;Funcap;Fundo Nacional para Calamidades Públicas, Proteção e Defesa Civil;CALAMIDADES PUBLICAS;;Fundo especial;Sem UO própria no MTO 2026;182;;;Fonte 182 no MTO 2026.
+FCRFFSA;Fundo Contingente RFFSA;Fundo Contingente da Extinta Rede Ferroviária Federal S.A.;FUNDO CONTINGENTE;;Fundo especial;Sem UO própria no MTO 2026;074;;;Fonte 074 no MTO 2026.
+FGTS;FGTS;Fundo de Garantia do Tempo de Serviço;GARANTIA DO TEMPO DE SERVICO;;Fundo fora do OGU;Não (fora do OGU);084;;;Fonte 084 e naturezas de receita 1.2.1.9.03 no MTO 2026.

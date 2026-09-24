@@ -1,0 +1,479 @@
+uo_cod;descricao;sigla;uo_de_fundo;fundo_id
+01000;Câmara dos Deputados;CD;não;
+01101;Câmara dos Deputados;CD;não;
+01901;Fundo Rotativo da Câmara dos Deputados;FRCD;sim;FROTCD
+02000;Senado Federal;SF;não;
+02101;Senado Federal;SF;não;
+02901;Fundo Especial do Senado Federal;FESF;sim;FESF
+03000;Tribunal de Contas da União;TCU;não;
+03101;Tribunal de Contas da União;TCU;não;
+10000;Supremo Tribunal Federal;STF;não;
+10101;Supremo Tribunal Federal;STF;não;
+11000;Superior Tribunal de Justiça;STJ;não;
+11101;Superior Tribunal de Justiça;STJ;não;
+12000;Justiça Federal;JF;não;
+12101;Justiça Federal de Primeiro Grau;JF/1º;não;
+12102;Tribunal Regional Federal da 1a. Região;TRF1;não;
+12103;Tribunal Regional Federal da 2a. Região;TRF2;não;
+12104;Tribunal Regional Federal da 3a. Região;TRF3;não;
+12105;Tribunal Regional Federal da 4a. Região;TRF4;não;
+12106;Tribunal Regional Federal da 5a. Região;TRF5;não;
+12107;Tribunal Regional Federal da 6a. Região;TRF6;não;
+13000;Justiça Militar da União;JMU;não;
+13101;Justiça Militar da União;JMU;não;
+14000;Justiça Eleitoral;JE;não;
+14101;Tribunal Superior Eleitoral;TSE;não;
+14102;Tribunal Regional Eleitoral do Acre;TRE-AC;não;
+14103;Tribunal Regional Eleitoral de Alagoas;TRE-AL;não;
+14104;Tribunal Regional Eleitoral do Amazonas;TRE-AM;não;
+14105;Tribunal Regional Eleitoral da Bahia;TRE-BA;não;
+14106;Tribunal Regional Eleitoral do Ceará;TRE-CE;não;
+14107;Tribunal Regional Eleitoral do Distrito Federal;TRE-DF;não;
+14108;Tribunal Regional Eleitoral do Espírito Santo;TRE-ES;não;
+14109;Tribunal Regional Eleitoral de Goiás;TRE-GO;não;
+14110;Tribunal Regional Eleitoral do Maranhão;TRE-MA;não;
+14111;Tribunal Regional Eleitoral de Mato Grosso;TRE-MT;não;
+14112;Tribunal Regional Eleitoral de Mato Grosso do Sul;TRE-MS;não;
+14113;Tribunal Regional Eleitoral de Minas Gerais;TRE-MG;não;
+14114;Tribunal Regional Eleitoral do Pará;TRE-PA;não;
+14115;Tribunal Regional Eleitoral da Paraíba;TRE-PB;não;
+14116;Tribunal Regional Eleitoral do Paraná;TRE-PR;não;
+14117;Tribunal Regional Eleitoral de Pernambuco;TRE-PE;não;
+14118;Tribunal Regional Eleitoral do Piauí;TRE-PI;não;
+14119;Tribunal Regional Eleitoral do Rio de Janeiro;TRE-RJ;não;
+14120;Tribunal Regional Eleitoral do Rio Grande do Norte;TRE-RN;não;
+14121;Tribunal Regional Eleitoral do Rio Grande do Sul;TRE-RS;não;
+14122;Tribunal Regional Eleitoral de Rondônia;TRE-RO;não;
+14123;Tribunal Regional Eleitoral de Santa Catarina;TRE-SC;não;
+14124;Tribunal Regional Eleitoral de São Paulo;TRE-SP;não;
+14125;Tribunal Regional Eleitoral de Sergipe;TRE-SE;não;
+14126;Tribunal Regional Eleitoral de Tocantins;TRE-TO;não;
+14127;Tribunal Regional Eleitoral de Roraima;TRE-RR;não;
+14128;Tribunal Regional Eleitoral do Amapá;TRE-AP;não;
+14901;Fundo Partidário;FP;sim;FP
+15000;Justiça do Trabalho;JT;não;
+15101;Tribunal Superior do Trabalho;TST;não;
+15102;Tribunal Regional do Trabalho da 1a. Região - Rio de Janeiro;TRT1;não;
+15103;Tribunal Regional do Trabalho da 2a. Região - São Paulo;TRT2;não;
+15104;Tribunal Regional do Trabalho da 3a. Região - Minas Gerais;TRT3;não;
+15105;Tribunal Regional do Trabalho da 4a. Região - Rio Grande do Sul;TRT4;não;
+15106;Tribunal Regional do Trabalho da 5a. Região - Bahia;TRT5;não;
+15107;Tribunal Regional do Trabalho da 6a. Região - Pernambuco;TRT6;não;
+15108;Tribunal Regional do Trabalho da 7a. Região - Ceará;TRT7;não;
+15109;Tribunal Regional do Trabalho da 8a. Região - Pará/Amapá;TRT8;não;
+15110;Tribunal Regional do Trabalho da 9a. Região - Paraná;TRT9;não;
+15111;Tribunal Regional do Trabalho da 10a. Região - Distrito Federal/Tocantins;TRT10;não;
+15112;Tribunal Regional do Trabalho da 11a. Região - Amazonas/Roraima;TRT11;não;
+15113;Tribunal Regional do Trabalho da 12a. Região - Santa Catarina;TRT12;não;
+15114;Tribunal Regional do Trabalho da 13a. Região - Paraíba;TRT13;não;
+15115;Tribunal Regional do Trabalho da 14a. Região - Rondônia/Acre;TRT14;não;
+15116;Tribunal Regional do Trabalho da 15a. Região - Campinas/SP;TRT15;não;
+15117;Tribunal Regional do Trabalho da 16a. Região - Maranhão;TRT16;não;
+15118;Tribunal Regional do Trabalho da 17a. Região - Espírito Santo;TRT17;não;
+15119;Tribunal Regional do Trabalho da 18a. Região - Goiás;TRT18;não;
+15120;Tribunal Regional do Trabalho da 19a. Região - Alagoas;TRT19;não;
+15121;Tribunal Regional do Trabalho da 20a. Região - Sergipe;TRT20;não;
+15122;Tribunal Regional do Trabalho da 21a. Região - Rio Grande do Norte;TRT21;não;
+15123;Tribunal Regional do Trabalho da 22a. Região - Piauí;TRT22;não;
+15124;Tribunal Regional do Trabalho da 23a. Região - Mato Grosso;TRT23;não;
+15125;Tribunal Regional do Trabalho da 24a. Região - Mato Grosso do Sul;TRT24;não;
+15126;Conselho Superior da Justiça do Trabalho;CSJT;não;
+16000;Justiça do Distrito Federal e dos Territórios;JDFT;não;
+16101;Tribunal de Justiça do Distrito Federal e dos Territórios;TJDFT;não;
+16103;Justiça da Infância e da Juventude;JIJ;não;
+17000;Conselho Nacional de Justiça;CNJ;não;
+17101;Conselho Nacional de Justiça;CNJ;não;
+20000;Presidência da República;PR;não;
+20101;Presidência da República;PR;não;
+20118;Agência Brasileira de Inteligência;ABIN;não;
+20204;Instituto Nacional de Tecnologia da Informação;ITI;não;
+20415;Empresa Brasil de Comunicação S.A. - EBC;EBC;não;
+20927;Fundo de Imprensa Nacional;FUNIN;sim;FIN
+22000;Ministério da Agricultura e Pecuária;;não;
+22101;Ministério da Agricultura e Pecuária - Administração Direta;;não;
+22202;Empresa Brasileira de Pesquisa Agropecuária;EMBRAPA;não;
+22906;Fundo de Defesa da Economia Cafeeira;FUNCAFÉ;sim;FUNCAFE
+24000;Ministério da Ciência, Tecnologia e Inovação;MCTI;não;
+24101;Ministério da Ciência, Tecnologia e Inovação - Administração Direta;MCTI/AdmD;não;
+24201;Conselho Nacional de Desenvolvimento Científico e Tecnológico;CNPQ;não;
+24204;Comissão Nacional de Energia Nuclear;CNEN;não;
+24205;Agência Espacial Brasileira;AEB;não;
+24209;Centro Nacional de Tecnologia Eletrônica Avançada - S.A.;CEITEC;não;
+24901;Fundo Nacional de Desenvolvimento Científico e Tecnológico;FNDCT;sim;FNDCT
+25000;Ministério da Fazenda;MF;não;
+25101;Ministério da Fazenda - Administração Direta;MF/AdmD;não;
+25103;Secretaria Especial da Receita Federal do Brasil;RFB;não;
+25104;Procuradoria-Geral da Fazenda Nacional;PGFN;não;
+25203;Comissão de Valores Mobiliários;CVM;não;
+25208;Superintendência de Seguros Privados;SUSEP;não;
+25903;Fundo de Compensação e Variações Salariais;FCVS;sim;FCVS
+26000;Ministério da Educação;MEC;não;
+26101;Ministério da Educação - Administração Direta;MEC/AdmD;não;
+26104;Instituto Nacional de Educação de Surdos;INES;não;
+26105;Instituto Benjamin Constant;IBC;não;
+26201;Colégio Pedro II;CPII;não;
+26230;Fundação Universidade Federal do Vale do São Francisco Univasf;;não;
+26231;Universidade Federal de Alagoas;UFAL;não;
+26232;Universidade Federal da Bahia;UFBA;não;
+26233;Universidade Federal do Ceará;UFCE;não;
+26234;Universidade Federal do Espírito Santo;UFES;não;
+26235;Universidade Federal de Goiás;UFGO;não;
+26236;Universidade Federal Fluminense;UFF;não;
+26237;Universidade Federal de Juiz de Fora;UFJF;não;
+26238;Universidade Federal de Minas Gerais;UFMG;não;
+26239;Universidade Federal do Pará;UFPA;não;
+26240;Universidade Federal da Paraíba;UFPB;não;
+26241;Universidade Federal do Paraná;UFPR;não;
+26242;Universidade Federal de Pernambuco;UFPE;não;
+26243;Universidade Federal do Rio Grande do Norte;UFRN;não;
+26244;Universidade Federal do Rio Grande do Sul;UFRS;não;
+26245;Universidade Federal do Rio de Janeiro;UFRJ;não;
+26246;Universidade Federal de Santa Catarina;UFSC;não;
+26247;Universidade Federal de Santa Maria;UFSM;não;
+26248;Universidade Federal Rural de Pernambuco;UFRPE;não;
+26249;Universidade Federal Rural do Rio de Janeiro;UFRRJ;não;
+26250;Fundação Universidade Federal de Roraima;UFRR;não;
+26251;Fundação Universidade Federal do Tocantins;UFTO;não;
+26252;Universidade Federal de Campina Grande;UFCG;não;
+26253;Universidade Federal Rural da Amazônia;UFRA;não;
+26254;Universidade Federal do Triângulo Mineiro;UFTM;não;
+26255;Universidade Federal dos Vales do Jequitinhonha e Mucuri;UFVJM;não;
+26256;Centro Federal de Educação Tecnológica Celso Suckow da Fonseca;CEFET-RJ;não;
+26257;Centro Federal de Educação Tecnológica de Minas Gerais;CEFET-MG;não;
+26258;Universidade Tecnológica Federal do Paraná;UTFPR;não;
+26260;Universidade Federal de Alfenas;UNIFAL;não;
+26261;Universidade Federal de Itajubá;UNIFEI;não;
+26262;Universidade Federal de São Paulo;UNIFESP;não;
+26263;Universidade Federal de Lavras;UFLA;não;
+26264;Universidade Federal Rural do Semi-Árido;UFERSA-RN;não;
+26266;Fundação Universidade Federal do Pampa;UNIPAMPA;não;
+26267;Universidade Federal da Integração Latino-Americana;UNILA;não;
+26268;Fundação Universidade Federal de Rondônia;UNIR;não;
+26269;Fundação Universidade do Rio de Janeiro;UFRJ;não;
+26270;Fundação Universidade do Amazonas;UFAM;não;
+26271;Fundação Universidade de Brasília;FUB;não;
+26272;Fundação Universidade Federal do Maranhão;UFMA;não;
+26273;Fundação Universidade Federal do Rio Grande;FURG;não;
+26274;Universidade Federal de Uberlândia;UFU;não;
+26275;Fundação Universidade Federal do Acre;FUFAC;não;
+26276;Fundação Universidade Federal de Mato Grosso;UFMT;não;
+26277;Fundação Universidade Federal de Ouro Preto;UFOP;não;
+26278;Fundação Universidade Federal de Pelotas;UFPel;não;
+26279;Fundação Universidade Federal do Piauí;UFPI;não;
+26280;Fundação Universidade Federal de São Carlos;UFSCar;não;
+26281;Fundação Universidade Federal de Sergipe;UFS;não;
+26282;Fundação Universidade Federal de Viçosa;UFV;não;
+26283;Fundação Universidade Federal de Mato Grosso do Sul;UFMS;não;
+26284;Fundação Universidade Federal de Ciências da Saúde de Porto Alegre;UFCSPA;não;
+26285;Fundação Universidade Federal de São João del-Rei;UFSJ;não;
+26286;Fundação Universidade Federal do Amapá;UNIFAP;não;
+26290;Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira;INEP;não;
+26291;Fundação Coordenação de Aperfeiçoamento de Pessoal de Nível Superior;CAPES;não;
+26292;Fundação Joaquim Nabuco Fundaj;;não;
+26294;Hospital de Clínicas de Porto Alegre;HCPA;não;
+26298;Fundo Nacional de Desenvolvimento da Educação;FNDE;sim;FNDE
+26350;Fundação Universidade Federal da Grande Dourados;UFGD;não;
+26351;Universidade Federal do Recôncavo da Bahia;UFRB;não;
+26352;Fundação Universidade Federal do ABC;UFABC;não;
+26358;Hospital Universitário Prof. Alberto Antunes;HUPAA-UFAL;não;
+26359;Complexo Hospitalar e de Saúde da Universidade Federal da Bahia;HUPES-UFBA;não;
+26362;Hospital Universitário Walter Cantídio;HUWC-UFC;não;
+26363;Maternidade-Escola Assis Chateaubriand;MEAC-UFC;não;
+26364;Hospital Universitário Cassiano Antônio Moraes;HUCAM-UFES;não;
+26365;Hospital das Clínicas da Universidade Federal de Goiás;HC-UFG;não;
+26366;Hospital Universitário Antônio Pedro;HUAP-UFF;não;
+26367;Hospital Universitário da Universidade Federal de Juiz de Fora;HU-UFJF;não;
+26368;Hospital das Clínicas da Universidade Federal de Minas Gerais;HC-UFMG;não;
+26369;Hospital Universitário João de Barros Barreto;HUJBB-UFPA;não;
+26370;Hospital Universitário Bettina Ferro Souza;HUBFS-UFPA;não;
+26371;Hospital Universitário Lauro Wanderley;HULW-UFPB;não;
+26372;Hospital de Clínicas da Universidade Federal do Paraná;HC-UFPR;não;
+26373;Hospital das Clínicas da Universidade Federal de Pernambuco;HC-UFPE;não;
+26374;Complexo Hospitalar e de Saúde da Universidade Federal do Rio Grande do Norte;CHS-UFRN;não;
+26378;Complexo Hospitalar e de Saúde da Universidade Federal do Rio de Janeiro;CHS-UFRJ;não;
+26385;Hospital Universitário da Universidade Federal da Grande Dourados;HU-UFGD;não;
+26386;Hospital Universitário Prof. Polydoro Ernani de São Thiago;HU-UFSC;não;
+26387;Hospital Universitário de Santa Maria;HUSM-UFSM;não;
+26388;Hospital Universitário Alcides Carneiro;HUAC-UFCG;não;
+26389;Hospital de Clínicas da Universidade Federal do Triângulo Mineiro;HC-UFTM;não;
+26391;Hospital Universitário Gaffrée e Guinle;HUGG-Unirio;não;
+26392;Hospital Universitário Getúlio Vargas;HUGV-UFAM;não;
+26393;Hospital Universitário de Brasília;HUB-UnB;não;
+26394;Hospital Universitário da Fundação Universidade do Maranhão;HU-UFMA;não;
+26395;Hospital Universitário Dr. Miguel Riet Corrêa Jr.;HU-FURG;não;
+26396;Hospital de Clínicas da Universidade Federal de Uberlândia;HC-UFU;não;
+26397;Hospital Júlio Muller;HUJM-UFMT;não;
+26398;Hospital das Clínicas da Fundação Universidade Federal de Pelotas;HE-UFPel;não;
+26399;Hospital Universitário da Fundação Universidade Federal do Piauí;HU-UFPI;não;
+26400;Hospital Universitário da Fundação Universidade Federal de Sergipe;HU-UFS;não;
+26401;Hospital Universitário Maria Pedrossian;HUMAP-UFMS;não;
+26402;Instituto Federal de Alagoas;IFAL;não;
+26403;Instituto Federal do Amazonas;IFAM;não;
+26404;Instituto Federal Baiano IF Baiano;;não;
+26405;Instituto Federal do Ceará;IFCE;não;
+26406;Instituto Federal do Espírito Santo;IFES;não;
+26407;Instituto Federal Goiano IF Goiano;;não;
+26408;Instituto Federal do Maranhão;IFMA;não;
+26409;Instituto Federal de Minas Gerais;IFMG;não;
+26410;Instituto Federal do Norte de Minas Gerais;IFNMG;não;
+26411;Instituto Federal do Sudeste de Minas Gerais;IFSudestMG;não;
+26412;Instituto Federal do Sul de Minas Gerais IF Sul;MG;não;
+26413;Instituto Federal do Triângulo Mineiro;IFTM;não;
+26414;Instituto Federal do Mato Grosso;IFMT;não;
+26415;Instituto Federal do Mato Grosso do Sul;IFMS;não;
+26416;Instituto Federal do Pará;IFPA;não;
+26417;Instituto Federal da Paraíba;IFPB;não;
+26418;Instituto Federal de Pernambuco;IFPE;não;
+26419;Instituto Federal do Rio Grande do Sul;IFRS;não;
+26420;Instituto Federal Farroupilha;IFFar;não;
+26421;Instituto Federal de Rondônia;IFRO;não;
+26422;Instituto Federal Catarinense;IFC;não;
+26423;Instituto Federal de Sergipe;IFSE;não;
+26424;Instituto Federal do Tocantins;IFTO;não;
+26425;Instituto Federal do Acre;IFAC;não;
+26426;Instituto Federal do Amapá;IFAP;não;
+26427;Instituto Federal da Bahia;IFBA;não;
+26428;Instituto Federal de Brasília;IFB;não;
+26429;Instituto Federal de Goiás;IFG;não;
+26430;Instituto Federal do Sertão Pernambucano;IFSertãoPE;não;
+26431;Instituto Federal do Piauí;IFPI;não;
+26432;Instituto Federal do Paraná;IFPR;não;
+26433;Instituto Federal do Rio de Janeiro;IFRJ;não;
+26434;Instituto Federal Fluminense;IFF;não;
+26435;Instituto Federal do Rio Grande do Norte;IFRN;não;
+26436;Instituto Federal Sul-rio-grandense;IFSRS;não;
+26437;Instituto Federal de Roraima;IFRR;não;
+26438;Instituto Federal de Santa Catarina;IFSC;não;
+26439;Instituto Federal de São Paulo;IFSP;não;
+26440;Universidade Federal da Fronteira Sul;UFFS;não;
+26441;Universidade Federal do Oeste do Pará;UFOPA;não;
+26442;Universidade da Integração Internacional da Lusofonia Afro-Brasileira;UNILAB;não;
+26443;Empresa Brasileira de Serviços Hospitalares;EBSERH;não;
+26444;Maternidade Victor Ferreira do Amaral;HVFA;não;
+26445;Hospital Universitário da UNIFESP;HU-UNIFESP;não;
+26447;Universidade Federal do Oeste da Bahia;UFOB;não;
+26448;Universidade Federal do Sul e Sudeste do Pará;UNIFESSPA;não;
+26449;Universidade Federal do Cariri;UFCA;não;
+26450;Universidade Federal do Sul da Bahia;UFESBA;não;
+26451;Hospital Universitário da Universidade Federal do Vale do São Francisco;HU-UNIVASF;não;
+26452;Universidade Federal de Catalão;UFCAT;não;
+26453;Universidade Federal de Jataí;UFJ;não;
+26454;Universidade Federal de Rondonópolis;UFR;não;
+26455;Universidade Federal do Delta do Parnaíba;UFDPar;não;
+26456;Universidade Federal do Agreste de Pernambuco Ufape;;não;
+26457;Universidade Federal do Norte do Tocantins;UFNT;não;
+28000;Ministério do Desenvolvimento, Indústria, Comércio e Serviços;MDICS;não;
+28101;Ministério do Desenvolvimento, Indústria, Comércio e Serviços - Administração Direta;MDICS;não;
+28202;Instituto Nacional de Metrologia, Qualidade e Tecnologia - Inmetro;INMETRO;não;
+28203;Instituto Nacional da Propriedade Industrial - INPI;INPI;não;
+28233;Superintendência da Zona Franca de Manaus - SUFRAMA;SUFRAMA;não;
+28903;Fundo Nacional de Desenvolvimento;;sim;FND
+28904;Fundo de Garantia para Promoção da Competitividade - FGPC;FGPC;sim;FGPC
+29000;Defensoria Pública da União;DPU;não;
+29101;Defensoria Pública da União;DPU;não;
+30000;Ministério da Justiça e Segurança Pública;MJSP;não;
+30101;Ministério da Justiça e Segurança Pública - Administração Direta;MJSP/AdmD;não;
+30107;Departamento de Polícia Rodoviária Federal;DPRF;não;
+30108;Departamento de Polícia Federal;DPF;não;
+30211;Conselho Administrativo de Defesa Econômica (2);CADE;não;
+30212;Agência Nacional de Proteção de Dados - ANPD;ANPD;não;
+30905;Fundo de Defesa de Direitos Difusos;FDD;sim;FDD
+30907;Fundo Penitenciário Nacional;FUNPEN;sim;FUNPEN
+30911;Fundo Nacional de Segurança Pública;FNSP;sim;FNSP
+30912;Fundo Nacional Antidrogas;FUNAD;sim;FNA
+32000;Ministério de Minas e Energia;MME;não;
+32101;Ministério de Minas e Energia - Administração Direta;MME/AdmD;não;
+32202;Companhia de Pesquisa de Recursos Minerais;CPRM;não;
+32265;Agência Nacional do Petróleo, Gás Natural e Biocombustíveis (1);ANP;não;
+32266;Agência Nacional de Energia Elétrica (1);ANEEL;não;
+32314;Empresa de Pesquisa Energética;EPE;não;
+32396;Agência Nacional de Mineração (1);ANM;não;
+32398;Nuclebrás Equipamentos Pesados S.A. - NUCLEP;NUCLEP;não;
+32401;Autoridade Nacional de Segurança Nuclear - ANSN;ANSN;não;
+33000;Ministério da Previdência Social;MPS;não;
+33101;Ministério da Previdência Social - Administração Direta;MPS;não;
+33201;Instituto Nacional do Seguro Social;INSS;não;
+33206;Superintendência Nacional de Previdência Complementar;PREVIC;não;
+33904;Fundo do Regime Geral de Previdência Social;FRGPS;sim;FRGPS
+34000;Ministério Público da União;MPU;não;
+34101;Ministério Público Federal;MPF;não;
+34102;Ministério Público Militar;MPM;não;
+34103;Ministério Público do Distrito Federal e dos Territórios;MPDFT;não;
+34104;Ministério Público do Trabalho;MPT;não;
+34105;Escola Superior do Ministério Público da União;ESMPU;não;
+35000;Ministério das Relações Exteriores;MRE;não;
+35101;Ministério das Relações Exteriores - Administração Direta;MRE/AdmD;não;
+35201;Fundação Alexandre de Gusmão;FUNAG;não;
+36000;Ministério da Saúde;MS;não;
+36201;Fundação Oswaldo Cruz;FIOCRUZ;não;
+36210;Hospital Nossa Senhora da Conceição S.A.;HNSC;não;
+36211;Fundação Nacional de Saúde;FUNASA;não;
+36212;Agência Nacional de Vigilância Sanitária (1);ANVISA;não;
+36213;Agência Nacional de Saúde Suplementar (1);ANS;não;
+36901;Fundo Nacional de Saúde;FNS;sim;FNS
+37000;Controladoria-Geral da União;CGU;não;
+37101;Controladoria-Geral da União - Administração Direta;CGU;não;
+39000;Ministério dos Transportes;MT;não;
+39101;Ministério dos Transportes - Administração Direta;MT;não;
+39207;VALEC - Engenharia, Construções e Ferrovias S.A.;VALEC;não;
+39250;Agência Nacional de Transportes Terrestres (1);ANTT;não;
+39252;Departamento Nacional de Infraestrutura de Transportes - DNIT;DNIT;não;
+39905;Fundo Nacional de Segurança e Educação do Trânsito;FUNSET;sim;FUNSET
+40000;Ministério do Trabalho e Emprego;MTE;não;
+40101;Ministério do Trabalho e Emprego - Administração Direta;;não;
+40203;Fundação Jorge Duprat Figueiredo de Segurança e Medicina do Trabalho Fundacentro;;não;
+40901;Fundo de Amparo ao Trabalhador;FAT;sim;FAT
+41000;Ministério das Comunicações;MCom;não;
+41101;Ministério das Comunicações - Administração Direta;MCom/AdmD;não;
+41231;Agência Nacional de Telecomunicações (1);ANATEL;não;
+41260;Telecomunicações Brasileiras S.A.;TELEBRAS;não;
+41902;Fundo de Universalização dos Serviços de Telecomunicações;FUST;sim;FUST
+41903;Fundo para o Desenvolvimento Tecnológico das Telecomunicações;FUNTTEL;sim;FUNTTEL
+42000;Ministério da Cultura;MINC;não;
+42101;Ministério da Cultura - Administração Direta;MINC;não;
+42201;Fundação Casa de Rui Barbosa;FCRB;não;
+42202;Fundação Biblioteca Nacional - BN;FBN;não;
+42203;Fundação Cultural Palmares;FCP;não;
+42204;Instituto do Patrimônio Histórico e Artístico Nacional;IPHAN;não;
+42205;Fundação Nacional de Artes;FUNARTE;não;
+42206;Agência Nacional do Cinema (1);ANCINE;não;
+42207;Instituto Brasileiro de Museus;IBRAM;não;
+42902;Fundo Nacional de Cultura;FNC;sim;FNC
+44000;Ministério do Meio Ambiente e Mudança do Clima;;não;
+44101;Ministério do Meio Ambiente e Mudança do Clima - Administração Direta;;não;
+44102;Serviço Florestal Brasileiro - SFB;SFB;não;
+44201;Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis;IBAMA;não;
+44206;Instituto de Pesquisas Jardim Botânico do Rio de Janeiro;JBRJ;não;
+44207;Instituto Chico Mendes de Conservação da Biodiversidade;ICMBIO;não;
+44901;Fundo Nacional de Meio Ambiente;FNMA;sim;FNMA
+44902;Fundo Nacional sobre Mudança do Clima;FNMC;sim;FNMC
+46000;Ministério da Gestão e da Inovação em Serviços Públicos;MGISP;não;
+46101;Ministério da Gestão e da Inovação em Serviços Públicos- Administração Direta;MGISP;não;
+46201;Fundação Escola Nacional de Administração Pública;ENAP;não;
+47000;Ministério do Planejamento e Orçamento;MPO;não;
+47101;Ministério do Planejamento e Orçamento - Administração Direta;MPO;não;
+47204;Instituto de Pesquisa Econômica Aplicada;IPEA;não;
+47205;Fundação Instituto Brasileiro de Geografia e Estatística;IBGE;não;
+49000;Ministério do Desenvolvimento Agrário e Agricultura Familiar;MDA;não;
+49101;Ministério do Desenvolvimento Agrário e Agricultura Familiar - Administração Direta;MDA;não;
+49201;Instituto Nacional de Colonização e Reforma Agrária - INCRA;INCRA;não;
+49202;Companhia Nacional de Abastecimento - CONAB;CONAB;não;
+51000;Ministério do Esporte;MESP;não;
+51101;Ministério do Esporte - Administração Direta;MESP;não;
+52000;Ministério da Defesa;MD;não;
+52101;Ministério da Defesa - Administração Direta;MD/AdmD;não;
+52111;Comando da Aeronáutica;COMAER;não;
+52121;Comando do Exército;COMAEX;não;
+52131;Comando da Marinha;COMAR;não;
+52133;Secretaria da Comissão Interministerial para os Recursos do Mar;SECIRM;não;
+52211;Caixa de Financiamento Imobiliário da Aeronáutica;CFIAe;não;
+52221;Indústria de Material Bélico do Brasil;IMBEL;não;
+52222;Fundação Osório;FOSORIO;não;
+52232;Caixa de Construções de Casas para o Pessoal da Marinha;CCCPM;não;
+52233;Amazônia Azul Tecnologias de Defesa S.A.;AMAZUL;não;
+52901;Fundo do Ministério da Defesa;FMD;sim;FMD
+52902;Fundo de Administração do Hospital das Forças Armadas;FAHFA;sim;FAHFA
+52903;Fundo do Serviço Militar;FSM;sim;FSM
+52911;Fundo Aeronáutico;FAer;sim;FAER
+52921;Fundo do Exército;FExc;sim;FEX
+52931;Fundo Naval;FNav;sim;FNAV
+52932;Fundo de Desenvolvimento do Ensino Profissional Marítimo;FDEPM;sim;FDEPM
+53000;Ministério da Integração e do Desenvolvimento Regional;MDR;não;
+53101;Ministério da Integração e do Desenvolvimento Regional - Administração Direta;MDR;não;
+53201;Companhia de Desenvolvimento dos Vales do São Francisco e do Parnaíba;CODEVASF;não;
+53202;Superintendência do Desenvolvimento da Amazônia;SUDAM;não;
+53203;Superintendência do Desenvolvimento do Nordeste;SUDENE;não;
+53204;Departamento Nacional de Obras Contra as Secas;DNOCS;não;
+53207;Superintendência do Desenvolvimento do Centro-Oeste;SUDECO;não;
+53210;Agência Nacional de Águas e Saneamento Básico (1);ANA;não;
+54000;Ministério do Turismo;MTur;não;
+54101;Ministério do Turismo - Administração Direta;Mtur/AdmD;não;
+55000;Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome;;não;
+55101;Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome - Adm. Direta;;não;
+55901;Fundo Nacional de Assistência Social;FNAS;sim;FNAS
+56000;Ministério das Cidades;MCID;não;
+56101;Ministério das Cidades - Administração Direta;MCID;não;
+56201;Empresa de Trens Urbanos de Porto Alegre S.A. - TRENSURB;TRENSURB;não;
+56202;Companhia Brasileira de Trens Urbanos - CBTU;CBTU;não;
+56902;Fundo Nacional de Habitação de Interesse Social - FNHIS;FNHIS;sim;FNHIS
+58000;Ministério da Pesca e Aquicultura;MPA;não;
+58101;Ministério da Pesca e Aquicultura- Administração Direta;MPA;não;
+59000;Conselho Nacional do Ministério Público;CNMP;não;
+59101;Conselho Nacional do Ministério Público;CNMP;não;
+60000;Gabinete da Vice-Presidência da República;GabinVP;não;
+60101;Gabinete da Vice-Presidência da República;GabinVP;não;
+63000;Advocacia-Geral da União;AGU;não;
+63101;Advocacia-Geral da União;AGU;não;
+65000;Ministério das Mulheres;;não;
+65101;Ministério das Mulheres - Administração Direta;;não;
+67000;Ministério da Igualdade Racial;MIR;não;
+67101;Ministério da Igualdade Racial - Administração Direta;MIR;não;
+68000;Ministério de Portos e Aeroportos;MPA;não;
+68101;Ministério de Portos e Aeroportos - Administração Direta;MPA;não;
+68201;Agência Nacional de Transportes Aquaviários (1);ANTAQ;não;
+68213;Agência Nacional de Aviação Civil (1);ANAC;não;
+68901;Fundo da Marinha Mercante - FMM;FMM;sim;FMM
+68902;Fundo Nacional de Aviação Civil - FNAC;FNAC;sim;FNAC
+69000;Ministério do Empreendedorismo, da Microempresa e da Empresa de Pequeno Porte;;não;
+69101;Ministério do Empreendedorismo, da Microempresa e da Empresa de Pequeno Porte – Administração direta;;não;
+71000;Encargos Financeiros da União;EFU;não;
+71101;Recursos sob Supervisão do Ministério da Fazenda;EFU-MF;não;
+71102;Recursos sob Supervisão do Ministério do Planejamento e Orçamento;;não;
+71103;Encargos Financeiros da União - Pagamento de Sentenças Judiciais;EFU-PSJ;não;
+71104;Remuneração de Agentes Financeiros - Recursos sob Supervisão do Ministério da Fazenda;EFU-RAF;não;
+71902;Fundo Soberano do Brasil - Recursos sob Supervisão do Ministério da Fazenda;;sim;FSB
+71903;Fundo Social - FS;;sim;FSOCIAL
+71904;Fundo de Estabilidade do Seguro Rural - Recursos sob Supervisão do Ministério da Fazenda;FESR;sim;FESR
+71905;Fundo de Garantia à Exportação - Recursos sob Supervisão do Ministério da Fazenda;FGE;sim;FGE
+71906;Fundo Especial de Financiamento de Campanhas;FEFC;sim;FEFC
+73000;Transferências a Estados, Distrito Federal e Municípios;;não;
+73101;Recursos sob Supervisão do Ministério da Fazenda;;não;
+73107;Recursos sob Supervisão do Ministério da Educação;;não;
+73108;Transferências Constitucionais - Recursos sob Supervisão do Ministério da Fazenda;;não;
+73111;Recursos sob Supervisão do Ministério do Meio Ambiente e Mudança do Clima;;não;
+73113;Recursos sob Supervisão do Ministério da Gestão e Inovação em Serviços Públicos;;não;
+73116;Recursos sob Supervisão da Agência Nacional do Petróleo, Gás Natural e Biocombustíveis - ANP;;não;
+73118;Recursos sob Supervisão da Agência Nacional de Energia Elétrica - ANEEL;;não;
+73119;Recursos sob Supervisão da Agência Nacional de Mineração - ANM;;não;
+73120;Recursos sob Supervisão do Fundo Nacional de Cultura;;sim;FNC
+73901;Fundo Constitucional do Distrito Federal;FCDF;sim;FCDF
+74000;Operações Oficiais de Crédito;;não;
+74101;Recursos sob Supervisão da Secretaria do Tesouro Nacional - Ministério da Fazenda;;não;
+74102;Recursos sob Supervisão do Ministério da Fazenda;;não;
+74104;Recursos sob Supervisão do Ministério da Agricultura e Pecuária;;não;
+74119;Recursos sob Supervisão do Ministério do Desenvolvimento Agrário e Agricultura Familiar;;não;
+74120;Recursos sob Supervisão do Ministério do Empreendedorismo, da Microempresa e da Empresa de Pequeno Porte;;não;
+74201;Recursos sob Supervisão da Superintendência de Seguros Privados/SUSEP - Ministério da Fazenda;;não;
+74202;Recursos sob Supervisão da Agência Nacional de Saúde Suplementar;;não;
+74203;Recursos sob Supervisão do Instituto Nacional de Colonização e Reforma Agrária/INCRA-MDA;;não;
+74204;Recursos sob Supervisão da Caixa de Construções de Casas para o Pessoal da Marinha;;não;
+74205;Recursos sob Supervisão da Caixa de Financiamento Imobiliário da Aeronáutica;;não;
+74901;Recursos sob Supervisão do Fundo de Defesa da Economia Cafeeira/Funcafé - M. Agric. e Pec.;;sim;FUNCAFE
+74902;Recursos sob Supervisão do Fundo de Financiamento ao Estudante do Ensino Superior - Min. da Educação;;sim;FIES
+74904;Recursos sob Supervisão do Fundo da Marinha Mercante/FMM - M. de Portos e Aeroportos;FMM;sim;FMM
+74905;Recursos sob Sup. do Fundo p/ Desenv. Tecnol. das Telecomunic./FUNTTEL - M. Comunicações;;sim;FUNTTEL
+74906;Recursos sob Supervisão do Fundo de Terras e da Reforma Agrária/Banco da Terra - MDA;;sim;BTERRA
+74908;Recursos sob Supervisão do Fundo Geral de Turismo - Ministério do Turismo;;sim;FUNGETUR
+74910;Recursos sob Sup. do Fundo Nac.de Desenv.Científico e Tecnológico - Min.Ciência,Tecnol. e Inov.;;sim;FNDCT
+74912;Recursos sob Supervisão do Fundo Nacional de Cultura;;sim;FNC
+74913;Recursos sob Supervisão do Fundo Constitucional de Financiamento do Norte/FNO - MDR;FNO;sim;FNO
+74914;Recursos sob Supervisão do Fundo Constitucional de Financiamento do Centro-Oeste/FCO - MDR;FCO;sim;FCO
+74915;Recursos sob Supervisão do Fundo Constitucional de Financiamento do Nordeste/FNE - MDR;FNE;sim;FNE
+74916;Recursos sob Supervisão do Fundo Nacional sobre Mudança do Clima/FNMC - MMA;;sim;FNMC
+74917;Recursos sob Supervisão do Fundo de Desenvolvimento da Amazônia/FDA - MDR;FDA;sim;FDA
+74918;Recursos sob Supervisão do Fundo de Desenvolvimento do Nordeste/FDNE - MDR;FDNE;sim;FDNE
+74919;Recursos sob Supervisão do Fundo de Desenvolvimento do CentroOeste/FDCO;MDRFDCO;sim;FDCO
+74920;Recursos sob Supervisão do Fundo de Universalização dos Serviços de Telecomunicações - FUST - M. Comunicações;;sim;FUST
+74921;Recursos sob Supervisão do Fundo Nacional de Investimento em Infraestrutura Social (FIIS)/PR;FIIS;sim;FIIS
+75000;Dívida Pública Federal;;não;
+75101;Recursos sob Supervisão do Ministério da Fazenda;;não;
+81000;Ministério dos Direitos Humanos e da Cidadania;MDH;não;
+81101;Ministério dos Direitos Humanos e da Cidadania - Administração Direta;MDH/AdmD;não;
+81901;Fundo Nacional para a Criança e o Adolescente;FNCA;sim;FNCA
+81902;Fundo Nacional do Idoso;FNI;sim;FNI
+83000;Banco Central do Brasil;BCB;não;
+83201;Banco Central do Brasil - BACEN;;não;
+84000;Ministério dos Povos Indígenas;;não;
+84101;Ministério dos Povos Indígenas - Administração Direta;;não;
+84201;Fundação Nacional dos Povos Indígenas - FUNAI;;não;
+90000;Reserva de Contingência - nº 13.848, de 25 de junho de 2019. art. 51, ambos da Lei nº 13.848, de 25 de junho de 2019.;;não;

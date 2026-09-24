@@ -1,0 +1,67 @@
+fonte_cod;descricao;fundo_id;vinculo;justificativa
+007;Prevenção de Acidentes de Trânsito;FUNSET;a verificar;Prevenção de acidentes de trânsito — destinação típica do Funset
+014;Recursos do Fundo Social Destinados à Educação Pública, com Prioridade para Educação Básica, e à Saúde;FSOCIAL;explícito;Fonte nomeia o Fundo Social
+019;FUNAPOL;FUNAPOL;explícito;Fonte nomeia o fundo
+020;Sinalização, Engenharia de Tráfego e de Campo, Policiamento, Fiscalização e Educação de Trânsito;FUNSET;a verificar;Sinalização, fiscalização e educação de trânsito
+022;Aplicações da Cota-Parte da Contribuição Sindical no FAT;FAT;explícito;Fonte nomeia o FAT
+024;Pensões Militares e Remuneração dos Inativos Militares do FCDF;FCDF;explícito;Fonte nomeia o FCDF
+025;Reaparelhamento e Custeio das Atividades de Controle e Fiscalização de Produtos Químicos e de Repressão ao Tráfico Ilícito de Drogas;FNA;a verificar;Repressão ao tráfico ilícito de drogas
+028;Financiamento de Estudos e Serviços de Geologia e Geofísica Aplicados à Prospecção de Combustíveis Fósseis;FNDCT;a verificar;Estudos de geologia e geofísica — CT-Petro/CT-Mineral
+029;Fundo Setorial do Audiovisual - FSA, exceto recursos oriundos do FISTEL;FNC;explícito;Recursos do Fistel destinados ao FSA (categoria de programação do FNC)
+031;FUNDAF - PGFN;FUNDAF;explícito;Fonte nomeia o fundo
+032;FUNDAF - RFB;FUNDAF;explícito;Fonte nomeia o fundo
+040;Seguro-Desemprego, Abono Salarial e Previdência Social;FAT;a verificar;Seguro-desemprego e abono salarial — despesas típicas do FAT
+042;Capitalização do Fundo Social;FSOCIAL;explícito;Fonte nomeia o Fundo Social
+044;Recursos do FISTEL destinados ao FUST;FUST;explícito;Fonte nomeia o Fistel e o Fust
+054;Benefícios do Regime Geral de Previdência Social;FRGPS;a verificar;Benefícios do RGPS
+055;Benefícios do Regime Próprio de Previdência Social do FCDF - Contribuição do Segurado;FCDF;explícito;Fonte nomeia o FCDF
+064;Desenvolvimento e Fomento do Setor de Aviação Civil e da Infraestrutura Aeronáutica Civil;FNAC;a verificar;Fomento da aviação civil e infraestrutura aeronáutica
+068;FNDF - Fundo Nacional de Desenvolvimento Florestal;FNDF;explícito;Fonte nomeia o fundo
+069;Recursos Arrecadados em Pagamento de Multas por Infração Ambiental a Serem Revertidos a Fundos;FNMA;a verificar;"Multas ambientais revertidas a fundos (sem nomear); o FNMA é o destino típico"
+072;Desenvolvimento de Atividades de Gestão Ambiental Relacionadas à Cadeia Produtiva do Petróleo, ou apoio a projetos ou estudos e financiamento de empreendimentos que visem à mitigação da mudança do clima e à adaptação à mudança do clima e aos seus efeitos;FNMC;a verificar;Mitigação e adaptação à mudança do clima (parcela do petróleo)
+074;Encargos de Responsabilidade do Fundo Contingente da Extinta Rede Ferroviária Federal S.A;FCRFFSA;explícito;Fonte nomeia o fundo
+079;Programa de Proteção a Crianças e Adolescentes Ameaçados de Morte;FNCA;a verificar;Proteção a crianças e adolescentes ameaçados de morte
+082;Atividades de Avaliação dos Impactos Econômicos e Sociais da Aplicação dos Recursos dos Fundos de Desenvolvimento Regionais;FDA|FDNE|FDCO;explícito;Fonte cita os Fundos de Desenvolvimento Regionais
+083;Reparação de Danos Causados a Interesses Difusos e Coletivos;FDD;a verificar;Reparação de danos a interesses difusos e coletivos
+084;FGTS;FGTS;explícito;Fonte nomeia o fundo
+088;Fundo Aeroviário, para Execução e Manutenção do Sistema Aeroviário Nacional;FAEROV;explícito;Fonte nomeia o fundo
+089;Fundo Aeroviário, para Desenvolvimento do Ensino Profissional Aeronáutico;FAEROV;explícito;Fonte nomeia o fundo
+091;Encargos da Intervenção da União no Apoio ao Desenvolvimento da Marinha Mercante e da Indústria de Construção e Reparação Naval Brasileiras;FMM;a verificar;Apoio à Marinha Mercante e à construção naval
+097;CT-Aeronáutico e Financiamentos Reembolsáveis, Subvenções Econômicas e Despesas Administrativas/Operacionais;FNDCT;explícito;Fundo setorial de C&T (CT-*), que integra o FNDCT
+098;CT-Agronegócio e Financiamentos Reembolsáveis, Subvenções Econômicas e Despesas Administrativas/Operacionais;FNDCT;explícito;Fundo setorial de C&T (CT-*), que integra o FNDCT
+099;CT-Biotecnologia e Recursos Genéticos, e Financiamentos Reembolsáveis, Subvenções Econômicas e Despesas Administrativas/Operacionais;FNDCT;explícito;Fundo setorial de C&T (CT-*), que integra o FNDCT
+100;CT-Saúde e Financiamentos Reembolsáveis, Subvenções Econômicas e Despesas Administrativas/Operacionais;FNDCT;explícito;Fundo setorial de C&T (CT-*), que integra o FNDCT
+101;CT-Verde Amarelo (Programa de Estímulo à Interação Universidade-Empresa para o Apoio à Inovação) e Financiamentos Reembolsáveis, Subvenções Econômicas e Despesas Administrativas/Operacionais;FNDCT;explícito;Fundo setorial de C&T (CT-*), que integra o FNDCT
+102;CT-Verde Amarelo (Programa de Inovação para Competitividade) e Financiamentos Reembolsáveis, Subvenções Econômicas, Despesas Administrativas/Operacionais, Equalização de Taxas de Juros e Investimentos em Empresas Inovadoras;FNDCT;explícito;Fundo setorial de C&T (CT-*), que integra o FNDCT
+103;CT-Aquaviário e Financiamentos Reembolsáveis, Subvenções Econômicas e Despesas Administrativas/Operacionais;FNDCT;explícito;Fundo setorial de C&T (CT-*), que integra o FNDCT
+104;CT-Infra e Financiamentos Reembolsáveis, Subvenções Econômicas, Despesas Administrativas/Operacionais e Ações Transversais;FNDCT;explícito;Fundo setorial de C&T (CT-*), que integra o FNDCT
+105;CT-Mineral e Financiamentos Reembolsáveis, Subvenções Econômicas, Despesas Administrativas/Operacionais e Ações Transversais;FNDCT;explícito;Fundo setorial de C&T (CT-*), que integra o FNDCT
+106;Recursos do FISTEL destinados ao CT-Espacial e a Financiamentos Reembolsáveis, Subvenções Econômicas, Despesas Administrativas/Operacionais e Ações Transversais;FNDCT;explícito;Fundo setorial de C&T (CT-*), que integra o FNDCT
+107;CT-Petro e Financiamentos Reembolsáveis, Subvenções Econômicas, Despesas Administrativas/Operacionais e Ações Transversais;FNDCT;explícito;Fundo setorial de C&T (CT-*), que integra o FNDCT
+108;CT-Energia e Financiamentos Reembolsáveis, Subvenções Econômicas, Despesas Administrativas/Operacionais e Ações Transversais;FNDCT;explícito;Fundo setorial de C&T (CT-*), que integra o FNDCT
+109;CT-Hidro e Financiamentos Reembolsáveis, Subvenções Econômicas, Despesas Administrativas/Operacionais e Ações Transversais;FNDCT;explícito;Fundo setorial de C&T (CT-*), que integra o FNDCT
+110;CT-Info e Financiamentos Reembolsáveis, Subvenções Econômicas, Despesas Administrativas/Operacionais e Ações Transversais;FNDCT;explícito;Fundo setorial de C&T (CT-*), que integra o FNDCT
+112;CT-Amazônia e Financiamentos Reembolsáveis, Subvenções Econômicas, Despesas Administrativas/Operacionais e Ações Transversais;FNDCT;explícito;Fundo setorial de C&T (CT-*), que integra o FNDCT
+114;Pesquisa, Desenvolvimento e Tecnologia de Interesse do Desenvolvimento Regional;FNDCT;a verificar;P&D de interesse do desenvolvimento regional (CT)
+115;Projetos do Comando da Marinha para Construção e Reparos de Embarcações em Estaleiros Brasileiros;FMM;a verificar;Construção e reparo de embarcações em estaleiros brasileiros
+117;Recursos Próprios Destinados ao Fundo Geral do Cacau;FCACAU;explícito;Fonte nomeia o fundo
+118;CT-Infra e Financiamentos Reembolsáveis, Subvenções Econômicas e Despesas Administrativas/Operacionais;FNDCT;explícito;Fundo setorial de C&T (CT-*), que integra o FNDCT
+119;Recursos do FISTEL Destinados ao CT-Infra e a Financiamentos Reembolsáveis, Subvenções Econômicas, Despesas Administrativas/Operacionais e Ações Transversais;FNDCT;explícito;Fundo setorial de C&T (CT-*), que integra o FNDCT
+120;Recursos do FISTEL de Livre Aplicação na ANATEL e no Tesouro Nacional;FISTEL;explícito;Fonte nomeia o Fistel
+124;Fundo Garantidor do Fundo de Financiamento Estudantil - FG-FIES;FIES;explícito;Fundo Garantidor do FIES
+125;Benefícios do Regime Próprio de Previdência Social do FCDF - Contribuição Patronal;FCDF;explícito;Fonte nomeia o FCDF
+135;Recursos do FISTEL destinados ao FSA;FNC;explícito;Recursos do Fistel destinados ao FSA (categoria de programação do FNC)
+136;CT-Transporte e Financiamentos Reembolsáveis, Subvenções Econômicas, Despesas Administrativas/Operacionais e Ações Transversais;FNDCT;explícito;Fundo setorial de C&T (CT-*), que integra o FNDCT
+144;Sinalização, engenharia de tráfego, engenharia de campo, policiamento, fiscalização, renovação de frota circulante, educação de trânsito e custeio do processo de habilitação de condutores de baixa renda;FUNSET;a verificar;Sinalização, fiscalização e educação de trânsito
+146;Fundo Social – FS – Recursos destinados à Educação Pública e à Saúde nos termos do art. 6º da Lei nº 15.164, de 14 de julho de 2025;FSOCIAL;explícito;Fonte nomeia o Fundo Social
+147;Destinações do Fundo Social - FS;FSOCIAL;explícito;Fonte nomeia o Fundo Social
+149;Fundo Social - FS - Recursos para a educação pública, com prioridade para a educação básica, para políticas de assistência estudantil da educação superior e da educação profissional, científica e tecnológica, e para a saúde;FSOCIAL;explícito;Fonte nomeia o Fundo Social
+179;Fundo de Combate e Erradicação da Pobreza;FCEP;explícito;Fonte nomeia o fundo
+182;Fundo Nacional para Calamidades Públicas, Proteção e Defesa Civil (Funcap);FUNCAP;explícito;Fonte nomeia o fundo
+201;Transferência Constitucional do Fundo de Participação dos Municípios;FPM;explícito;Transferência constitucional do FPM
+202;Transferência Constitucional do Fundo de Participação dos Estados e do Distrito Federal;FPE;explícito;Transferência constitucional do FPE
+207;Transferência Constitucional para Aplicação em Programas de Financiamento ao Setor Produtivo da Região Norte;FNO;a verificar;Transferência constitucional — financiamento ao setor produtivo do Norte
+208;Transferência Constitucional para Aplicação em Programas de Financiamento ao Setor Produtivo da Região Centro-Oeste;FCO;a verificar;Transferência constitucional — financiamento ao setor produtivo do Centro-Oeste
+209;Transferência Constitucional para Aplicação em Programas de Financiamento ao Setor Produtivo da Região Nordeste;FNE;a verificar;Transferência constitucional — financiamento ao setor produtivo do Nordeste
+210;Transferência Constitucional para Aplicação em Programas de Financiamento ao Setor Produtivo da Região Nordeste - Semiárido;FNE;a verificar;Transferência constitucional — Nordeste/Semiárido
+251;Transferências do Fundo Nacional de Segurança Pública - FNSP;FNSP;explícito;Fonte nomeia o fundo
