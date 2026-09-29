@@ -103,7 +103,7 @@ class Casador:
 
 def carregar_execucao() -> tuple[list[dict], dict[int, str]]:
     linhas, origem = [], {}
-    for arq in sorted(glob.glob(os.path.join(DADOS, "bruto", "siop_*.csv"))):
+    for arq in sorted(glob.glob(os.path.join(DADOS, "bruto", "siop_[0-9][0-9][0-9][0-9].csv"))):
         ano = int(re.search(r"(\d{4})", os.path.basename(arq)).group(1))
         rs = ler_csv(arq)
         if not rs:
