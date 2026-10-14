@@ -16,7 +16,11 @@
 #   5. a partir de 2023 (codificação atual de fontes), grava também
 #      dados/bruto/siop_fontes_AAAA.csv: execução, em QUALQUER UO, das fontes que o
 #      MTO 2026 liga a fundos (dados/mto2026_fontes.csv). É o teste empírico do
-#      vínculo fonte-fundo: mostra se a fonte roda na UO do fundo ou fora dela.
+#      vínculo fonte-fundo: mostra se a fonte roda na UO do fundo ou fora dela;
+#   6. grava dados/bruto/siop_acoes_AAAA.csv: execução das AÇÕES orçamentárias
+#      cujo nome bate com os padrões de dados/acoes_fundos.csv (FGI, FGO, FGHab,
+#      Pé-de-Meia, "integralização de cotas"…). É por aí que aparecem os aportes
+#      da União em fundos de natureza privada, que não têm UO nem fonte própria.
 #
 # Exercícios encerrados não mudam: só são coletados se o arquivo não existir.
 # O exercício corrente e o anterior são sempre recoletados.
@@ -32,6 +36,7 @@
 #                                pacote expirar; desliga a verificação TLS).
 
 invisible(Sys.setlocale("LC_CTYPE", "C.UTF-8"))
+options(scipen = 999)   # grava 1500000000, não 1.5e+09
 
 # (os testes injetam versões simuladas das funções antes de carregar o script)
 if (!exists("despesaDetalhada")) suppressPackageStartupMessages(library(orcamentoBR))
@@ -135,6 +140,57 @@ coletar_fontes <- function(ano, tudo) {
   msg("  fontes ligadas a fundos:", nrow(cruz), "combinações UO x fonte")
 }
 
+# ---- Módulo de ações: aportes da União em fundos sem UO própria -------------
+PADROES_ACAO <- local({
+  f <- "dados/acoes_fundos.csv"
+  if (!file.exists(f)) return(character())
+  p <- read.csv2(f, colClasses = "character", encoding = "UTF-8")$padrao_acao
+  p[nzchar(trimws(p))]
+})
+casa_acao <- function(desc) {
+  if (length(PADROES_ACAO) == 0) return(rep(FALSE, length(desc)))
+  d <- sem_acento(desc)
+  Reduce(`|`, lapply(PADROES_ACAO, function(p) grepl(p, d, perl = TRUE)))
+}
+COLUNAS_ACAO <- c("exercicio", "acao_cod", "acao_desc", "uo_cod", "uo_desc", "gnd_cod", "gnd_desc",
+                  "rp_cod", "rp_desc", "ploa", "loa", "loa_mais_credito", "empenhado", "liquidado", "pago")
+
+coletar_acoes <- function(ano) {
+  if (length(PADROES_ACAO) == 0) return(TRUE)
+  m <- com_tentativas(paste("quaisMembros Acao", ano),
+                      function() quaisMembros(ano, "Acao", ignoreSecureCertificate = IGNORA_CERT))
+  if (is.null(m) || nrow(m) == 0) { msg("  ações: SIOP sem resposta"); return(FALSE) }
+  names(m) <- c("acao_cod", "acao_desc")
+  alvo <- m[casa_acao(m$acao_desc), , drop = FALSE]
+  alvo <- alvo[!duplicated(alvo$acao_cod), , drop = FALSE]
+  msg("  ações ligadas a fundos:", nrow(alvo), "de", nrow(m))
+  partes <- list()
+  for (i in seq_len(nrow(alvo))) {
+    cod <- alvo$acao_cod[i]
+    d <- com_tentativas(paste("Ação", cod), function()
+      despesaDetalhada(exercicio = ano, Acao = cod, UO = TRUE, GND = TRUE, ResultadoPrimario = TRUE,
+                       ignoreSecureCertificate = IGNORA_CERT))
+    if (is.null(d) || nrow(d) == 0) next
+    mapa <- c(Acao_cod = "acao_cod", Acao_desc = "acao_desc", UO_cod = "uo_cod", UO_desc = "uo_desc",
+              GND_cod = "gnd_cod", GND_desc = "gnd_desc",
+              ResultadoPrimario_cod = "rp_cod", ResultadoPrimario_desc = "rp_desc")
+    for (n in names(mapa)) if (n %in% names(d)) names(d)[names(d) == n] <- mapa[[n]]
+    for (c in COLUNAS_ACAO) if (!c %in% names(d)) d[[c]] <- NA
+    if (all(is.na(d$acao_desc))) d$acao_desc <- alvo$acao_desc[i]
+    d <- d[, COLUNAS_ACAO]
+    for (c in c("ploa", "loa", "loa_mais_credito", "empenhado", "liquidado", "pago"))
+      d[[c]] <- round(as.numeric(d[[c]]), 2)
+    partes[[cod]] <- d
+  }
+  arq <- file.path(DIR_BRUTO, sprintf("siop_acoes_%d.csv", ano))
+  base <- if (length(partes)) do.call(rbind, partes) else
+    as.data.frame(setNames(replicate(length(COLUNAS_ACAO), character(), simplify = FALSE), COLUNAS_ACAO))
+  if (nrow(base)) { base$exercicio <- ano; base$uo_cod <- pad5(base$uo_cod) }
+  grava_csv(base, arq)   # grava mesmo vazio: registra que o ano foi varrido
+  msg("  gravado", arq, "(", nrow(base), "linhas )")
+  TRUE
+}
+
 detalhe <- function(ano, uo = TRUE) {
   despesaDetalhada(exercicio = ano, UO = uo, Fonte = TRUE, ResultadoPrimario = TRUE, GND = TRUE,
                    ignoreSecureCertificate = IGNORA_CERT)
@@ -198,9 +254,18 @@ if (length(args) > 0) {
 falhas <- 0
 for (ano in anos) {
   arq <- file.path(DIR_BRUTO, sprintf("siop_%d.csv", ano))
-  if (file.exists(arq) && !(ano %in% forcar)) { msg("Exercício", ano, "já coletado — mantido"); next }
-  ok <- tryCatch(coletar_ano(ano), error = function(e) { msg("  erro:", conditionMessage(e)); FALSE })
-  if (!ok) falhas <- falhas + 1
+  if (file.exists(arq) && !(ano %in% forcar)) {
+    msg("Exercício", ano, "já coletado — mantido")
+  } else {
+    ok <- tryCatch(coletar_ano(ano), error = function(e) { msg("  erro:", conditionMessage(e)); FALSE })
+    if (!ok) falhas <- falhas + 1
+  }
+  # Ações têm cache próprio: entram também nos anos já coletados antes deste módulo.
+  arq_a <- file.path(DIR_BRUTO, sprintf("siop_acoes_%d.csv", ano))
+  if (!file.exists(arq_a) || ano %in% forcar) {
+    msg("Ações", ano)
+    tryCatch(coletar_acoes(ano), error = function(e) msg("  ações: erro", conditionMessage(e)))
+  }
 }
 msg("Fim. Exercícios com falha:", falhas)
 quit(status = if (falhas > 0 && falhas == length(anos)) 1 else 0)

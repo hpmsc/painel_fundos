@@ -8,6 +8,9 @@ Entradas (todas em dados/):
   classificacoes.csv      histórico de classificações por fundo (ET 01/2026)
   marcos.csv              linha do tempo de normas, taxonomias e decisões (ET 01/2026)
   bruto/siop_AAAA.csv     execução por UO x fonte x RP x GND (gerado por coleta.R)
+  bruto/siop_acoes_AAAA.csv  execução das ações que citam fundos (aportes da União em
+                          fundos sem UO própria, como FGI e FGO), classificadas por
+                          acoes_fundos.csv
   semente_bassi_2018.csv  execução de 2018 (Bassi, TD Ipea 2458, Tabela 3), usada
                           apenas enquanto não houver siop_2018.csv
 
@@ -103,7 +106,7 @@ class Casador:
 
 def carregar_execucao() -> tuple[list[dict], dict[int, str]]:
     linhas, origem = [], {}
-    for arq in sorted(glob.glob(os.path.join(DADOS, "bruto", "siop_*.csv"))):
+    for arq in sorted(glob.glob(os.path.join(DADOS, "bruto", "siop_[0-9][0-9][0-9][0-9].csv"))):
         ano = int(re.search(r"(\d{4})", os.path.basename(arq)).group(1))
         rs = ler_csv(arq)
         if not rs:
@@ -267,8 +270,51 @@ def montar() -> dict:
             for k in ("atual", "emp", "dentro"):
                 va[k] = round(va[k], 2)
 
+    # --- Ações: aportes da União em fundos sem UO própria (FGI, FGO…) --------
+    regras_acao = [(r.get("fundo_id", ""), re.compile(r["padrao_acao"]))
+                   for r in ler_csv(os.path.join(DADOS, "acoes_fundos.csv")) if r.get("padrao_acao")]
+    acoes: dict[tuple, dict] = {}
+    exec_acao = defaultdict(lambda: defaultdict(lambda: {"loa": 0.0, "atual": 0.0, "emp": 0.0, "pago": 0.0}))
+    for arq in sorted(glob.glob(os.path.join(DADOS, "bruto", "siop_acoes_*.csv"))):
+        ano = re.search(r"(\d{4})", os.path.basename(arq)).group(1)
+        for r in ler_csv(arq):
+            d = norm(r.get("acao_desc", ""))
+            fid = next((f for f, rx in regras_acao if rx.search(d)), None)
+            if fid is None:
+                continue
+            if fid and fid not in fundos:
+                fid = ""
+            uo = r.get("uo_cod", "").zfill(5)
+            fundo_uo = (casador.casar(uo, r.get("uo_desc", "")) or "") if eh_candidata(uo, r.get("uo_desc", "")) else ""
+            a = acoes.setdefault((fid, r["acao_cod"]), {"fundo": fid, "acao": r["acao_cod"], "desc": r.get("acao_desc", ""), "anos": {}})
+            a["desc"] = r.get("acao_desc", "") or a["desc"]
+            ya = a["anos"].setdefault(ano, {"loa": 0.0, "atual": 0.0, "emp": 0.0, "pago": 0.0, "uos": {}, "gnd": {}, "na_uo_do_fundo": False})
+            v = {"loa": num(r.get("loa")), "atual": num(r.get("loa_mais_credito")), "emp": num(r.get("empenhado")), "pago": num(r.get("pago"))}
+            for k in v:
+                ya[k] += v[k]
+            ya["uos"][uo] = r.get("uo_desc", "")
+            if r.get("gnd_cod"):
+                ya["gnd"][r["gnd_cod"]] = r.get("gnd_desc", "")
+            dentro = bool(fid) and fundo_uo == fid
+            ya["na_uo_do_fundo"] = ya["na_uo_do_fundo"] or dentro
+            if fid and not dentro:          # evita dupla contagem com a execução da UO do próprio fundo
+                for k in v:
+                    exec_acao[fid][ano][k] += v[k]
+    lista_acoes = []
+    for a in acoes.values():
+        for ya in a["anos"].values():
+            ya["uos"] = [{"cod": c, "desc": dsc} for c, dsc in sorted(ya["uos"].items())]
+            ya["gnd"] = [{"cod": c, "desc": dsc} for c, dsc in sorted(ya["gnd"].items())]
+            for k in ("loa", "atual", "emp", "pago"):
+                ya[k] = round(ya[k], 2)
+        a["total_pago"] = round(sum(y["pago"] for y in a["anos"].values()), 2)
+        lista_acoes.append(a)
+    lista_acoes.sort(key=lambda a: (a["fundo"] == "", a["fundo"], -a["total_pago"]))
+
     saida = []
     for fid, f in fundos.items():
+        f["exec_acoes"] = {a: {k: round(x, 2) for k, x in v.items()} for a, v in sorted(exec_acao[fid].items())}
+        f["acoes"] = [a["acao"] for a in lista_acoes if a["fundo"] == fid]
         f["exec_fonte"] = {a: {k: round(x, 2) for k, x in v.items()} for a, v in sorted(exec_fonte[fid].items())}
         f["exec"] = {str(a): {CURTO[m]: (round(v, 2) if m in presente[(fid, a)] else None) for m, v in e.items()}
                      for a, e in sorted(exec_[fid].items())}
@@ -303,6 +349,7 @@ def montar() -> dict:
             "uos_de_fundo": [u for u in ler_csv(os.path.join(DADOS, "mto2026_uos.csv")) if u.get("uo_de_fundo") == "sim"],
         },
         "verificacao_fontes": sorted(verif.values(), key=lambda v: v["cod"]),
+        "acoes_fundos": lista_acoes,
     }
 
 

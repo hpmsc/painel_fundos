@@ -29,12 +29,29 @@ linhas <- function(ano, cods) {
   } }
   do.call(rbind, out)
 }
+ACOES <- data.frame(
+  cod  = c("00OQ", "0A81", "21DQ", "2000", "0E36"),
+  desc = c("Integralização de Cotas no Fundo Garantidor para Investimentos - FGI",
+           "Concessão de Garantia via Fundo Garantidor de Operações - FGO (Pronampe)",
+           "Apoio Financeiro ao Programa Pé-de-Meia",
+           "Administração da Unidade",
+           "Integralização de Cotas de Fundos Diversos"))
 quaisMembros <- function(exercicio, dimensao, ignoreSecureCertificate = FALSE) {
+  if (dimensao == "Acao") return(data.frame(Acao_cod = ACOES$cod, Acao_desc = ACOES$desc))
   if (dimensao == "Fonte") return(data.frame(Fonte_cod = c("1000","1050","1044","1068"), Fonte_desc = "x"))
   u <- uos_do_ano(exercicio); data.frame(UO_cod = u$cod, UO_desc = u$desc)
 }
 despesaDetalhada <- function(exercicio, UO = FALSE, Fonte = FALSE, ResultadoPrimario = FALSE, GND = FALSE,
-                             ignoreSecureCertificate = FALSE, ...) {
+                             Acao = FALSE, ignoreSecureCertificate = FALSE, ...) {
+  if (is.character(Acao)) {
+    if (Acao == "2000") stop("não deveria consultar ação fora dos padrões")
+    v <- (match(Acao, ACOES$cod) * 1e9) * (1 + (exercicio - 2020) * 0.1)
+    return(data.frame(exercicio = as.character(exercicio), Acao_cod = Acao, Acao_desc = ACOES$desc[ACOES$cod == Acao],
+      UO_cod = "71101", UO_desc = "Recursos sob Supervisão do Ministério da Fazenda",
+      GND_cod = "5", GND_desc = "Inversões Financeiras", ResultadoPrimario_cod = "2", ResultadoPrimario_desc = "Primário discricionário",
+      ploa = as.character(v), loa = as.character(v), loa_mais_credito = as.character(v),
+      empenhado = as.character(v * .9), liquidado = as.character(v * .9), pago = as.character(v * .9)))
+  }
   todos <- linhas(exercicio, uos_do_ano(exercicio)$cod)
   if (isFALSE(UO) && isFALSE(Fonte)) {
     s <- sum(as.numeric(todos$loa_mais_credito))

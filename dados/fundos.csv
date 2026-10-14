@@ -2,7 +2,7 @@ id;sigla;nome;padrao_uo;uo_referencia;natureza_juridica;no_orcamento;fontes_refe
 FNS;FNS;Fundo Nacional de Saúde;FUNDO NACIONAL DE SAUDE;36901;Fundo especial;Sim;;;;
 FAT;FAT;Fundo de Amparo ao Trabalhador;AMPARO AO TRABALHADOR;40901;Fundo especial;Sim;;;;
 FNAS;FNAS;Fundo Nacional de Assistência Social;ASSISTENCIA SOCIAL;55901;Fundo especial;Sim;;;;
-FRGPS;FRGPS;Fundo do Regime Geral de Previdência Social;REGIME GERAL DE PREVIDENCIA;33904;Fundo especial;Sim;;;;"Não citado no ET 01/2026; cadastrado para identificar a UO."
+FRGPS;FRGPS;Fundo do Regime Geral de Previdência Social;REGIME GERAL D[AE] PREVIDENCIA;33904;Fundo especial;Sim;;;;"Não citado no ET 01/2026; cadastrado para identificar a UO."
 FCDF;FCDF;Fundo Constitucional do Distrito Federal;CONSTITUCIONAL DO DISTRITO FEDERAL;73901;Fundo especial;Sim;;;;UO atípica (Transferências a Estados, DF e Municípios), segundo Bassi (2019).
 FNO;FNO;Fundo Constitucional de Financiamento do Norte;FINANCIAMENTO DO NORTE;74913;Fundo especial;Sim;;;;
 FNE;FNE;Fundo Constitucional de Financiamento do Nordeste;FINANCIAMENTO DO NORDESTE;74915;Fundo especial;Sim;;;;
@@ -21,7 +21,7 @@ FNC;FNC;Fundo Nacional de Cultura;FUNDO NACIONAL (DE|DA) CULTURA|SUPERVISAO DO F
 FNMC;FNMC;Fundo Nacional sobre Mudança do Clima;MUDANCA DO CLIMA;44902|74916;Fundo especial;Sim;;;;
 FNMA;FNMA;Fundo Nacional do Meio Ambiente;FUNDO NACIONAL D[OE] MEIO AMBIENTE;44901;Fundo especial;Sim;;;;
 FNDF;FNDF;Fundo Nacional de Desenvolvimento Florestal;DESENVOLVIMENTO FLORESTAL;;Fundo especial;Sim;068;;;Fonte 068 — FNDF (confirmada no MTO 2026). Não citado no ET 01/2026.
-FUNGETUR;Fungetur;Fundo Geral de Turismo;GERAL DE TURISMO;74908;Fundo especial;Sim;;;;
+FUNGETUR;Fungetur;Fundo Geral de Turismo;GERAL D[OE] TURISMO;74908;Fundo especial;Sim;;;;
 BTERRA;Banco da Terra;Fundo de Terras e da Reforma Agrária;TERRAS E DA REFORMA AGRARIA;74906;Fundo especial;Sim;;;;
 FNSP;FNSP;Fundo Nacional de Segurança Pública;SEGURANCA PUBLICA;30911;Fundo especial;Sim;;;;
 FUNPEN;Funpen;Fundo Penitenciário Nacional;PENITENCIARIO;30907;Fundo especial;Sim;;;;
@@ -67,3 +67,12 @@ FCEP;FCEP;Fundo de Combate e Erradicação da Pobreza;ERRADICACAO DA POBREZA;;Fu
 FUNCAP;Funcap;Fundo Nacional para Calamidades Públicas, Proteção e Defesa Civil;CALAMIDADES PUBLICAS;;Fundo especial;Sem UO própria no MTO 2026;182;;;Fonte 182 no MTO 2026.
 FCRFFSA;Fundo Contingente RFFSA;Fundo Contingente da Extinta Rede Ferroviária Federal S.A.;FUNDO CONTINGENTE;;Fundo especial;Sem UO própria no MTO 2026;074;;;Fonte 074 no MTO 2026.
 FGTS;FGTS;Fundo de Garantia do Tempo de Serviço;GARANTIA DO TEMPO DE SERVICO;;Fundo fora do OGU;Não (fora do OGU);084;;;Fonte 084 e naturezas de receita 1.2.1.9.03 no MTO 2026.
+FNDFER;FNDF-Ferroviário;Fundo Nacional de Desenvolvimento Ferroviário;DESENVOLVIMENTO FERROVIARIO;39904;Fundo especial;Sim;;;;"UO encontrada pela coleta no SIOP; não citado no ET 01/2026."
+FGI;FGI;Fundo Garantidor para Investimentos;;;Fundo de natureza privada (União cotista);Não (aportes por ação orçamentária);;;;Lei nº 12.087/2009, administrado pelo BNDES. Aportes aparecem em ações, não em UO própria.
+FGO;FGO;Fundo Garantidor de Operações;;;Fundo de natureza privada (União cotista);Não (aportes por ação orçamentária);;;;Lei nº 12.087/2009, administrado pelo Banco do Brasil. Garante o Pronampe.
+FGHAB;FGHab;Fundo Garantidor da Habitação Popular;;;Fundo de natureza privada (União cotista);Não (aportes por ação orçamentária);;;;Lei nº 11.977/2009, administrado pela Caixa.
+FGEDUC;FGEDUC;Fundo de Garantia de Operações de Crédito Educativo;;;Fundo de natureza privada (União cotista);Não (aportes por ação orçamentária);;;;
+FGIE;FGIE;Fundo Garantidor de Infraestrutura;;;Fundo de natureza privada (União cotista);Não (aportes por ação orçamentária);;;;
+FGP;FGP;Fundo Garantidor de Parcerias Público-Privadas;;;Fundo de natureza privada (União cotista);Não (aportes por ação orçamentária);;;;Lei nº 11.079/2004.
+FEP;FEP;Fundo de Apoio à Estruturação de Projetos de Concessão e PPP;;;Fundo de natureza privada (União cotista);Não (aportes por ação orçamentária);;;;
+FAR;FAR;Fundo de Arrendamento Residencial;;;Fundo de natureza privada (União cotista);Não (aportes por ação orçamentária);;;;Lei nº 10.188/2001, administrado pela Caixa.

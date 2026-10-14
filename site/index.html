@@ -229,6 +229,7 @@ table.t tr:last-child td{border-bottom:0}
 .vt td.txt{min-width:240px}
 .status{display:inline-flex; gap:5px; align-items:center}
 
+#fora th:nth-child(-n+3){text-align:left}
 #tip{position:fixed; z-index:20; pointer-events:none; background:var(--ink); color:var(--paper); font-size:12px; line-height:1.45; padding:7px 10px; border-radius:7px; max-width:280px; box-shadow:var(--shadow); opacity:0; transition:opacity .08s}
 #tip.on{opacity:1}
 #tip b{font-weight:600}
@@ -336,6 +337,25 @@ code{font-family:"JetBrains Mono",ui-monospace,monospace; font-size:12px; backgr
     </div>
   </section>
 
+  <section aria-labelledby="h-fora">
+    <h2 id="h-fora">Fundos fora do orçamento: aportes da União</h2>
+    <p class="sub">Fundos de natureza privada em que a União é cotista (FGI, FGO, FGHab, Pé-de-Meia…) não têm UO nem fonte própria. O dinheiro sai em ações orçamentárias de outras UOs, geralmente como integralização de cotas. A lista reúne as ações cujo nome cita esses fundos (padrões em <code>dados/acoes_fundos.csv</code>). Ações marcadas <b>a classificar</b> citam um fundo genérico e precisam de revisão.</p>
+    <div class="resumo" id="fora-resumo" style="padding-top:0; margin-bottom:12px"></div>
+    <div class="ferramentas">
+      <label class="sr" for="fora-fundo">Filtrar fundo</label>
+      <select id="fora-fundo"><option value="">Todos os fundos</option></select>
+      <label class="sr" for="fora-anos">Período</label>
+      <select id="fora-anos">
+        <option value="ano">Só o exercício selecionado</option>
+        <option value="todos">Todos os exercícios</option>
+      </select>
+      <span class="cont" id="fora-cont"></span>
+    </div>
+    <div class="painel" style="padding:0">
+      <div class="rolagem"><table class="t" id="fora"></table></div>
+    </div>
+  </section>
+
   <section aria-labelledby="h-class">
     <h2 id="h-class">Histórico de classificações</h2>
     <p class="sub">Como cada fundo foi enquadrado ao longo do tempo, segundo o ET nº 01/2026 (Conof/CD, mar. 2026) e as fontes que ele cita: a dicotomia do Decreto 93.872/1986, a categoria mista de Bassi (2019), as listas do Acórdão TCU 1.494/2021 e as normas e fiscalizações posteriores.</p>
@@ -425,7 +445,7 @@ function fundosFiltrados(){
     if (!q) return true;
     const uos = Object.values(f.uos || {}).flat().map(u => u.cod).concat(f.uo_referencia || [], (f.mto?.uos || []).map(u => u.cod));
     const fontes = Object.values(f.fontes || {}).flat().map(x => x.cod).concat(f.fontes_referencia || [], (f.mto?.fontes || []).map(x => x.cod));
-    const alvo = [f.sigla, f.nome, f.id, f.cnpj, f.ug, ...uos, ...fontes].join(" ").toLowerCase();
+    const alvo = [f.sigla, f.nome, f.id, f.cnpj, f.ug, ...uos, ...fontes, ...(f.acoes || [])].join(" ").toLowerCase();
     return alvo.includes(q);
   });
 }
@@ -583,7 +603,8 @@ function linhaFundo(f, max){
       <span>UG ${f.ug ? `<b>${esc(f.ug)}</b>` : `<span class="falta">a registrar</span>`}</span>
       <span>CNPJ ${f.cnpj ? `<b>${esc(f.cnpj)}</b>` : `<span class="falta">a registrar</span>`}</span></p>`;
   const val = e ? `${trilho(e, e.atual)}<dl><dt>Dotação</dt><dd>${brl(e.atual)}</dd><dt>Empenhado</dt><dd>${brl(e.emp)} <small>${fpct(pct(e.emp, e.atual))}</small></dd><dt>Pago</dt><dd>${brl(e.pago)} <small>${fpct(pct(e.pago, e.atual))}</small></dd></dl>`
-    : `<span class="nd">Sem execução própria em ${st.ano}${(f.exec_fonte || {})[st.ano] ? " · fonte vinculada: " + brl(f.exec_fonte[st.ano].atual) : ""}</span>`;
+    : ((f.exec_acoes || {})[st.ano] ? `${trilho(f.exec_acoes[st.ano], f.exec_acoes[st.ano].atual)}<dl><dt>Aporte (dot.)</dt><dd>${brl(f.exec_acoes[st.ano].atual)}</dd><dt>Empenhado</dt><dd>${brl(f.exec_acoes[st.ano].emp)}</dd><dt>Pago</dt><dd>${brl(f.exec_acoes[st.ano].pago)}</dd></dl><span class="nd">via ação orçamentária</span>`
+    : `<span class="nd">Sem execução própria em ${st.ano}${(f.exec_fonte || {})[st.ano] ? " · fonte vinculada: " + brl(f.exec_fonte[st.ano].atual) : ""}${aportesTotal(f) ? " · aportes por ação em outros anos: " + brl(aportesTotal(f)) + " pagos" : ""}</span>`);
   const aberto = st.aberto === f.id;
   return `<div class="item${aberto ? " aberto" : ""}" id="f-${esc(f.id)}">
     <button class="linha" data-abrir="${esc(f.id)}" aria-expanded="${aberto}">
@@ -629,7 +650,7 @@ function detalhe(f){
   const fon = (f.fontes || {})[st.ano] || [];
   const maxF = Math.max(0, ...fon.map(x => x.atual));
   const fontesObs = fon.length ? `<div class="mini">${fon.slice(0, 10).map(x => `<div class="ml" data-tip="${esc(`<b>Fonte ${esc(x.cod)}</b><br>${esc(x.desc)}<br>Dotação <span class="tn">${brl(x.atual)}</span> · Empenhado <span class="tn">${brl(x.emp)}</span>`)}"><span><b class="mono">${esc(x.cod)}</b> ${esc(x.desc)}</span>${trilho(x, maxF)}</div>`).join("")}</div>`
-    : `<p class="vazio-serie">Fontes por fundo chegam com a coleta pelo orcamentoBR.</p>`;
+    : `<p class="vazio-serie">${D.somente_semente ? "Fontes por fundo chegam com a coleta pelo orcamentoBR." : "Nenhuma fonte executada em UO deste fundo em " + esc(st.ano) + "."}</p>`;
   const mtoF = (f.mto?.fontes || []).map(x => `<div><b class="mono">${esc(x.cod)}</b> ${esc(x.desc)} <span class="chip ${x.vinculo === "explícito" ? "ok" : "warn"}">${esc(x.vinculo)}</span></div>`).join("");
   const mtoR = (f.mto?.receitas || []).map(x => `<div><b class="mono">${esc(x.cod)}</b> ${esc(x.desc)}</div>`).join("");
 
@@ -644,18 +665,62 @@ function detalhe(f){
   const ef = f.exec_fonte || {};
   const efAnos = Object.keys(ef).sort();
   const vfont = efAnos.length ? `<div class="rolagem"><table class="t"><thead><tr><th>Ano</th><th>Dotação das fontes</th><th>Empenhado</th><th>Nas UOs do fundo</th></tr></thead><tbody>${efAnos.map(a => `<tr><td>${a}</td><td>${brl(ef[a].atual)}</td><td>${brl(ef[a].emp)}</td><td>${fpct(pct(ef[a].dentro, ef[a].atual))}</td></tr>`).join("")}</tbody></table></div>`
-    : `<p class="vazio-serie">O cruzamento fonte × UO (2023 em diante) chega com a coleta.</p>`;
+    : `<p class="vazio-serie">${D.somente_semente ? "O cruzamento fonte × UO (2023 em diante) chega com a coleta." : "Nenhuma fonte do MTO ligada a este fundo teve dotação de 2023 em diante."}</p>`;
 
   return `<div class="det">
     <div class="bloco"><h4>Identificação composta</h4>${ident}</div>
     <div class="bloco"><h4>Histórico de classificações</h4>${tl}</div>
     <div class="bloco largo"><h4>Execução por exercício</h4>${execTab}</div>
+    ${blocoAcoes(f)}
     <div class="bloco"><h4>Fontes executadas em ${st.ano}</h4>${fontesObs}</div>
     <div class="bloco"><h4>Códigos no MTO 2026</h4>${mtoF || mtoR ? `<div class="mini" style="font-size:12px">${mtoF}${mtoR ? `<div style="margin-top:6px;color:var(--muted)">Naturezas de receita:</div>${mtoR}` : ""}</div>` : `<p class="vazio-serie">Nenhuma fonte ou natureza de receita do MTO 2026 cita este fundo.</p>`}</div>
-    <div class="bloco"><h4>Resultado primário ${st.ano}</h4>${rp.length ? `<div class="mini">${rp.map(x => bar(x, maxR)).join("")}</div>` : `<p class="vazio-serie">Disponível após a coleta.</p>`}</div>
+    <div class="bloco"><h4>Resultado primário ${st.ano}</h4>${rp.length ? `<div class="mini">${rp.map(x => bar(x, maxR)).join("")}</div>` : `<p class="vazio-serie">${D.somente_semente ? "Disponível após a coleta." : "Sem execução em UO própria em " + esc(st.ano) + "."}</p>`}</div>
     <div class="bloco"><h4>Grupo de natureza da despesa ${st.ano}</h4>${gnd.length ? `<div class="mini">${gnd.map(x => bar(x, maxG)).join("")}</div>` : `<p class="vazio-serie">Disponível após a coleta. GND 5 (inversões financeiras) indica operação de crédito.</p>`}</div>
     <div class="bloco largo"><h4>Fontes do MTO ligadas ao fundo: onde são executadas</h4>${vfont}</div>
   </div>`;
+}
+
+/* ---------- fundos fora do orçamento (ações) ---------- */
+function aportesTotal(f){ return Object.values(f.exec_acoes || {}).reduce((t, v) => t + (v.pago || 0), 0); }
+function acoesDe(fid){ return (D.acoes_fundos || []).filter(a => a.fundo === fid); }
+function blocoAcoes(f){
+  const ea = f.exec_acoes || {}, anos = Object.keys(ea).sort(), lst = acoesDe(f.id);
+  if (!anos.length && !lst.length) return "";
+  const tab = anos.length ? `<div class="rolagem"><table class="t"><thead><tr><th>Ano</th><th>Dotação atual.</th><th>Empenhado</th><th>Pago</th></tr></thead><tbody>${anos.map(a => `<tr><td>${a}</td><td>${brl(ea[a].atual)}</td><td>${brl(ea[a].emp)}</td><td>${brl(ea[a].pago)}</td></tr>`).join("")}</tbody></table></div>`
+    : `<p class="vazio-serie">As ações abaixo rodam dentro da UO do próprio fundo e já estão na execução por exercício.</p>`;
+  const acs = lst.map(a => { const anosA = Object.keys(a.anos).sort(); const uos = [...new Set(anosA.flatMap(y => a.anos[y].uos.map(u => u.cod)))];
+    return `<div><b class="mono">${esc(a.acao)}</b> ${esc(a.desc)} <small class="mono" style="color:var(--muted)">UO ${uos.map(esc).join(", ")} · ${esc(anosA[0])}–${esc(anosA[anosA.length - 1])}</small></div>`; }).join("");
+  return `<div class="bloco largo"><h4>Aportes da União por ação orçamentária</h4>${tab}${acs ? `<div class="mini" style="font-size:12px; margin-top:8px">${acs}</div>` : ""}</div>`;
+}
+function renderFora(){
+  const todas = D.acoes_fundos || [];
+  const sel = $("#fora-fundo"), atual = sel.value;
+  const ids = [...new Set(todas.map(a => a.fundo))];
+  const sig = id => { if (!id) return "A classificar"; const f = D.fundos.find(x => x.id === id); return f ? f.sigla : id; };
+  sel.innerHTML = `<option value="">Todos os fundos</option>` + ids.map(id => `<option value="${esc(id || "__")}">${esc(sig(id))}</option>`).join("");
+  sel.value = atual;
+  const modo = $("#fora-anos").value;
+  const alvo = sel.value === "__" ? "" : sel.value;
+  const val = a => { if (modo === "todos") return Object.values(a.anos).reduce((t, y) => ({atual: t.atual + y.atual, emp: t.emp + y.emp, pago: t.pago + y.pago}), {atual:0, emp:0, pago:0}); return a.anos[st.ano] || null; };
+  const rows = todas.filter(a => (!sel.value || a.fundo === alvo) && val(a) && (val(a).atual || val(a).emp || val(a).pago));
+  const soma = rows.filter(a => a.fundo).reduce((t, a) => { const v = val(a); t.atual += v.atual; t.emp += v.emp; t.pago += v.pago; return t; }, {atual:0, emp:0, pago:0});
+  const nf = new Set(rows.filter(a => a.fundo).map(a => a.fundo)).size;
+  const per = modo === "todos" ? `${D.anos[0]}–${D.anos[D.anos.length - 1]}` : st.ano;
+  $("#fora-resumo").innerHTML = `
+    <div class="tile"><span>Fundos com aporte</span><b>${nf}</b><small>${esc(per)}, ações classificadas</small></div>
+    <div class="tile"><span><i class="sw" style="background:var(--x-dot)"></i>Dotação atualizada</span><b>${brl(soma.atual)}</b><small>sem as ações a classificar</small></div>
+    <div class="tile"><span><i class="sw" style="background:var(--x-emp)"></i>Empenhado</span><b>${brl(soma.emp)}</b><small>${fpct(pct(soma.emp, soma.atual))} da dotação</small></div>
+    <div class="tile"><span><i class="sw" style="background:var(--x-pago)"></i>Pago</span><b>${brl(soma.pago)}</b><small>${fpct(pct(soma.pago, soma.atual))} da dotação</small></div>`;
+  $("#fora-cont").textContent = `${rows.length} ações`;
+  if (!todas.length) { $("#fora").innerHTML = `<tbody><tr><td class="txt">As ações chegam com a próxima coleta (Actions > Run workflow).</td></tr></tbody>`; return; }
+  $("#fora").innerHTML = rows.length ? `<thead><tr><th>Fundo</th><th>Ação</th><th>UO executora</th><th>Dotação atual.</th><th>Empenhado</th><th>Pago</th></tr></thead><tbody>
+    ${rows.map(a => { const v = val(a); const anosA = Object.keys(a.anos).sort(); const uos = [...new Map(anosA.flatMap(y => a.anos[y].uos).map(u => [u.cod, u])).values()];
+      const naUO = anosA.some(y => a.anos[y].na_uo_do_fundo);
+      return `<tr><td class="txt">${a.fundo ? `<button class="chip" style="cursor:pointer" data-abrir="${esc(a.fundo)}">${esc(sig(a.fundo))}</button>` : `<span class="chip warn">a classificar</span>`}${naUO ? `<br><small style="color:var(--muted)">na UO do fundo</small>` : ""}</td>
+        <td class="txt"><b class="mono">${esc(a.acao)}</b> ${esc(a.desc)}</td>
+        <td class="txt">${uos.slice(0, 3).map(u => `<span class="mono">${esc(u.cod)}</span> ${esc(u.desc)}`).join("<br>")}${uos.length > 3 ? ` <small>+${uos.length - 3}</small>` : ""}</td>
+        <td>${brl(v.atual)}</td><td>${brl(v.emp)}</td><td>${brl(v.pago)}</td></tr>`; }).join("")}</tbody>`
+    : `<tbody><tr><td class="txt">Nenhuma ação com valor ${modo === "todos" ? "no período" : "em " + esc(st.ano)} neste filtro.</td></tr></tbody>`;
 }
 
 /* ---------- histórico de classificações ---------- */
@@ -708,7 +773,7 @@ function render(){
   const fs = fundosFiltrados();
   const fsSerie = st.aberto ? D.fundos.filter(f => f.id === st.aberto) : fs;
   renderTopo(); renderResumo(fs); renderKPIs(); renderRank(fs); renderCats(); renderSerie(fsSerie);
-  renderIdents(fs); renderLista(fs); renderMatriz(fs); renderTempo(); renderMTO();
+  renderIdents(fs); renderLista(fs); renderFora(); renderMatriz(fs); renderTempo(); renderMTO();
 }
 function abrir(id, rolar){
   st.aberto = st.aberto === id ? null : id;
@@ -729,6 +794,8 @@ let tb; $("#busca").addEventListener("input", e => { clearTimeout(tb); tb = setT
 $("#ordem").addEventListener("change", e => { st.ordem = e.target.value; renderLista(fundosFiltrados()); });
 $("#ano").addEventListener("change", e => { st.ano = e.target.value; render(); });
 $("#vf-filtro").addEventListener("change", e => { st.vfFiltro = e.target.value; renderMTO(); });
+$("#fora-fundo").addEventListener("change", renderFora);
+$("#fora-anos").addEventListener("change", renderFora);
 let tv; $("#vf-busca").addEventListener("input", e => { clearTimeout(tv); tv = setTimeout(() => { st.vfBusca = e.target.value; renderMTO(); }, 160); });
 
 fetch("dados.json", {cache: "no-cache"}).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(d => {
