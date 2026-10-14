@@ -230,6 +230,7 @@ table.t tr:last-child td{border-bottom:0}
 .status{display:inline-flex; gap:5px; align-items:center}
 
 #fora th:nth-child(-n+3){text-align:left}
+#inv th:nth-child(-n+4){text-align:left}
 #tip{position:fixed; z-index:20; pointer-events:none; background:var(--ink); color:var(--paper); font-size:12px; line-height:1.45; padding:7px 10px; border-radius:7px; max-width:280px; box-shadow:var(--shadow); opacity:0; transition:opacity .08s}
 #tip.on{opacity:1}
 #tip b{font-weight:600}
@@ -353,6 +354,24 @@ code{font-family:"JetBrains Mono",ui-monospace,monospace; font-size:12px; backgr
     </div>
     <div class="painel" style="padding:0">
       <div class="rolagem"><table class="t" id="fora"></table></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-inv">
+    <h2 id="h-inv">Inversões financeiras (GND 5)</h2>
+    <p class="sub">Todas as inversões financeiras do orçamento no exercício, pelo elemento de despesa. O elemento separa o instrumento sem depender do nome da ação: 66 = empréstimos e financiamentos, 84 = participação em fundos e organismos (integralização de cotas), 65 = capital de empresas, 27 = honra de avais e garantias. RP 0 = financeira, fora do resultado primário e do limite de despesas.</p>
+    <div class="resumo" id="inv-resumo" style="padding-top:0; margin-bottom:12px"></div>
+    <div class="ferramentas">
+      <label class="sr" for="inv-instr">Instrumento</label>
+      <select id="inv-instr"><option value="">Todos os instrumentos</option></select>
+      <label class="sr" for="inv-canal">Canal</label>
+      <select id="inv-canal"><option value="">Todos os canais</option></select>
+      <label class="sr" for="inv-busca">Buscar</label>
+      <input id="inv-busca" type="search" placeholder="Buscar UO, ação ou fundo: 74916, Fundo Clima, FGI…">
+      <span class="cont" id="inv-cont"></span>
+    </div>
+    <div class="painel" style="padding:0">
+      <div class="rolagem"><table class="t" id="inv"></table></div>
     </div>
   </section>
 
@@ -723,6 +742,35 @@ function renderFora(){
     : `<tbody><tr><td class="txt">Nenhuma ação com valor ${modo === "todos" ? "no período" : "em " + esc(st.ano)} neste filtro.</td></tr></tbody>`;
 }
 
+/* ---------- inversões financeiras (GND 5) ---------- */
+function renderInv(){
+  const todas = (D.inversoes || []).filter(x => String(x.ano) === String(st.ano));
+  const sig = id => { if (!id) return ""; const f = D.fundos.find(x => x.id === id); return f ? f.sigla : id; };
+  const fill = (sel, vals) => { const v = sel.value; sel.innerHTML = sel.options[0].outerHTML + vals.map(x => `<option value="${esc(x)}">${esc(x)}</option>`).join(""); sel.value = vals.includes(v) ? v : ""; };
+  fill($("#inv-instr"), [...new Set((D.inversoes || []).map(x => x.instrumento))].sort());
+  fill($("#inv-canal"), [...new Set((D.inversoes || []).map(x => x.canal))].sort());
+  if (!(D.inversoes || []).length) { $("#inv-resumo").innerHTML = ""; $("#inv").innerHTML = `<tbody><tr><td class="txt">As inversões financeiras chegam com a próxima coleta (Actions > Run workflow).</td></tr></tbody>`; $("#inv-cont").textContent = ""; return; }
+  const soma = (xs, k) => xs.reduce((t, x) => t + (x[k] || 0), 0);
+  const tot = soma(todas, "atual"), emp66 = todas.filter(x => x.instrumento.startsWith("Empréstimos"));
+  const fin = todas.filter(x => x.rp === "0"), viaFundo = fin.filter(x => x.canal.startsWith("Fundo"));
+  const p84 = todas.filter(x => x.instrumento.startsWith("Participação") && x.canal !== "Organismo internacional");
+  $("#inv-resumo").innerHTML = `
+    <div class="tile"><span>GND 5 no exercício</span><b>${brl(tot)}</b><small>dotação atualizada, ${esc(st.ano)}</small></div>
+    <div class="tile"><span>Empréstimos e financiamentos</span><b>${brl(soma(emp66, "atual"))}</b><small>elemento 66</small></div>
+    <div class="tile"><span>Financeira (RP 0) via fundos</span><b>${fpct(pct(soma(viaFundo, "atual"), soma(fin, "atual")))}</b><small>${brl(soma(viaFundo, "atual"))} de ${brl(soma(fin, "atual"))}</small></div>
+    <div class="tile"><span>Cotas em fundos nacionais</span><b>${brl(soma(p84, "atual"))}</b><small>elemento 84, sem organismos internacionais</small></div>`;
+  const q = ($("#inv-busca").value || "").trim().toLowerCase(), fi = $("#inv-instr").value, fc = $("#inv-canal").value;
+  const rows = todas.filter(x => (!fi || x.instrumento === fi) && (!fc || x.canal === fc) &&
+    (!q || [x.uo, x.uo_desc, x.acao, x.acao_desc, x.fundo, sig(x.fundo)].join(" ").toLowerCase().includes(q)));
+  $("#inv-cont").textContent = `${rows.length} linhas`;
+  const chipCanal = c => `<span class="chip ${c.startsWith("Fundo com") ? "ok" : c.startsWith("Fundo privado") ? "warn" : ""}">${esc(c)}</span>`;
+  $("#inv").innerHTML = rows.length ? `<thead><tr><th>Fundo / canal</th><th>UO</th><th>Ação</th><th>Instrumento · RP</th><th>LOA</th><th>Dotação atual.</th><th>Empenhado</th><th>Pago</th></tr></thead><tbody>
+    ${rows.slice(0, 300).map(x => `<tr><td class="txt">${x.fundo ? `<button class="chip" style="cursor:pointer" data-abrir="${esc(x.fundo)}">${esc(sig(x.fundo))}</button><br>` : ""}${chipCanal(x.canal)}</td>
+      <td class="txt"><span class="mono">${esc(x.uo)}</span> ${esc(x.uo_desc)}</td><td class="txt"><b class="mono">${esc(x.acao)}</b> ${esc(x.acao_desc)}</td>
+      <td class="txt">${esc(x.instrumento)} · <span class="mono">RP ${esc(x.rp)}</span></td><td>${brl(x.loa)}</td><td>${brl(x.atual)}</td><td>${brl(x.emp)}</td><td>${brl(x.pago)}</td></tr>`).join("")}</tbody>`
+    : `<tbody><tr><td class="txt">Nenhuma inversão neste filtro em ${esc(st.ano)}.</td></tr></tbody>`;
+}
+
 /* ---------- histórico de classificações ---------- */
 function renderMatriz(fs){
   const com = fs.filter(f => (f.classificacoes || []).length);
@@ -773,7 +821,7 @@ function render(){
   const fs = fundosFiltrados();
   const fsSerie = st.aberto ? D.fundos.filter(f => f.id === st.aberto) : fs;
   renderTopo(); renderResumo(fs); renderKPIs(); renderRank(fs); renderCats(); renderSerie(fsSerie);
-  renderIdents(fs); renderLista(fs); renderFora(); renderMatriz(fs); renderTempo(); renderMTO();
+  renderIdents(fs); renderLista(fs); renderFora(); renderInv(); renderMatriz(fs); renderTempo(); renderMTO();
 }
 function abrir(id, rolar){
   st.aberto = st.aberto === id ? null : id;
@@ -795,6 +843,9 @@ $("#ordem").addEventListener("change", e => { st.ordem = e.target.value; renderL
 $("#ano").addEventListener("change", e => { st.ano = e.target.value; render(); });
 $("#vf-filtro").addEventListener("change", e => { st.vfFiltro = e.target.value; renderMTO(); });
 $("#fora-fundo").addEventListener("change", renderFora);
+$("#inv-instr").addEventListener("change", renderInv);
+$("#inv-canal").addEventListener("change", renderInv);
+let ti; $("#inv-busca").addEventListener("input", () => { clearTimeout(ti); ti = setTimeout(renderInv, 160); });
 $("#fora-anos").addEventListener("change", renderFora);
 let tv; $("#vf-busca").addEventListener("input", e => { clearTimeout(tv); tv = setTimeout(() => { st.vfBusca = e.target.value; renderMTO(); }, 160); });
 

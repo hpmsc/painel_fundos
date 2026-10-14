@@ -20,7 +20,12 @@
 #   6. grava dados/bruto/siop_acoes_AAAA.csv: execução das AÇÕES orçamentárias
 #      cujo nome bate com os padrões de dados/acoes_fundos.csv (FGI, FGO, FGHab,
 #      Pé-de-Meia, "integralização de cotas"…). É por aí que aparecem os aportes
-#      da União em fundos de natureza privada, que não têm UO nem fonte própria.
+#      da União em fundos de natureza privada, que não têm UO nem fonte própria;
+#   7. grava dados/bruto/siop_inversoes_AAAA.csv: TODAS as inversões financeiras
+#      (GND 5) do ano, por UO x ação x fonte x RP x elemento x modalidade. O
+#      elemento separa o instrumento sem depender do nome da ação: 66 empréstimos
+#      e financiamentos, 84 participação em fundos e organismos (integralização
+#      de cotas), 65 capital de empresas, 27 honra de avais e garantias.
 #
 # Exercícios encerrados não mudam: só são coletados se o arquivo não existir.
 # O exercício corrente e o anterior são sempre recoletados.
@@ -144,7 +149,8 @@ coletar_fontes <- function(ano, tudo) {
 PADROES_ACAO <- local({
   f <- "dados/acoes_fundos.csv"
   if (!file.exists(f)) return(character())
-  p <- read.csv2(f, colClasses = "character", encoding = "UTF-8")$padrao_acao
+  t <- read.csv2(f, colClasses = "character", encoding = "UTF-8")
+  p <- t$padrao_acao[t$fundo_id != "-"]   # linhas "-" são exclusões, aplicadas em montar.py
   p[nzchar(trimws(p))]
 })
 casa_acao <- function(desc) {
@@ -188,6 +194,42 @@ coletar_acoes <- function(ano) {
   if (nrow(base)) { base$exercicio <- ano; base$uo_cod <- pad5(base$uo_cod) }
   grava_csv(base, arq)   # grava mesmo vazio: registra que o ano foi varrido
   msg("  gravado", arq, "(", nrow(base), "linhas )")
+  TRUE
+}
+
+# ---- Módulo GND 5: inversões financeiras por elemento ------------------------
+COLUNAS_INV <- c("exercicio", "uo_cod", "uo_desc", "acao_cod", "acao_desc", "fonte_cod", "fonte_desc",
+                 "rp_cod", "elemento_cod", "elemento_desc", "modalidade_cod", "modalidade_desc",
+                 "ploa", "loa", "loa_mais_credito", "empenhado", "liquidado", "pago")
+
+coletar_inversoes <- function(ano) {
+  d <- com_tentativas(paste("GND 5", ano), function()
+    despesaDetalhada(exercicio = ano, GND = "5", UO = TRUE, Acao = TRUE, Fonte = TRUE,
+                     ResultadoPrimario = TRUE, ElementoDespesa = TRUE, ModalidadeAplicacao = TRUE,
+                     ignoreSecureCertificate = IGNORA_CERT))
+  if (is.null(d)) { msg("  GND 5: SIOP sem resposta"); return(FALSE) }
+  mapa <- c(UO_cod = "uo_cod", UO_desc = "uo_desc", Acao_cod = "acao_cod", Acao_desc = "acao_desc",
+            Fonte_cod = "fonte_cod", Fonte_desc = "fonte_desc", ResultadoPrimario_cod = "rp_cod",
+            ElementoDespesa_cod = "elemento_cod", ElementoDespesa_desc = "elemento_desc",
+            ModalidadeAplicacao_cod = "modalidade_cod", ModalidadeAplicacao_desc = "modalidade_desc")
+  for (n in names(mapa)) if (n %in% names(d)) names(d)[names(d) == n] <- mapa[[n]]
+  for (c in COLUNAS_INV) if (!c %in% names(d)) d[[c]] <- if (nrow(d)) NA else character()
+  d <- d[, COLUNAS_INV, drop = FALSE]
+  if (nrow(d)) {
+    for (c in c("ploa", "loa", "loa_mais_credito", "empenhado", "liquidado", "pago"))
+      d[[c]] <- round(as.numeric(d[[c]]), 2)
+    d$exercicio <- ano; d$uo_cod <- pad5(d$uo_cod)
+    # Conferência: a soma deve bater com o total do GND 5 sem as demais dimensões.
+    tot <- com_tentativas(paste("GND 5 total", ano), function()
+      despesaDetalhada(exercicio = ano, GND = "5", ignoreSecureCertificate = IGNORA_CERT))
+    if (!is.null(tot) && nrow(tot)) {
+      ref <- sum(as.numeric(tot$loa_mais_credito), na.rm = TRUE); soma <- sum(d$loa_mais_credito, na.rm = TRUE)
+      if (ref > 0 && abs(soma - ref) / ref > 0.001) msg("  AVISO GND 5: soma", soma, "difere do total", ref, "(consulta truncada?)")
+    }
+  }
+  arq <- file.path(DIR_BRUTO, sprintf("siop_inversoes_%d.csv", ano))
+  grava_csv(d, arq)
+  msg("  gravado", arq, "(", nrow(d), "linhas )")
   TRUE
 }
 
@@ -265,6 +307,11 @@ for (ano in anos) {
   if (!file.exists(arq_a) || ano %in% forcar) {
     msg("Ações", ano)
     tryCatch(coletar_acoes(ano), error = function(e) msg("  ações: erro", conditionMessage(e)))
+  }
+  arq_i <- file.path(DIR_BRUTO, sprintf("siop_inversoes_%d.csv", ano))
+  if (!file.exists(arq_i) || ano %in% forcar) {
+    msg("Inversões financeiras (GND 5)", ano)
+    tryCatch(coletar_inversoes(ano), error = function(e) msg("  GND 5: erro", conditionMessage(e)))
   }
 }
 msg("Fim. Exercícios com falha:", falhas)

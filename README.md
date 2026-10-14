@@ -25,7 +25,7 @@ dados/
   semente_bassi_2018.csv  execução 2018 (Bassi, TD Ipea 2458, Tab. 3), usada até a 1ª coleta
   acoes_fundos.csv        padrões de nome de ação que identificam aportes em fundos sem UO (FGI, FGO…)
   bruto/                  gerado pela coleta: siop_AAAA.csv, siop_fontes_AAAA.csv,
-                          siop_acoes_AAAA.csv, uos_AAAA.csv
+                          siop_acoes_AAAA.csv, siop_inversoes_AAAA.csv, uos_AAAA.csv
 site/
   index.html              o painel
   dados.json              gerado por montar.py
@@ -50,6 +50,7 @@ O endereço do painel aparece no fim do job `publicar` (algo como `https://SEU-U
 - `quaisMembros(ano, "UO")` lista as UOs do ano. Entram como fundo as UOs com 3º dígito 9 (padrão xx9xx) ou com "Fundo" no nome, o que inclui as UOs 749xx ("Recursos sob Supervisão do Fundo…").
 - `despesaDetalhada(ano, UO = TRUE, Fonte = TRUE, ResultadoPrimario = TRUE, GND = TRUE)` traz PLOA, LOA, LOA + créditos, empenhado, liquidado e pago. A soma é conferida contra o total do ano; se a consulta única vier truncada, o script refaz UO a UO.
 - De 2023 em diante (codificação atual de fontes), também grava onde, em qualquer UO, são executadas as fontes que o MTO 2026 liga a fundos. É o teste empírico do vínculo fonte-fundo.
+- **Inversões financeiras (GND 5).** Uma consulta por ano, `despesaDetalhada(ano, GND = "5", UO = TRUE, Acao = TRUE, Fonte = TRUE, ResultadoPrimario = TRUE, ElementoDespesa = TRUE, ModalidadeAplicacao = TRUE)`, conferida contra o total do GND 5, grava `siop_inversoes_AAAA.csv`. O elemento identifica o instrumento sem depender do nome da ação: 66 empréstimos e financiamentos, 84 participação em fundos e organismos (integralização de cotas), 65 capital de empresas, 27 honra de avais e garantias. O painel cruza o elemento com o RP (0 = fora do primário) e com o canal: fundo com UO própria, fundo privado via ação, organismo internacional ou fora de fundo.
 - **Fundos fora do orçamento.** Fundos de natureza privada com a União como cotista (FGI, FGO, FGHab, FGEDUC, FGIE, FGP, FEP, FAR, Pé-de-Meia/FIPEM, FNDIT) não têm UO nem fonte própria. `quaisMembros(ano, "Acao")` lista as ações do ano; as que batem com os padrões de `dados/acoes_fundos.csv` são consultadas uma a uma com `despesaDetalhada(ano, Acao = código, UO = TRUE, GND = TRUE, ResultadoPrimario = TRUE)`. O resultado vai para `siop_acoes_AAAA.csv`, com cache próprio: anos já coletados antes deste módulo entram na próxima execução. Para incluir um fundo, acrescente uma linha em `acoes_fundos.csv` (regex sobre o nome da ação, em maiúsculas e sem acento) e o fundo em `fundos.csv`. A linha sem `fundo_id` reúne termos genéricos ("integralização de cotas", "fundo garantidor") e alimenta a lista "a classificar". Ação que roda na UO do próprio fundo (como o FG-FIES na UO do FIES) não é somada de novo.
 
 Se a cadeia de certificados que o orcamentoBR embute expirar, rode com `SIOP_IGNORAR_CERTIFICADO=1` (desliga a verificação TLS; use só como paliativo e atualize o pacote).

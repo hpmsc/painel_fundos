@@ -280,7 +280,7 @@ def montar() -> dict:
         for r in ler_csv(arq):
             d = norm(r.get("acao_desc", ""))
             fid = next((f for f, rx in regras_acao if rx.search(d)), None)
-            if fid is None:
+            if fid is None or fid == "-":   # "-" em acoes_fundos.csv = exclusão (não é fundo)
                 continue
             if fid and fid not in fundos:
                 fid = ""
@@ -310,6 +310,55 @@ def montar() -> dict:
         a["total_pago"] = round(sum(y["pago"] for y in a["anos"].values()), 2)
         lista_acoes.append(a)
     lista_acoes.sort(key=lambda a: (a["fundo"] == "", a["fundo"], -a["total_pago"]))
+
+    # --- GND 5: inversões financeiras por instrumento (elemento de despesa) ----
+    def instrumento(cod: str, desc: str) -> str:
+        c = re.sub(r"\D", "", cod or "")
+        el = c if len(c) <= 2 else (c[4:6] if len(c) >= 6 else c[-2:])
+        d = norm(desc)
+        if el == "66" or "EMPRESTIMO" in d or "FINANCIAMENTO" in d:
+            return "Empréstimos e financiamentos"
+        if el == "84" or "PARTICIPACAO EM FUNDOS" in d:
+            return "Participação em fundos e organismos"
+        if el == "65" or "CAPITAL DE EMPRESAS" in d:
+            return "Capital de empresas"
+        if el == "27" or "HONRA DE AVAIS" in d:
+            return "Honra de avais e garantias"
+        if el in ("63", "64") or "TITULOS" in d:
+            return "Títulos"
+        return "Outras inversões"
+    inv: dict[tuple, dict] = {}
+    for arq in sorted(glob.glob(os.path.join(DADOS, "bruto", "siop_inversoes_*.csv"))):
+        ano = re.search(r"(\d{4})", os.path.basename(arq)).group(1)
+        for r in ler_csv(arq):
+            uo, uod = r.get("uo_cod", "").zfill(5), r.get("uo_desc", "")
+            acd = r.get("acao_desc", "")
+            fid, canal = "", "Fora de fundo"
+            if eh_candidata(uo, uod):
+                fid = casador.casar(uo, uod) or f"UO-{uo}"
+                canal = "Fundo com UO própria"
+            else:
+                regra = next((f for f, rx in regras_acao if rx.search(norm(acd))), None)
+                if regra == "-":
+                    canal = "Organismo internacional"
+                elif regra is not None:
+                    fid, canal = regra, ("Fundo privado (via ação)" if regra else "Fundo a classificar (via ação)")
+            if fid and fid not in fundos:
+                fid = fid if fid.startswith("UO-") else ""
+            k = (ano, uo, r.get("acao_cod", ""), r.get("rp_cod", ""), instrumento(r.get("elemento_cod", ""), r.get("elemento_desc", "")))
+            x = inv.setdefault(k, {"ano": ano, "uo": uo, "uo_desc": uod, "acao": k[2], "acao_desc": acd, "rp": k[3],
+                                   "instrumento": k[4], "fundo": fid, "canal": canal,
+                                   "loa": 0.0, "atual": 0.0, "emp": 0.0, "pago": 0.0})
+            x["loa"] += num(r.get("loa")); x["atual"] += num(r.get("loa_mais_credito"))
+            x["emp"] += num(r.get("empenhado")); x["pago"] += num(r.get("pago"))
+    lista_inv = []
+    for x in inv.values():
+        if not (x["loa"] or x["atual"] or x["emp"] or x["pago"]):
+            continue
+        for kk in ("loa", "atual", "emp", "pago"):
+            x[kk] = round(x[kk], 2)
+        lista_inv.append(x)
+    lista_inv.sort(key=lambda x: (x["ano"], -x["atual"]))
 
     saida = []
     for fid, f in fundos.items():
@@ -350,6 +399,7 @@ def montar() -> dict:
         },
         "verificacao_fontes": sorted(verif.values(), key=lambda v: v["cod"]),
         "acoes_fundos": lista_acoes,
+        "inversoes": lista_inv,
     }
 
 

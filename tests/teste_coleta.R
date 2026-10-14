@@ -42,7 +42,21 @@ quaisMembros <- function(exercicio, dimensao, ignoreSecureCertificate = FALSE) {
   u <- uos_do_ano(exercicio); data.frame(UO_cod = u$cod, UO_desc = u$desc)
 }
 despesaDetalhada <- function(exercicio, UO = FALSE, Fonte = FALSE, ResultadoPrimario = FALSE, GND = FALSE,
-                             Acao = FALSE, ignoreSecureCertificate = FALSE, ...) {
+                             Acao = FALSE, ElementoDespesa = FALSE, ModalidadeAplicacao = FALSE,
+                             ignoreSecureCertificate = FALSE, ...) {
+  if (is.character(GND)) {
+    if (isFALSE(UO)) return(data.frame(exercicio = as.character(exercicio), loa_mais_credito = as.character(3.6e9)))
+    mk <- function(uo, uod, ac, acd, rp, el, eld, v) data.frame(exercicio = as.character(exercicio), UO_cod = uo, UO_desc = uod,
+      Acao_cod = ac, Acao_desc = acd, Fonte_cod = "1000", Fonte_desc = "Recursos Livres", ResultadoPrimario_cod = rp,
+      ElementoDespesa_cod = el, ElementoDespesa_desc = eld, ModalidadeAplicacao_cod = "90", ModalidadeAplicacao_desc = "Aplicações Diretas",
+      ploa = as.character(v), loa = as.character(v), loa_mais_credito = as.character(v), empenhado = as.character(v * .9),
+      liquidado = as.character(v * .9), pago = as.character(v * .8))
+    return(rbind(
+      mk("74913", "Recursos sob Supervisão do Fundo Constitucional de Financiamento do Norte/FNO", "0534", "Financiamento aos Setores Produtivos da Região Norte", "0", "66", "Concessão de Empréstimos e Financiamentos", 2e9),
+      mk("71101", "Recursos sob Supervisão do Ministério da Fazenda", "00ED", "Integralização de cotas do Fundo Garantidor para Investimentos - FGI", "2", "84", "Despesas Decorrentes da Participação em Fundos, Organismos, ou Entidades Assemelhadas", 1e9),
+      mk("71102", "Recursos sob Supervisão do Ministério do Planejamento e Orçamento", "00OP", "Integralização de Cotas em Rodadas Específicas de Capital de Bancos Internacionais", "2", "84", "Despesas Decorrentes da Participação em Fundos, Organismos, ou Entidades Assemelhadas", 0.5e9),
+      mk("36901", "Fundo Nacional de Saúde", "09LP", "Participação da União no Capital Social - HEMOBRÁS", "3", "65", "Constituição ou Aumento de Capital de Empresas", 0.1e9)))
+  }
   if (is.character(Acao)) {
     if (Acao == "2000") stop("não deveria consultar ação fora dos padrões")
     v <- (match(Acao, ACOES$cod) * 1e9) * (1 + (exercicio - 2020) * 0.1)
