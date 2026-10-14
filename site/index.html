@@ -359,7 +359,7 @@ code{font-family:"JetBrains Mono",ui-monospace,monospace; font-size:12px; backgr
 
   <section aria-labelledby="h-inv">
     <h2 id="h-inv">Inversões financeiras (GND 5)</h2>
-    <p class="sub">Todas as inversões financeiras do orçamento no exercício, pelo elemento de despesa. O elemento separa o instrumento sem depender do nome da ação: 66 = empréstimos e financiamentos, 84 = participação em fundos e organismos (integralização de cotas), 65 = capital de empresas, 27 = honra de avais e garantias. RP 0 = financeira, fora do resultado primário e do limite de despesas.</p>
+    <p class="sub">Todas as inversões financeiras do orçamento no exercício, pelo elemento de despesa. O elemento só aparece no empenho: a dotação fica em "Dotação sem elemento", por isso os quadros por instrumento usam o empenhado. Aporte em fundo identificado pela ação conta como participação em fundos, qualquer que seja o elemento. Elementos: 66 = empréstimos e financiamentos, 84 = participação em fundos e organismos (integralização de cotas), 65 = capital de empresas, 27 = honra de avais e garantias. RP 0 = financeira, fora do resultado primário e do limite de despesas.</p>
     <div class="resumo" id="inv-resumo" style="padding-top:0; margin-bottom:12px"></div>
     <div class="ferramentas">
       <label class="sr" for="inv-instr">Instrumento</label>
@@ -756,9 +756,9 @@ function renderInv(){
   const p84 = todas.filter(x => x.instrumento.startsWith("Participação") && x.canal !== "Organismo internacional");
   $("#inv-resumo").innerHTML = `
     <div class="tile"><span>GND 5 no exercício</span><b>${brl(tot)}</b><small>dotação atualizada, ${esc(st.ano)}</small></div>
-    <div class="tile"><span>Empréstimos e financiamentos</span><b>${brl(soma(emp66, "atual"))}</b><small>elemento 66</small></div>
+    <div class="tile"><span>Empréstimos e financiamentos</span><b>${brl(soma(emp66, "emp"))}</b><small>empenhado, elemento 66</small></div>
     <div class="tile"><span>Financeira (RP 0) via fundos</span><b>${fpct(pct(soma(viaFundo, "atual"), soma(fin, "atual")))}</b><small>${brl(soma(viaFundo, "atual"))} de ${brl(soma(fin, "atual"))}</small></div>
-    <div class="tile"><span>Cotas em fundos nacionais</span><b>${brl(soma(p84, "atual"))}</b><small>elemento 84, sem organismos internacionais</small></div>`;
+    <div class="tile"><span>Cotas em fundos nacionais</span><b>${brl(soma(p84, "emp"))}</b><small>empenhado: elemento 84 ou aporte em fundo via ação, sem organismos internacionais</small></div>`;
   const q = ($("#inv-busca").value || "").trim().toLowerCase(), fi = $("#inv-instr").value, fc = $("#inv-canal").value;
   const rows = todas.filter(x => (!fi || x.instrumento === fi) && (!fc || x.canal === fc) &&
     (!q || [x.uo, x.uo_desc, x.acao, x.acao_desc, x.fundo, sig(x.fundo)].join(" ").toLowerCase().includes(q)));

@@ -326,6 +326,8 @@ def montar() -> dict:
             return "Honra de avais e garantias"
         if el in ("63", "64") or "TITULOS" in d:
             return "Títulos"
+        if el in ("", "00"):            # a dotação vem sem elemento ("A Definir"); ele só aparece no empenho
+            return "Dotação sem elemento"
         return "Outras inversões"
     inv: dict[tuple, dict] = {}
     for arq in sorted(glob.glob(os.path.join(DADOS, "bruto", "siop_inversoes_*.csv"))):
@@ -345,7 +347,12 @@ def montar() -> dict:
                     fid, canal = regra, ("Fundo privado (via ação)" if regra else "Fundo a classificar (via ação)")
             if fid and fid not in fundos:
                 fid = fid if fid.startswith("UO-") else ""
-            k = (ano, uo, r.get("acao_cod", ""), r.get("rp_cod", ""), instrumento(r.get("elemento_cod", ""), r.get("elemento_desc", "")))
+            instr = instrumento(r.get("elemento_cod", ""), r.get("elemento_desc", ""))
+            if canal == "Fundo privado (via ação)":
+                # aporte em fundo identificado pela ação: o elemento não é confiável
+                # (FGO e FGI em 2020 foram empenhados no 66, não no 84)
+                instr = "Participação em fundos e organismos"
+            k = (ano, uo, r.get("acao_cod", ""), r.get("rp_cod", ""), instr)
             x = inv.setdefault(k, {"ano": ano, "uo": uo, "uo_desc": uod, "acao": k[2], "acao_desc": acd, "rp": k[3],
                                    "instrumento": k[4], "fundo": fid, "canal": canal,
                                    "loa": 0.0, "atual": 0.0, "emp": 0.0, "pago": 0.0})
