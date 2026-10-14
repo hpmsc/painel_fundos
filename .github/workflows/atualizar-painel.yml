@@ -41,7 +41,9 @@ jobs:
       - name: Instalar orcamentoBR
         if: github.event_name != 'push'
         run: |
-          # curl é usado pelo orcamentoBR para a cadeia de certificados do SIOP
+          # curl é usado pelo orcamentoBR para a cadeia de certificados do SIOP;
+          # o pacote R compila contra a libcurl, que a imagem do runner pode não trazer
+          sudo apt-get update -qq && sudo apt-get install -y -qq libcurl4-openssl-dev
           Rscript -e 'install.packages(c("orcamentoBR", "curl"))'
           Rscript -e 'library(orcamentoBR); library(curl)'
 
